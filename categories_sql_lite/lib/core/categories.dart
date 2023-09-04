@@ -3,19 +3,41 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'categories.g.dart';
 
+///Категории по ИД. Ид Это уникально имя или.... Поменяем при необходимости
+class Categories extends Equatable{
+
+  final Map<String, Category> categories;
+
+  static Categories? _instance;
+  ///синглтон - один он в приложении...
+  factory Categories.instance() => _instance ??= Categories._();
+
+  Categories._() : categories = {};
+
+  @override
+  List<Object?> get props => [
+    categories
+  ];
+
+  @override
+  String toString() {
+    return categories.toString();
+  }
+}
+
 ///Одна категория с возможностью сравнения....
 @JsonSerializable()
-class Categories  extends Equatable{
+class Category  extends Equatable{
   @JsonKey(defaultValue: 0, )
-  final int id;
+  final int    id;
   final String category;
   final String description;
   @JsonKey(defaultValue: '')
   final String image;
   @JsonKey(defaultValue: 0)
-  final int group;
+  final int    group;
 
-  const Categories({
+  const Category({
     required this.id,
     required this.category,
     required this.description,
@@ -23,19 +45,19 @@ class Categories  extends Equatable{
     required this.group,
   });
 
-  Categories copyWith({
-    int? id,
+  Category copyWith({
+    int?    id,
     String? category,
     String? description,
     String? image,
-    int? group,
+    int?    group,
   }) =>
-      Categories(
-        id: id ?? this.id,
-        category: category ?? this.category,
+      Category(
+        id:          id          ?? this.id,
+        category:    category    ?? this.category,
         description: description ?? this.description,
-        image: image ?? this.image,
-        group: group ?? this.group,
+        image:       image       ?? this.image,
+        group:       group       ?? this.group,
       );
 
   @override
@@ -49,10 +71,10 @@ class Categories  extends Equatable{
 
   /// Connect the generated [_$StudentFromJson] function to the `fromJson`
   /// factory.
-  factory Categories.fromJson(Map<String, dynamic> json) => _$CategoriesFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   /// Connect the generated [_$StudentToJson] function to the `toJson` method.
-  Map<String, dynamic> toJson() => _$CategoriesToJson(this);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
   @override
   String toString() {

@@ -7,7 +7,7 @@ abstract class Logger {
   /// - [level] (optional) is the severity level (a value between 0 and 2000);
   /// - [error] (optional) an error bool associated with this log event
   static print(String message, {
-      String name = '',
+      String name = 'log',
       int level = 0,
       bool error = false,
     }) => dev.log(":${error?'E':'N'}:|$message",
@@ -15,6 +15,4 @@ abstract class Logger {
       name: name,
       level: level,
   );
-
-
 }
