@@ -54,6 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Logger.print('Add a new Category', name: 'log', level: 0, error: false);
+
+          Map<String, dynamic> test = {};
+
+          Categories.instance().categories.add(key: '100001', value:
+            const Category(
+                id: 0,
+                category: 'category',
+                description: 'description',
+                image: 'image',
+                group: 101500,
+            )
+          );
         },
         tooltip: 'Add a new Category',
         child: const Icon(Icons.add),

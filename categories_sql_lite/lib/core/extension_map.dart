@@ -2,9 +2,12 @@ import 'categories.dart';
 
 /// расширение для класса Map
 /// Для String ограничение в 6 символов
-extension on Map {
+///
+///Примечание: Если убрать имя то эта конгструкция будет действроать только в
+///этом файле и импорт в другие работать не будет.
+extension MyExtMap<K, V>  on Map<K, V> {
   ///Добавляем в базу
-  void add({required dynamic key, required dynamic value}){
+  void add({required K key, required V value}){
     if(key == 'FFFFFF') throw('Key forbidden');///запрещенный ключ
     if(keys.length>100) remove(keys.first);///100 записей на одну станиуцу
     if(keys.contains(key)) throw('There is a key');///есть такой ключ
@@ -17,19 +20,20 @@ extension on Map {
   }
 
   ///Меняем в базе
-  void mod({required dynamic key, required dynamic value}){
+  void mod({required K key, required V value}){
     if(key == 'FFFFFF') throw('Key forbidden');///запрещенный ключ
     if(keys.contains(key)){
       if (value is Category){
         update(key, (v) {
           if(v is Category){
-            if(v==value)return v;
-            return v.copyWith(
-              id: v.id                   ==value.id          ?null:value.id,
-              category: v.category       ==value.category    ?null:value.category,
-              description: v.description ==value.description ?null:value.description,
-              image: v.image             ==value.image       ?null:value.image,
-              group: v.group             ==value.group       ?null:value.group,
+            Category lV = v;
+            if(lV==value)return v;
+            return lV.copyWith(
+              id: lV.id                   ==value.id          ?null:value.id,
+              category: lV.category       ==value.category    ?null:value.category,
+              description: lV.description ==value.description ?null:value.description,
+              image: lV.image             ==value.image       ?null:value.image,
+              group: lV.group             ==value.group       ?null:value.group,
            );
           } else {
             return value;
