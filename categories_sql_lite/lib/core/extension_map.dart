@@ -6,14 +6,15 @@ import 'categories.dart';
 ///Примечание: Если убрать имя то эта конгструкция будет действроать только в
 ///этом файле и импорт в другие работать не будет.
 extension MyExtMap<K, V>  on Map<K, V> {
+
   ///Добавляем в базу
   void add({required K key, required V value}){
+    if(keys.contains(key)) throw('There is a key');///есть такой ключ
     if(key == 'FFFFFF') throw('Key forbidden');///запрещенный ключ
     if(keys.length>100) remove(keys.first);///100 записей на одну станиуцу
-    if(keys.contains(key)) throw('There is a key');///есть такой ключ
     if(key is String){
       if(key.length > 6) throw('Key no more than 6 characters');///запрещенный ключ
-      putIfAbsent(key.substring(0,5), () => value);///если ключ всетаки больше то срежем его
+      putIfAbsent(key.substring(0,6) as K, () => value);///если ключ всетаки больше то срежем его
     } else {
       putIfAbsent(key, () => value);
     }
@@ -34,7 +35,7 @@ extension MyExtMap<K, V>  on Map<K, V> {
               description: lV.description ==value.description ?null:value.description,
               image: lV.image             ==value.image       ?null:value.image,
               group: lV.group             ==value.group       ?null:value.group,
-           );
+           ) as V;
           } else {
             return value;
           }
@@ -43,11 +44,13 @@ extension MyExtMap<K, V>  on Map<K, V> {
         update(key, (v) => value,);
       }
     } else {
+      if(keys.length>100) remove(keys.first);///100 записей на одну станиуцу
       if(key is String){
         if(key.length > 6) throw('Key no more than 6 characters');///запрещенный ключ
+        putIfAbsent(key.substring(0,6) as K, () => value);///если ключ всетаки больше то срежем его
+      } else {
+        putIfAbsent(key, () => value);
       }
-      if(keys.length>100) remove(keys.first);///100 записей на одну станиуцу
-      putIfAbsent(key, () => value);
     }
   }
 }
