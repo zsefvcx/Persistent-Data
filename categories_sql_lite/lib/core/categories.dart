@@ -34,8 +34,8 @@ class Category  extends Equatable{
   final String description;
   @JsonKey(defaultValue: '')
   final String image;
-  @JsonKey(defaultValue: 0)
-  final int    group;
+  @JsonKey(defaultValue: 'default')
+  final String    group;
 
   const Category({
     required this.id,
@@ -50,7 +50,7 @@ class Category  extends Equatable{
     String? category,
     String? description,
     String? image,
-    int?    group,
+    String?    group,
   }) =>
       Category(
         id:          id          ?? this.id,

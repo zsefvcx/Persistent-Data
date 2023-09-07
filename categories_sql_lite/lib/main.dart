@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 category: 'category',
                 description: 'description',
                 image: 'image',
-                group: 101500,
+                group: '101500',
             )
           );
           Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             category: 'category',
             description: 'description',
             image: 'image',
-            group: 101500,
+            group: '101500',
           )
           );
           Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             category: 'category',
             description: 'description',
             image: 'image',
-            group: 101500,
+            group: '101500',
           )
           );
           Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
