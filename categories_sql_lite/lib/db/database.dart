@@ -22,13 +22,23 @@ class DBProvider {
   }
 
   final String _categoriesTable = 'Categories';
+  final String _groupTable = 'GroupTable';
   final String _columnId = 'id';
   final String _category = 'category';
   final String _description = 'description';
   final String _image = 'image';
+  final String _groupId = 'gid';
   final String _group = 'group';
 
   Future<void> _createDB(Database db, int version) async {
+    await db.execute(
+        'CREATE TABLE '
+            '$_groupTable('
+            '$_groupId INTEGER PRIMARY KEY AUTOINCREMENT, '
+            '$_group TEXT, '
+            '$_description TEXT, '
+            ')'
+    );
     await db.execute(
       'CREATE TABLE '
           '$_categoriesTable('
@@ -36,21 +46,26 @@ class DBProvider {
             '$_category TEXT, '
             '$_description TEXT, '
             '$_image TEXT, '
+            '$_groupId INTEGER, '
             '$_group TEXT, '
           ')'
     );
   }
 
-  ///READ
-  Future<List<Category>> getCategories(int page) async {
-    Database db = await database;
-    final List<Map<String, dynamic>> catigorieaMapList =
-        await db.query(_categoriesTable,);
-    
-    
-    
-    
-    
-  }
+  ///READ GROUP
+
+
+
+  // ///READ
+  // Future<List<Category>> getCategories(int _groupId) async {
+  //   Database db = await database;
+  //   final List<Map<String, dynamic>> categoriesMapList =
+  //       await db.query(_categoriesTable,where:);
+  //
+  //
+  //
+  //
+  //
+  // }
 
 }
