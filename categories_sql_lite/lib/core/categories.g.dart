@@ -12,6 +12,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       description: json['description'] as String,
       image: json['image'] as String? ?? '',
       group: json['group'] as String? ?? 'default',
+      gid: json['gid'] as int,
     );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'description': instance.description,
       'image': instance.image,
       'group': instance.group,
+      'gid': instance.gid,
     };

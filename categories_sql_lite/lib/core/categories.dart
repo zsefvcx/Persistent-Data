@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -36,6 +38,7 @@ class Category  extends Equatable{
   final String image;
   @JsonKey(defaultValue: 'default')
   final String    group;
+  final int       gid;
 
   const Category({
     required this.id,
@@ -43,6 +46,7 @@ class Category  extends Equatable{
     required this.description,
     required this.image,
     required this.group,
+    required this.gid
   });
 
   Category copyWith({
@@ -51,6 +55,7 @@ class Category  extends Equatable{
     String? description,
     String? image,
     String?    group,
+    int? gid,
   }) =>
       Category(
         id:          id          ?? this.id,
@@ -58,6 +63,7 @@ class Category  extends Equatable{
         description: description ?? this.description,
         image:       image       ?? this.image,
         group:       group       ?? this.group,
+        gid:         gid         ?? this.gid,
       );
 
   @override
@@ -67,6 +73,7 @@ class Category  extends Equatable{
     description,
     image,
     group,
+    gid,
   ];
 
   /// Connect the generated [_$StudentFromJson] function to the `fromJson`
@@ -78,6 +85,6 @@ class Category  extends Equatable{
 
   @override
   String toString() {
-    return "$id:$group:$category:$description:$image:";
+    return "$id:$group:$gid:$category:$description:$image:";
   }
 }

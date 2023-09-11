@@ -53,19 +53,105 @@ class DBProvider {
   }
 
   ///READ GROUP
+  Future<List<(int, String, String)>> getGroups() async {
+    Database db = await database;
+    final List<Map<String, dynamic>> groupsMapList =
+        await db.query(_groupTable);
+     final List<(int, String, String)> groupList = [];
+
+     for (var element in groupsMapList) {
+       groupList.add(
+          (
+            element[_groupId],
+            element[_group],
+            element[_description],
+          )
+       );
+     }
+     return groupList;
+  }
+
+  ///READ ALL ELEMENT FROM GROUP
+  Future<List<Category>> getAllElementsGroup(int id) async {
+    Database db = await database;
+    final List<Map<String, dynamic>> categoriesMapList =
+    await db.query(_categoriesTable, where: '$_groupId = ?', whereArgs: [id]);
+    final List<Category> categoryList = [];
+
+    for (var element in categoriesMapList) {
+      categoryList.add(
+          Category.fromJson(element)
+      );
+    }
+    return categoryList;
+  }
+
+  ///READ ALL ELEMENT
+  Future<List<Category>> getAllElements() async {
+    Database db = await database;
+    final List<Map<String, dynamic>> categoriesMapList =
+    await db.query(_categoriesTable);
+    final List<Category> categoryList = [];
+
+    for (var element in categoriesMapList) {
+      categoryList.add(
+          Category.fromJson(element)
+      );
+    }
+    return categoryList;
+  }
+
+  ///INSERT
+  Future<Category> insertCategory(Category data) async {
+     Database db = await database;
+
+     Category result = data.copyWith(
+       gid: await db.insert(_groupTable, <String, dynamic>{
+         _groupId:0,
+         _group:data.group,
+         _description:'...',
+       })
+     );
+
+     return result.copyWith(
+       id: await db.insert(_categoriesTable, result.toJson())
+     );
+  }
+
+  ///UPDATE
+  Future<int> updateCategory(Category data) async {
+    Database db = await database;
+
+    return await db.update(
+        _categoriesTable,
+        data.toJson(),
+        where: '$_columnId = ?',
+        whereArgs: [data.id]);
+
+  }
+
+  ///DELETE
+  Future<int> deleteCategory(int id) async {
+    Database db = await database;
 
 
+    return await db.delete(
+        _categoriesTable,
+        where: '$_columnId = ?',
+        whereArgs: [id]);
+  }
 
-  // ///READ
-  // Future<List<Category>> getCategories(int _groupId) async {
-  //   Database db = await database;
-  //   final List<Map<String, dynamic>> categoriesMapList =
-  //       await db.query(_categoriesTable,where:);
-  //
-  //
-  //
-  //
-  //
-  // }
-
+  ///DELETE GID
+  Future<(int, int)> deleteGroup(int gid) async {
+    Database db = await database;
+    return (
+        await db.delete(
+            _groupTable,
+            where: '$_groupId = ?',
+            whereArgs: [gid]),
+        await db.delete(
+            _categoriesTable,
+            where: '$_groupId = ?',
+            whereArgs: [gid]));
+  }
 }
