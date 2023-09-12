@@ -6,8 +6,8 @@ part 'categories.g.dart';
 ///Категории по ИД.
 class Categories extends Equatable{
 
-  final Map<String, Category> categories;//категории
-  final Map<String, Group> group;//группы
+  final Set<Category> categories;//категории
+  final Set<Group> group;//группы
 
   static Categories? _instance;
   ///синглтон - один он в приложении...
