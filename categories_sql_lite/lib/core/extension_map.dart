@@ -34,7 +34,7 @@ extension MyExtMap<K, V>  on Map<K, V> {
               category: lV.category       ==value.category    ?null:value.category,
               description: lV.description ==value.description ?null:value.description,
               image: lV.image             ==value.image       ?null:value.image,
-              group: lV.group             ==value.group       ?null:value.group,
+              gid: lV.gid             ==value.gid       ?null:value.gid,
            ) as V;
           } else {
             return value;

@@ -57,35 +57,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
           Map<String, dynamic> test = {};
 
-          Categories.instance().categories.add(key: '100001', value:
-            const Category(
-                id: 0,
-                category: 'category',
-                description: 'description',
-                image: 'image',
-                group: '101500',
-            )
-          );
-          Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
-          Categories.instance().categories.mod(key: '100001', value:
-          const Category(
-            id: 2,
-            category: 'category',
-            description: 'description',
-            image: 'image',
-            group: '101500',
-          )
-          );
-          Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
-          Categories.instance().categories.mod(key: '100002', value:
-          const Category(
-            id: 2,
-            category: 'category',
-            description: 'description',
-            image: 'image',
-            group: '101500',
-          )
-          );
+          // Categories.instance().categories.add(key: '100001', value:
+          //   const Category(
+          //       id: 0,
+          //       category: 'category',
+          //       description: 'description',
+          //       image: 'image',
+          //       group: '101500',
+          //       gid: 0,
+          //   )
+          // );
+          // Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
+          // Categories.instance().categories.mod(key: '100001', value:
+          // const Category(
+          //   id: 2,
+          //   category: 'category',
+          //   description: 'description',
+          //   image: 'image',
+          //   group: '101500',
+          //   gid: 0,
+          // )
+          // );
+          // Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
+          // Categories.instance().categories.mod(key: '100002', value:
+          // const Category(
+          //   id: 2,
+          //   category: 'category',
+          //   description: 'description',
+          //   image: 'image',
+          //   group: '101500',
+          //   gid: 0,
+          // )
+          // );
           Logger.print('Categories: ${Categories.instance()}', name: 'log', level: 0, error: false);
         },
         tooltip: 'Add a new Category',

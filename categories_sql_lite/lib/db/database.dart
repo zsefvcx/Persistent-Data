@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart'
-       if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
+        if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../core/core.dart';
 
@@ -53,22 +53,18 @@ class DBProvider {
   }
 
   ///READ GROUP
-  Future<List<(int, String, String)>> getGroups() async {
+  Future<List<Group>> getGroups() async {
     Database db = await database;
     final List<Map<String, dynamic>> groupsMapList =
         await db.query(_groupTable);
-     final List<(int, String, String)> groupList = [];
+    final List<Group> groupList = [];
 
-     for (var element in groupsMapList) {
-       groupList.add(
-          (
-            element[_groupId],
-            element[_group],
-            element[_description],
-          )
-       );
-     }
-     return groupList;
+    for (var element in groupsMapList) {
+      groupList.add(
+          Group.fromJson(element)
+      );
+    }
+    return groupList;
   }
 
   ///READ ALL ELEMENT FROM GROUP
@@ -101,24 +97,55 @@ class DBProvider {
     return categoryList;
   }
 
-  ///INSERT
-  Future<Category> insertCategory(Category data) async {
+  ///INSERT Group
+  Future<Group> insertGroup(Group data,
+      {
+        ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
+      }) async {
+    Database db = await database;
+
+    int gid = await db.insert(
+      _groupTable,
+      data.toJson(),
+      conflictAlgorithm: conflictAlgorithm,
+    );
+
+    return data.copyWith(
+      gid: gid,
+    );
+  }
+
+  ///INSERT Category
+  Future<Category> insertCategory(Category data,
+      {
+        ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
+      }) async {
      Database db = await database;
 
-     Category result = data.copyWith(
-       gid: await db.insert(_groupTable, <String, dynamic>{
-         _groupId:0,
-         _group:data.group,
-         _description:'...',
-       })
+     int id = await db.insert(
+         _categoriesTable,
+         data.toJson(),
+         conflictAlgorithm: conflictAlgorithm,
      );
 
-     return result.copyWith(
-       id: await db.insert(_categoriesTable, result.toJson())
+     return data.copyWith(
+       id: id
      );
   }
 
-  ///UPDATE
+  ///UPDATE Group
+  Future<int> updateGroup(Group data) async {
+    Database db = await database;
+
+    return await db.update(
+        _groupTable,
+        data.toJson(),
+        where: '$_groupId = ?',
+        whereArgs: [data.gid]);
+
+  }
+
+  ///UPDATE Category
   Future<int> updateCategory(Category data) async {
     Database db = await database;
 
@@ -130,10 +157,9 @@ class DBProvider {
 
   }
 
-  ///DELETE
+  ///DELETE ID
   Future<int> deleteCategory(int id) async {
     Database db = await database;
-
 
     return await db.delete(
         _categoriesTable,
@@ -144,6 +170,7 @@ class DBProvider {
   ///DELETE GID
   Future<(int, int)> deleteGroup(int gid) async {
     Database db = await database;
+
     return (
         await db.delete(
             _groupTable,
