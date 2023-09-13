@@ -7,7 +7,7 @@ part of 'categories.dart';
 // **************************************************************************
 
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
-      gid: json['gid'] as int? ?? 0,
+      gid: json['gid'] as int?,
       group: json['group'] as String? ?? 'default',
       description: json['description'] as String? ?? '',
     );
@@ -19,7 +19,7 @@ Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
     };
 
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int?,
       gid: json['gid'] as int? ?? 0,
       category: json['category'] as String,
       description: json['description'] as String? ?? '',

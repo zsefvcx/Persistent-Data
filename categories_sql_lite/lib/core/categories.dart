@@ -29,8 +29,8 @@ class Categories extends Equatable{
 
 @JsonSerializable()
 class Group extends Equatable{
-  @JsonKey(defaultValue: 0,)
-  final int       gid;
+  @JsonKey(defaultValue: null,)
+  final int?       gid;
   @JsonKey(defaultValue: 'default')
   final String    group;
   @JsonKey(defaultValue: '')
@@ -42,7 +42,7 @@ class Group extends Equatable{
     required this.description,
   });
 
-  Group copyWith({
+  Group copyWith({//
     int?       gid,
     String?    group,
     String?    description,
@@ -77,8 +77,8 @@ class Group extends Equatable{
 ///Одна категория с возможностью сравнения....
 @JsonSerializable()
 class Category  extends Equatable{
-  @JsonKey(defaultValue: 0, )
-  final int    id;
+  @JsonKey(defaultValue: null, )
+  final int?    id;
   @JsonKey(defaultValue: 0, )
   final int    gid;
   final String category;

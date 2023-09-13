@@ -12,26 +12,64 @@ class GroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    bool removed = false;
+    // int? id = group.gid;
+    final ValueNotifier<bool> removedNotifier = ValueNotifier<bool>(removed);
     return Card(
       child: SizedBox(
         height: 100,
-        child: Column(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
-              flex: 2,
-              child: Center(child:
-              Text(group.group,
-                style: theme.textTheme.titleLarge,
-              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: ValueListenableBuilder<bool>(
+                        valueListenable: removedNotifier,
+                        builder: (_, value, __) => value
+                            ? Text(group.group,
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                ))
+                            : Text(
+                                group.group,
+                                style: theme.textTheme.titleLarge,
+                              ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        group.description,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: Center(child:
-              Text(group.description,
-                style: theme.textTheme.bodySmall,
+            ValueListenableBuilder<bool>(
+              valueListenable: removedNotifier,
+              builder: (_, value, __) => Visibility(
+                visible: !value,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      onPressed: () async {
+                        removedNotifier.value = true;
+                        if (removedNotifier.value == true) {
+                          Categories.instance().group.removeEx(value: group);
+                        }
+                      },
+                      icon: const Icon(Icons.delete_forever)),
+                ),
               ),
-              ),
-            ),
+            )
           ],
         ),
       ),

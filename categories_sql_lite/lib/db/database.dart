@@ -11,13 +11,15 @@ class DBProvider {
   static DBProvider? _db;
   static Database? _database;
   ///синглтон - один он в приложении...
-  factory DBProvider.db() => _db ??= DBProvider._();
+  ///Без использовния Factory
+  static DBProvider get db => _db ??= DBProvider._();
 
   Future<Database> get database async => _database ??= await _initDB();
 
   Future<Database> _initDB() async {
     Directory dir = await getApplicationDocumentsDirectory();
     String path = '${dir.path}categories.db';
+    Logger.print("PathToDB:$path", name: 'log', level: 0, error: false);
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -31,25 +33,17 @@ class DBProvider {
   final String _group = 'group';
 
   Future<void> _createDB(Database db, int version) async {
-    await db.execute(
-        'CREATE TABLE '
-            '$_groupTable('
-            '$_groupId INTEGER PRIMARY KEY AUTOINCREMENT, '
-            '$_group TEXT, '
-            '$_description TEXT, '
-            ')'
-    );
-    await db.execute(
-      'CREATE TABLE '
-          '$_categoriesTable('
-            '$_columnId INTEGER PRIMARY KEY AUTOINCREMENT, '
-            '$_category TEXT, '
-            '$_description TEXT, '
-            '$_image TEXT, '
-            '$_groupId INTEGER, '
-            '$_group TEXT, '
-          ')'
-    );
+    try {
+      await db.execute(
+          'CREATE TABLE "$_groupTable" ("$_groupId" INTEGER PRIMARY KEY AUTOINCREMENT, "$_group" TEXT, "$_description" TEXT)'
+      );
+      await db.execute(
+        'CREATE TABLE "$_categoriesTable" ("$_columnId" INTEGER PRIMARY KEY AUTOINCREMENT, "$_category" TEXT, "$_description" TEXT, "$_image" TEXT, "$_groupId" INTEGER, "$_group" TEXT)'
+      );
+    } catch (e,t){
+      Logger.print('$e\n$t', name: 'err', level: 1, error: true);
+      throw('Error create db!');
+    }
   }
 
   ///READ GROUP
@@ -104,12 +98,24 @@ class DBProvider {
       }) async {
     Database db = await database;
 
+    ///Имя должно быть уникальное
+    List<Map<String, dynamic>> query = await db.query(_groupTable, where: '"$_group" = ?', whereArgs: [data.group]);
+    if (query.isNotEmpty){
+      if (query[0].isNotEmpty){///только первое вхождение
+        var gid = query[0][_groupId];
+        if (gid != null && gid is int){
+          return data.copyWith(
+            gid: gid,
+          );
+        }
+      }
+    }
+
     int gid = await db.insert(
       _groupTable,
       data.toJson(),
       conflictAlgorithm: conflictAlgorithm,
     );
-
     return data.copyWith(
       gid: gid,
     );
@@ -121,6 +127,12 @@ class DBProvider {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
      Database db = await database;
+
+     ///gid должен быть
+     List<Map<String, dynamic>> query = await db.query(_groupTable, where: '"$_groupId" = ?', whereArgs: [data.gid]);
+     if (query.isEmpty){
+       throw('Error insert category in db! Group is not in db');
+     }
 
      int id = await db.insert(
          _categoriesTable,
@@ -140,7 +152,7 @@ class DBProvider {
     return await db.update(
         _groupTable,
         data.toJson(),
-        where: '$_groupId = ?',
+        where: '"$_groupId" = ?',
         whereArgs: [data.gid]);
 
   }
@@ -152,7 +164,7 @@ class DBProvider {
     return await db.update(
         _categoriesTable,
         data.toJson(),
-        where: '$_columnId = ?',
+        where: '"$_columnId" = ?',
         whereArgs: [data.id]);
 
   }
@@ -163,7 +175,7 @@ class DBProvider {
 
     return await db.delete(
         _categoriesTable,
-        where: '$_columnId = ?',
+        where: '"$_columnId" = ?',
         whereArgs: [id]);
   }
 
@@ -174,11 +186,11 @@ class DBProvider {
     return (
         await db.delete(
             _groupTable,
-            where: '$_groupId = ?',
+            where: '"$_groupId" = ?',
             whereArgs: [gid]),
         await db.delete(
             _categoriesTable,
-            where: '$_groupId = ?',
+            where: '"$_groupId" = ?',
             whereArgs: [gid]));
   }
 }
