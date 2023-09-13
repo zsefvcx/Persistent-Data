@@ -1,5 +1,7 @@
-import 'package:categories_sql_lite/pages/groups.dart';
+
 import 'package:flutter/material.dart';
+
+import 'route_generator.dart';
 
 class CategoriesApp extends StatelessWidget {
   const CategoriesApp({super.key});
@@ -13,7 +15,8 @@ class CategoriesApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const GroupsPages(title: 'Categories'),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

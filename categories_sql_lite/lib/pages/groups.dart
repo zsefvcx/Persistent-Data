@@ -6,6 +6,8 @@ import '../db/database.dart';
 import 'widgets/group_card.dart';
 
 class GroupsPages extends StatefulWidget {
+  static const routeName = '/';
+
   const GroupsPages({super.key, required this.title});
 
   final String title;
@@ -64,40 +66,46 @@ class _GroupsPagesState extends State<GroupsPages> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-        title:Text(widget.title),
-          centerTitle: true,
+    return WillPopScope(
+      onWillPop: () async {
+          return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title:Text(widget.title),
+            centerTitle: true,
+          ),
+        body: _isLoading==false
+            ? const Center(child: CircularProgressIndicator())
+            : ListView.separated(
+              itemCount: Categories.instance().group.length,
+              itemBuilder: (_, i) => GroupCard(group: Categories.instance().group.toList()[i]),
+              separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
+            ),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: (){
+                _dialogBuilder(context);
+                Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+              },
+              tooltip: 'Add a new Group',
+              child: const Icon(Icons.add),
+            ),
+            const SizedBox(height: 10,),
+            FloatingActionButton(
+              onPressed: () async {
+                await loadData();
+                Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+              },
+              tooltip: 'Reload Groups',
+              child: const Icon(Icons.update),
+            ),
+          ],
         ),
-      body: _isLoading==false
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.separated(
-            itemCount: Categories.instance().group.length,
-            itemBuilder: (_, i) => GroupCard(group: Categories.instance().group.toList()[i]),
-            separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
-          ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: (){
-              _dialogBuilder(context);
-              Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-            },
-            tooltip: 'Add a new Group',
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 10,),
-          FloatingActionButton(
-            onPressed: () async {
-              await loadData();
-              Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-            },
-            tooltip: 'Reload Groups',
-            child: const Icon(Icons.update),
-          ),
-        ],
       ),
     );
 
