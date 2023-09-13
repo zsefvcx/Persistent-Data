@@ -11,6 +11,7 @@ import 'core/core.dart';
 
 /// Временно сделаем main async
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   if(Platform.isWindows) {
     // Initialize FFI
     sqfliteFfiInit();
