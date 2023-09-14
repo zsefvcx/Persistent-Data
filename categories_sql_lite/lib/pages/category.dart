@@ -25,19 +25,22 @@ class _CategoryPageState extends State<CategoryPage> {
       body:  SafeArea(
           child: Row(
             children: [
-              Expanded(child: CachedNetworkImage(
-                imageUrl: widget.category.image,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.scaleDown,
-                        //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+              Expanded(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CachedNetworkImage(
+                  imageUrl: widget.category.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.scaleDown,
+                          //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                      ),
                     ),
                   ),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),),
               const VerticalDivider(width: 10,),
               Expanded(

@@ -53,20 +53,23 @@ class _CategoryCardState extends State<CategoryCard> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: CachedNetworkImage(
-                  imageUrl: widget.category.image,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.scaleDown,
-                          //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                    imageUrl: widget.category.image,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.scaleDown,
+                            //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                        ),
                       ),
                     ),
-                  ),
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),),
+                    placeholder: (context, url) => const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+                  ),),
                 Expanded(
                   flex: 3,
                   child: Column(
@@ -93,16 +96,23 @@ class _CategoryCardState extends State<CategoryCard> {
                 ),
                 Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                          onPressed: () async {
-                            _image.text = widget.category.image;
-                            _category.text = widget.category.category;
-                            _description.text = widget.category.description;
-                            await _dialogBuilder(context);
-                          },
-                          icon: const Icon(Icons.edit)),
+                    ValueListenableBuilder<bool>(
+                    valueListenable: removedNotifier,
+                    builder: (_, value, __) => Visibility(
+                      visible: !value,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                            onPressed: () async {
+                              _image.text = widget.category.image;
+                              _category.text = widget.category.category;
+                              _description.text = widget.category.description;
+                              await _dialogBuilder(context);
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                        ),
+                      ),
                     ),
                     ValueListenableBuilder<bool>(
                       valueListenable: removedNotifier,
@@ -241,7 +251,7 @@ class _CategoryCardState extends State<CategoryCard> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Add'),
+              child: const Text('Modify'),
               onPressed: () async {
                 var cSt = _formKey.currentState;
                 if(cSt != null && cSt.validate()){

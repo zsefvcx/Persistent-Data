@@ -22,9 +22,24 @@ class _GroupCardState extends State<GroupCard> {
   final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  late Group group;
+
+  Future<void> modifyData() async {
+    await Categories.instance().group.modEx(value: Group(
+        gid: group.gid,
+        group: _group.text,
+        description: _description.text,
+        image: _image.text,
+      ),
+    );
+    setState(() {
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    group = widget.group;
   }
 
   @override
@@ -44,7 +59,7 @@ class _GroupCardState extends State<GroupCard> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: widget.group):null,
+        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: group):null,
         child: Card(
           child: SizedBox(
             height: 120,
@@ -53,19 +68,22 @@ class _GroupCardState extends State<GroupCard> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: CachedNetworkImage(
-                    imageUrl: widget.group.image,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                            //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: group.image,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                          ),
                         ),
                       ),
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
-                    placeholder: (context, url) => const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
                 Expanded(
@@ -78,12 +96,12 @@ class _GroupCardState extends State<GroupCard> {
                           child: ValueListenableBuilder<bool>(
                             valueListenable: removedNotifier,
                             builder: (_, value, __) => value
-                                ? Text(widget.group.group,
+                                ? Text(group.group,
                                     style: theme.textTheme.titleLarge?.copyWith(
                                       decoration: TextDecoration.lineThrough,
                                     ))
                                 : Text(
-                                    widget.group.group,
+                                    group.group,
                                     style: theme.textTheme.titleLarge,
                                   ),
                           ),
@@ -92,7 +110,7 @@ class _GroupCardState extends State<GroupCard> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            widget.group.description,
+                            group.description,
                             style: theme.textTheme.bodySmall,
                           ),
                         ),
@@ -102,16 +120,23 @@ class _GroupCardState extends State<GroupCard> {
                 ),
                 Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                          onPressed: () async {
-                            _image.text = widget.group.image;
-                            _group.text = widget.group.group;
-                            _description.text = widget.group.description;
-                            await _dialogBuilder(context);
-                          },
-                          icon: const Icon(Icons.edit)),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: removedNotifier,
+                      builder: (_, value, __) => Visibility(
+                        visible: !value,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () async {
+                              _image.text = group.image;
+                              _group.text = group.group;
+                              _description.text = group.description;
+                              await _dialogBuilder(context);
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                        ),
+                      ),
                     ),
                     ValueListenableBuilder<bool>(
                       valueListenable: removedNotifier,
@@ -123,7 +148,7 @@ class _GroupCardState extends State<GroupCard> {
                               onPressed: () async {
                                 removedNotifier.value = true;
                                 if (removedNotifier.value == true) {
-                                  Categories.instance().group.removeEx(value: widget.group);
+                                  Categories.instance().group.removeEx(value: group);
                                 }
                               },
                               icon: const Icon(Icons.delete_forever)),
@@ -250,7 +275,7 @@ class _GroupCardState extends State<GroupCard> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Add'),
+              child: const Text('Modify'),
               onPressed: () async {
                 var cSt = _formKey.currentState;
                 if(cSt != null && cSt.validate()){
