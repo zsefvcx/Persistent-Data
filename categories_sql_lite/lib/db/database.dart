@@ -11,6 +11,7 @@ class DBProvider {
   static DBProvider? _db;
   static Database? _database;
   ///синглтон - один он в приложении...
+  ///Его повсемесное использование в приложении плохой тон, но когда надо быстро то можно))
   ///Без использовния Factory
   static DBProvider get db => _db ??= DBProvider._();
 

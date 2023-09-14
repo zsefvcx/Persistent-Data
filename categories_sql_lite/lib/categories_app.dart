@@ -11,9 +11,14 @@ class CategoriesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Categories',
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+        )
       ),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,

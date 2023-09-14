@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../categories.dart';
 
-class GroupCard extends StatelessWidget {
-  const GroupCard({
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
     super.key,
-    required this.group,
+    required this.category,
   });
 
-  final Group group;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class GroupCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: group):null,
+        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed('/des', arguments: category):null,
         child: Card(
           child: SizedBox(
             height: 100,
@@ -45,22 +45,14 @@ class GroupCard extends StatelessWidget {
                           child: ValueListenableBuilder<bool>(
                             valueListenable: removedNotifier,
                             builder: (_, value, __) => value
-                                ? Text(group.group,
-                                    style: theme.textTheme.titleLarge?.copyWith(
-                                      decoration: TextDecoration.lineThrough,
-                                    ))
+                                ? Text(category.category,
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                ))
                                 : Text(
-                                    group.group,
-                                    style: theme.textTheme.titleLarge,
-                                  ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            group.description,
-                            style: theme.textTheme.bodySmall,
+                              category.category,
+                              style: theme.textTheme.titleLarge,
+                            ),
                           ),
                         ),
                       ),
@@ -77,7 +69,7 @@ class GroupCard extends StatelessWidget {
                           onPressed: () async {
                             removedNotifier.value = true;
                             if (removedNotifier.value == true) {
-                              Categories.instance().group.removeEx(value: group);
+                              Categories.instance().categories.removeEx(value: category);
                             }
                           },
                           icon: const Icon(Icons.delete_forever)),

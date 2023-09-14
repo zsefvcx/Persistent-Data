@@ -7,8 +7,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'categories_app.dart';
 import 'core/core.dart';
 
-
-
 /// Временно сделаем main async
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +16,17 @@ Future<void> main() async {
     databaseFactory = databaseFactoryFfi;
   }
 
-  ///Fake data in memory
+  ///Fake data in memory and db.
   final Set<Group> groups = {
+                //gid = null  - создается новая запись в базе данных
+                //        group - сделаем уникальным
       const Group(gid: 1, group:   'Movies', description: 'Фильмы'),
       const Group(gid: 2, group:   'Series', description:  'Сериалы'),
       const Group(gid: 3, group:    'Games', description:   'Игры'),
       const Group(gid: 4, group: 'TV Shows', description: 'ТВ Шоу'),
     };
+
+  ///Сохраняем в db
   for(var elem in groups) {
     await Categories.instance().group.addEx(value: elem);
   }
@@ -47,10 +49,13 @@ Future<void> main() async {
     const Category(id: 15, gid: 4, category: 'Что? Где? Когда?', image: 'https://serialochka.ru/images/chto-gde-kogda_serialochka.jpg', description: 'Большинство отечественных регулярных телепередач в основе своей имеют западные источники. По пальцам одной руки можно перечислить те, которые являются истинно оригинальными. И среди этих шедевров — плод мысли Владимира Ворошилова и Наталии Стеценко, «Что? Где? Когда?». Это интеллектуальная игра, в которой шестёрка профессиональных «знатоков» состязается в уме и образованности с телезрителями.'),
     const Category(id: 16, gid: 4, category: 'Кто хочет стать миллионером', image: 'https://serialochka.ru/images/kto-hochet-stat-millionerom_serialochka_736.jpg', description: '«Кто хочет стать миллионером» - это невероятно интересная игра, которая позволяет каждому участнику выиграть три миллиона рублей. Необходимо только дать правильный ответ на 15 вопросов. Они идут сначала достаточно простые, затем начинают постепенно усложняться. Каждый из представленных вопросов, которые задает ведущий игры, имеет четыре разных ответа. Игрок должен определиться с правильным ответом и назвать только его. Только один ответ может или, наоборот, не может засчитать ведущий игры «Кто хочет стать миллионером».'),
   };
+
+  ///Сохраняем в db
   for(var elem in category) {
     await Categories.instance().categories.addEx(value: elem);
   }
   Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
+
   ///Чистим загруженные данные....
   Categories.instance().group.clear();
   Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);

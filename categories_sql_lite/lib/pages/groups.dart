@@ -5,18 +5,18 @@ import '../core/core.dart';
 import '../db/database.dart';
 import 'widgets/group_card.dart';
 
-class GroupsPages extends StatefulWidget {
+class GroupsPage extends StatefulWidget {
   static const routeName = '/';
 
-  const GroupsPages({super.key, required this.title});
+  const GroupsPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<GroupsPages> createState() => _GroupsPagesState();
+  State<GroupsPage> createState() => _GroupsPageState();
 }
 
-class _GroupsPagesState extends State<GroupsPages> {
+class _GroupsPageState extends State<GroupsPage> {
 
   late bool _isLoading;
   final TextEditingController _group = TextEditingController();
@@ -42,8 +42,12 @@ class _GroupsPagesState extends State<GroupsPages> {
     setState(() {
       _isLoading = false;
     });
-    var elem = await DBProvider.db.insertGroup(Group(gid: null, group: _group.text, description: _description.text));
-    await Categories.instance().group.addEx(value: elem);
+    await Categories.instance().group.addEx(value: Group(
+        gid: null,
+        group: _group.text,
+        description: _description.text
+      ),
+    );
     setState(() {
       _isLoading = true;
     });
@@ -73,8 +77,7 @@ class _GroupsPagesState extends State<GroupsPages> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title:Text(widget.title),
-            centerTitle: true,
+            title:Text(widget.title),
           ),
         body: _isLoading==false
             ? const Center(child: CircularProgressIndicator())
@@ -83,28 +86,33 @@ class _GroupsPagesState extends State<GroupsPages> {
               itemBuilder: (_, i) => GroupCard(group: Categories.instance().group.toList()[i]),
               separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
             ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: (){
-                _dialogBuilder(context);
-                Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-              },
-              tooltip: 'Add a new Group',
-              child: const Icon(Icons.add),
-            ),
-            const SizedBox(height: 10,),
-            FloatingActionButton(
-              onPressed: () async {
-                await loadData();
-                Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-              },
-              tooltip: 'Reload Groups',
-              child: const Icon(Icons.update),
-            ),
-          ],
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(right: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: (){
+                  _dialogBuilder(context);
+                  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+                },
+                tooltip: 'Add a new Group',
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 10,),
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: () async {
+                  await loadData();
+                  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+                },
+                tooltip: 'Reload Groups',
+                child: const Icon(Icons.update),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -141,15 +149,26 @@ class _GroupsPagesState extends State<GroupsPages> {
                     ),
                   ),
                   const Divider(height: 20,),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _description,
-                      maxLength: 40,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Description',
+                  Expanded(
+                    child: Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        reverse: false,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: _description,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 1, //grow automatically
+                            maxLength: 40,
+                            minLines: 1,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Description',
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -162,7 +181,7 @@ class _GroupsPagesState extends State<GroupsPages> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Canсel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

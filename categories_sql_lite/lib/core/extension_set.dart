@@ -41,7 +41,8 @@ extension MyExtSet<V>  on Set<V> {
       if (gid != null){
         await DBProvider.db.deleteGroup(gid);
       }
-    } else if (value is Category) {
+    }
+    if (value is Category) {
       int? id = value.id;
       if (id != null){
         await DBProvider.db.deleteCategory(id);
