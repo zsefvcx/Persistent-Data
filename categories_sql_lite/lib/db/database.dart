@@ -6,6 +6,8 @@ import 'package:sqflite/sqflite.dart'
 
 import '../core/core.dart';
 
+///https://pub.dev/packages/hive
+
 class DBProvider {
   DBProvider._();
   static DBProvider? _db;

@@ -10,26 +10,22 @@ extension MyExtSet<V>  on Set<V> {
   ///не более [ $countValue ] записей
   static int countValue = 100;
 
-  ///Меняем в базе
+  ///Меняем в базе. менять не целесообразно в сете. Потом если использовать Bloc
+  ///пересмотрть на уровне данных.
   Future<void> modEx({required V value}) async {
-    Ошибика
     if (value is Group) {
       int? gid = value.gid;
-      if(length>countValue && gid != null) {
-        await DBProvider.db.deleteGroup(gid);
-        remove(first);
+      if(gid != null) {
+        await DBProvider.db.updateGroup(value);
       }
-      add(await DBProvider.db.insertGroup(value) as V);
-    } else {
-      if(length>100) {///100 записей на одну категрию
-        remove(first);
+    } else if(value is Category) {
+      int? id = value.id;
+      if ( id != null) {
+        await DBProvider.db.updateCategory(value);
       }
-      add(value);
     }
-
-
-
   }
+
   ///Добавляем в базу
   Future<void> addEx({required V value}) async {
     if (value is Group) {

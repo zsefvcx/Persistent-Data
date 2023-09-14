@@ -25,13 +25,13 @@ class _GroupCardState extends State<GroupCard> {
   late Group group;
 
   Future<void> modifyData() async {
-    await Categories.instance().group.modEx(value: Group(
-        gid: group.gid,
-        group: _group.text,
-        description: _description.text,
-        image: _image.text,
-      ),
+    group = Group(
+      gid: group.gid,
+      group: _group.text,
+      description: _description.text,
+      image: _image.text,
     );
+    await Categories.instance().group.modEx(value: group);
     setState(() {
     });
   }
@@ -279,8 +279,7 @@ class _GroupCardState extends State<GroupCard> {
               onPressed: () async {
                 var cSt = _formKey.currentState;
                 if(cSt != null && cSt.validate()){
-                  //addData();
-                  Logger.print('In progress...', name: 'log', level: 0, error: false);
+                  modifyData();
                   Navigator.of(context).pop();
                 }
               },

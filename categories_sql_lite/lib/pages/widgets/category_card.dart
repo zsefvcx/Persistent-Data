@@ -22,9 +22,25 @@ class _CategoryCardState extends State<CategoryCard> {
   final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  late Category category;
+
+  Future<void> modifyData() async {
+    category = Category(
+      id: category.id,
+      gid: category.gid,
+      category: _category.text,
+      description: _description.text,
+      image: _image.text,
+    );
+    await Categories.instance().categories.modEx(value: category);
+    setState(() {
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    category = widget.category;
   }
 
   @override
@@ -44,7 +60,7 @@ class _CategoryCardState extends State<CategoryCard> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: widget.category):null,
+        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: category):null,
         child: Card(
           child: SizedBox(
             height: 120,
@@ -56,7 +72,7 @@ class _CategoryCardState extends State<CategoryCard> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CachedNetworkImage(
-                    imageUrl: widget.category.image,
+                    imageUrl: category.image,
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -80,12 +96,12 @@ class _CategoryCardState extends State<CategoryCard> {
                           child: ValueListenableBuilder<bool>(
                             valueListenable: removedNotifier,
                             builder: (_, value, __) => value
-                                ? Text(widget.category.category,
+                                ? Text(category.category,
                                 style: theme.textTheme.titleLarge?.copyWith(
                                   decoration: TextDecoration.lineThrough,
                                 ))
                                 : Text(
-                              widget.category.category,
+                              category.category,
                               style: theme.textTheme.titleLarge,
                             ),
                           ),
@@ -104,9 +120,9 @@ class _CategoryCardState extends State<CategoryCard> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                             onPressed: () async {
-                              _image.text = widget.category.image;
-                              _category.text = widget.category.category;
-                              _description.text = widget.category.description;
+                              _image.text = category.image;
+                              _category.text = category.category;
+                              _description.text = category.description;
                               await _dialogBuilder(context);
                             },
                             icon: const Icon(Icons.edit),
@@ -124,7 +140,7 @@ class _CategoryCardState extends State<CategoryCard> {
                               onPressed: () async {
                                 removedNotifier.value = true;
                                 if (removedNotifier.value == true) {
-                                  Categories.instance().categories.removeEx(value: widget.category);
+                                  Categories.instance().categories.removeEx(value: category);
                                 }
                               },
                               icon: const Icon(Icons.delete_forever)),
@@ -255,8 +271,7 @@ class _CategoryCardState extends State<CategoryCard> {
               onPressed: () async {
                 var cSt = _formKey.currentState;
                 if(cSt != null && cSt.validate()){
-                  //addData();
-                  Logger.print('In progress...', name: 'log', level: 0, error: false);
+                  modifyData();
                   Navigator.of(context).pop();
                 }
               },
