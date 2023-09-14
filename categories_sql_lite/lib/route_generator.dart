@@ -29,38 +29,25 @@ class RouteGenerator{
         );
       case CategoriesPage.routeName:
         if(args != null && args is Group) {
+          int? gid = args.gid;
+          if (gid != null) {
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  CategoriesPage(title: args.group, gid: gid),
+              transitionsBuilder: transitionsBuilder,
+            );
+          }
+        }
+        return _errorRoute();
+      case CategoryPage.routeName:
+        if(args != null && args is Category) {
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-            CategoriesPage(title: args.group,gid: args.gid),
+                CategoryPage(category: args),
             transitionsBuilder: transitionsBuilder,
           );
         }
         return _errorRoute();
-      // case ArtistsPage.routeName:
-      //   return PageRouteBuilder(
-      //     pageBuilder: (context, animation, secondaryAnimation) =>
-      //     const ArtistsPage(title: 'Artists Information',),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return FadeTransition(opacity: animation, child: child,);
-      //     },
-      //   );
-      // case ArtistInformation.routeName:
-      //   if(args != null && args is Map<String, ArtistData>){
-      //     if(args['ArtistData']!=null){
-      //       ArtistData data = args['ArtistData'] as ArtistData;
-      //       return PageRouteBuilder(
-      //         pageBuilder:(context, animation, secondaryAnimation) =>
-      //             ArtistInformation(artistData: data,),
-      //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //           return FadeTransition(opacity: animation, child: child,);
-      //         },
-      //       );
-      //     } else {
-      //       return _errorRoute();
-      //     }
-      //   } else {
-      //     return _errorRoute();
-      //   }
       default:
         return _errorRoute();
     }

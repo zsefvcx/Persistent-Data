@@ -20,6 +20,7 @@ class _GroupsPageState extends State<GroupsPage> {
 
   late bool _isLoading;
   final TextEditingController _group = TextEditingController();
+  final TextEditingController _image = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -45,7 +46,8 @@ class _GroupsPageState extends State<GroupsPage> {
     await Categories.instance().group.addEx(value: Group(
         gid: null,
         group: _group.text,
-        description: _description.text
+        description: _description.text,
+        image: _image.text,
       ),
     );
     setState(() {
@@ -63,6 +65,7 @@ class _GroupsPageState extends State<GroupsPage> {
   void dispose() {
     super.dispose();
     _group.dispose();
+    _image.dispose();
     _description.dispose();
     Categories.instance().group.clear();
   }
@@ -74,44 +77,46 @@ class _GroupsPageState extends State<GroupsPage> {
       onWillPop: () async {
           return false;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-            title:Text(widget.title),
-          ),
-        body: _isLoading==false
-            ? const Center(child: CircularProgressIndicator())
-            : ListView.separated(
-              itemCount: Categories.instance().group.length,
-              itemBuilder: (_, i) => GroupCard(group: Categories.instance().group.toList()[i]),
-              separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+              title:Text(widget.title),
             ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(right: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                heroTag: UniqueKey(),
-                onPressed: (){
-                  _dialogBuilder(context);
-                  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-                },
-                tooltip: 'Add a new Group',
-                child: const Icon(Icons.add),
+          body: _isLoading==false
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.separated(
+                itemCount: Categories.instance().group.length,
+                itemBuilder: (_, i) => GroupCard(group: Categories.instance().group.toList()[i]),
+                separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
               ),
-              const SizedBox(height: 10,),
-              FloatingActionButton(
-                heroTag: UniqueKey(),
-                onPressed: () async {
-                  await loadData();
-                  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-                },
-                tooltip: 'Reload Groups',
-                child: const Icon(Icons.update),
-              ),
-            ],
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  onPressed: (){
+                    _dialogBuilder(context);
+                    //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+                  },
+                  tooltip: 'Add a new Group',
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(height: 10,),
+                FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  onPressed: () async {
+                    await loadData();
+                    //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+                  },
+                  tooltip: 'Reload Groups',
+                  child: const Icon(Icons.update),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -127,7 +132,7 @@ class _GroupsPageState extends State<GroupsPage> {
           title: const Text('Add a new Group'),
           content: SizedBox(
             width: 300,
-            height: 200,
+            height: 300,
             child: Form(
               key: _formKey,
               child: Column(
@@ -146,6 +151,45 @@ class _GroupsPageState extends State<GroupsPage> {
                           (text == null || text.isEmpty)?
                           'Text is empty':
                           null,
+                    ),
+                  ),
+                  const Divider(height: 20,),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _image,
+                      maxLength: 255,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Image URL',
+                      ),
+                      validator: (value) {
+                        ///Используем встроенный валидатор
+                        if(value != null){
+                          final Uri? uri = Uri.tryParse(value);
+                          if(uri != null) {
+                            if (!uri.hasAbsolutePath) {
+                              return 'Please enter valid url';
+                            } else {
+                              return null;
+                            }
+                          }
+                        }
+                        return 'Please enter valid url';
+                        ///Используем регулярные выражения
+                        // String hasValidUrl(String value) {
+                        //   String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+                        //   RegExp regExp = new RegExp(pattern);
+                        //   if (value.length == 0) {
+                        //     return 'Please enter url';
+                        //   }
+                        //   else if (!regExp.hasMatch(value)) {
+                        //     return 'Please enter valid url';
+                        //   }
+                        //   return null;
+                        // }
+                      },
                     ),
                   ),
                   const Divider(height: 20,),

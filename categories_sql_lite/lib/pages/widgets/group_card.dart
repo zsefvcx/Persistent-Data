@@ -1,15 +1,39 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../categories.dart';
 
-class GroupCard extends StatelessWidget {
+class GroupCard extends StatefulWidget {
   const GroupCard({
     super.key,
     required this.group,
   });
 
   final Group group;
+
+  @override
+  State<GroupCard> createState() => _GroupCardState();
+}
+
+class _GroupCardState extends State<GroupCard> {
+  final TextEditingController _group = TextEditingController();
+  final TextEditingController _image = TextEditingController();
+  final TextEditingController _description = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _group.dispose();
+    _image.dispose();
+    _description.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +44,28 @@ class GroupCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: group):null,
+        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: widget.group):null,
         child: Card(
           child: SizedBox(
-            height: 100,
+            height: 120,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Placeholder(),
+                Expanded(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.group.image,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
                 Expanded(
@@ -45,12 +78,12 @@ class GroupCard extends StatelessWidget {
                           child: ValueListenableBuilder<bool>(
                             valueListenable: removedNotifier,
                             builder: (_, value, __) => value
-                                ? Text(group.group,
+                                ? Text(widget.group.group,
                                     style: theme.textTheme.titleLarge?.copyWith(
                                       decoration: TextDecoration.lineThrough,
                                     ))
                                 : Text(
-                                    group.group,
+                                    widget.group.group,
                                     style: theme.textTheme.titleLarge,
                                   ),
                           ),
@@ -59,7 +92,7 @@ class GroupCard extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            group.description,
+                            widget.group.description,
                             style: theme.textTheme.bodySmall,
                           ),
                         ),
@@ -67,28 +100,169 @@ class GroupCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                ValueListenableBuilder<bool>(
-                  valueListenable: removedNotifier,
-                  builder: (_, value, __) => Visibility(
-                    visible: !value,
-                    child: Padding(
+                Column(
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
                           onPressed: () async {
-                            removedNotifier.value = true;
-                            if (removedNotifier.value == true) {
-                              Categories.instance().group.removeEx(value: group);
-                            }
+                            _image.text = widget.group.image;
+                            _group.text = widget.group.group;
+                            _description.text = widget.group.description;
+                            await _dialogBuilder(context);
                           },
-                          icon: const Icon(Icons.delete_forever)),
+                          icon: const Icon(Icons.edit)),
                     ),
-                  ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: removedNotifier,
+                      builder: (_, value, __) => Visibility(
+                        visible: !value,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                              onPressed: () async {
+                                removedNotifier.value = true;
+                                if (removedNotifier.value == true) {
+                                  Categories.instance().group.removeEx(value: widget.group);
+                                }
+                              },
+                              icon: const Icon(Icons.delete_forever)),
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add a new Group'),
+          content: SizedBox(
+            width: 300,
+            height: 300,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _group,
+                      maxLines: 1,
+                      maxLength: 10,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Group Name',
+                      ),
+                      validator: (text) =>
+                      (text == null || text.isEmpty)?
+                      'Text is empty':
+                      null,
+                    ),
+                  ),
+                  const Divider(height: 20,),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _image,
+                      maxLength: 255,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Image URL',
+                      ),
+                      validator: (value) {
+                        ///Используем встроенный валидатор
+                        if(value != null){
+                          final Uri? uri = Uri.tryParse(value);
+                          if(uri != null) {
+                            if (!uri.hasAbsolutePath) {
+                              return 'Please enter valid url';
+                            } else {
+                              return null;
+                            }
+                          }
+                        }
+                        return 'Please enter valid url';
+                        ///Используем регулярные выражения
+                        // String hasValidUrl(String value) {
+                        //   String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+                        //   RegExp regExp = new RegExp(pattern);
+                        //   if (value.length == 0) {
+                        //     return 'Please enter url';
+                        //   }
+                        //   else if (!regExp.hasMatch(value)) {
+                        //     return 'Please enter valid url';
+                        //   }
+                        //   return null;
+                        // }
+                      },
+                    ),
+                  ),
+                  const Divider(height: 20,),
+                  Expanded(
+                    child: Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        reverse: false,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: _description,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 1, //grow automatically
+                            maxLength: 40,
+                            minLines: 1,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Description',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Add'),
+              onPressed: () async {
+                var cSt = _formKey.currentState;
+                if(cSt != null && cSt.validate()){
+                  //addData();
+                  Logger.print('In progress...', name: 'log', level: 0, error: false);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

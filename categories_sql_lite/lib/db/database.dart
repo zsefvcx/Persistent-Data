@@ -36,7 +36,7 @@ class DBProvider {
   Future<void> _createDB(Database db, int version) async {
     try {
       await db.execute(
-          'CREATE TABLE "$_groupTable" ("$_groupId" INTEGER PRIMARY KEY AUTOINCREMENT, "$_group" TEXT, "$_description" TEXT)'
+          'CREATE TABLE "$_groupTable" ("$_groupId" INTEGER PRIMARY KEY AUTOINCREMENT, "$_group" TEXT, "$_description" TEXT, "$_image" TEXT)'
       );
       await db.execute(
         'CREATE TABLE "$_categoriesTable" ("$_columnId" INTEGER PRIMARY KEY AUTOINCREMENT, "$_category" TEXT, "$_description" TEXT, "$_image" TEXT, "$_groupId" INTEGER, "$_group" TEXT)'
@@ -98,6 +98,10 @@ class DBProvider {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
     Database db = await database;
+
+    //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_group" TEXT');
+    //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_description" TEXT');
+    //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_image" TEXT');
 
     ///Имя должно быть уникальное
     List<Map<String, dynamic>> query = await db.query(_groupTable, where: '"$_group" = ?', whereArgs: [data.group]);

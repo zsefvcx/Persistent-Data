@@ -1,15 +1,39 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:flutter/material.dart';
 
-import '../categories.dart';
+import '../pages.dart';
 
-class CategoryCard extends StatelessWidget {
+class CategoryCard extends StatefulWidget {
   const CategoryCard({
     super.key,
     required this.category,
   });
 
   final Category category;
+
+  @override
+  State<CategoryCard> createState() => _CategoryCardState();
+}
+
+class _CategoryCardState extends State<CategoryCard> {
+  final TextEditingController _category = TextEditingController();
+  final TextEditingController _image = TextEditingController();
+  final TextEditingController _description = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _category.dispose();
+    _image.dispose();
+    _description.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +44,29 @@ class CategoryCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed('/des', arguments: category):null,
+        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: widget.category):null,
         child: Card(
           child: SizedBox(
-            height: 100,
+            height: 120,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Placeholder(),
+                Expanded(
+                  child: CachedNetworkImage(
+                  imageUrl: widget.category.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.scaleDown,
+                          //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                      ),
+                    ),
                   ),
-                ),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),),
                 Expanded(
                   flex: 3,
                   child: Column(
@@ -45,12 +77,12 @@ class CategoryCard extends StatelessWidget {
                           child: ValueListenableBuilder<bool>(
                             valueListenable: removedNotifier,
                             builder: (_, value, __) => value
-                                ? Text(category.category,
+                                ? Text(widget.category.category,
                                 style: theme.textTheme.titleLarge?.copyWith(
                                   decoration: TextDecoration.lineThrough,
                                 ))
                                 : Text(
-                              category.category,
+                              widget.category.category,
                               style: theme.textTheme.titleLarge,
                             ),
                           ),
@@ -59,28 +91,169 @@ class CategoryCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                ValueListenableBuilder<bool>(
-                  valueListenable: removedNotifier,
-                  builder: (_, value, __) => Visibility(
-                    visible: !value,
-                    child: Padding(
+                Column(
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
                           onPressed: () async {
-                            removedNotifier.value = true;
-                            if (removedNotifier.value == true) {
-                              Categories.instance().categories.removeEx(value: category);
-                            }
+                            _image.text = widget.category.image;
+                            _category.text = widget.category.category;
+                            _description.text = widget.category.description;
+                            await _dialogBuilder(context);
                           },
-                          icon: const Icon(Icons.delete_forever)),
+                          icon: const Icon(Icons.edit)),
                     ),
-                  ),
-                )
+                    ValueListenableBuilder<bool>(
+                      valueListenable: removedNotifier,
+                      builder: (_, value, __) => Visibility(
+                        visible: !value,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                              onPressed: () async {
+                                removedNotifier.value = true;
+                                if (removedNotifier.value == true) {
+                                  Categories.instance().categories.removeEx(value: widget.category);
+                                }
+                              },
+                              icon: const Icon(Icons.delete_forever)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add a new Group'),
+          content: SizedBox(
+            width: 300,
+
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _category,
+                      maxLength: 100,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Category Name',
+                      ),
+                      validator: (text) =>
+                      (text == null || text.isEmpty)?
+                      'Text is empty':
+                      null,
+                    ),
+                  ),
+                  const Divider(height: 20,),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _image,
+                      maxLength: 255,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Image URL',
+                      ),
+                      validator: (value) {
+                        ///Используем встроенный валидатор
+                        if(value != null){
+                          final Uri? uri = Uri.tryParse(value);
+                          if(uri != null) {
+                            if (!uri.hasAbsolutePath) {
+                              return 'Please enter valid url';
+                            } else {
+                              return null;
+                            }
+                          }
+                        }
+                        return 'Please enter valid url';
+                        ///Используем регулярные выражения
+                        // String hasValidUrl(String value) {
+                        //   String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+                        //   RegExp regExp = new RegExp(pattern);
+                        //   if (value.length == 0) {
+                        //     return 'Please enter url';
+                        //   }
+                        //   else if (!regExp.hasMatch(value)) {
+                        //     return 'Please enter valid url';
+                        //   }
+                        //   return null;
+                        // }
+                      },
+                    ),
+                  ),
+                  const Divider(height: 20,),
+                  Expanded(
+                    child: Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        reverse: false,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: _description,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null, //grow automatically
+                            maxLength: 2048,
+                            minLines: 1,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Description',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Add'),
+              onPressed: () async {
+                var cSt = _formKey.currentState;
+                if(cSt != null && cSt.validate()){
+                  //addData();
+                  Logger.print('In progress...', name: 'log', level: 0, error: false);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

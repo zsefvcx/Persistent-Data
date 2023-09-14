@@ -13,7 +13,7 @@ class CategoriesPage extends StatefulWidget {
   });
 
   final String title;
-  final gid;
+  final int gid;
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
@@ -74,46 +74,48 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title:Text(widget.title),
-        ),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+              title:Text(widget.title),
+          ),
 
-        body: _isLoading==false
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.separated(
-                  itemCount: Categories.instance().categories.length,
-                  itemBuilder: (_, i) => CategoryCard(category: Categories.instance().categories.toList()[i]),
-                  separatorBuilder: (_, __) => const Divider(color: Colors.lightBlueAccent),
-                ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(right: 40),
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              heroTag: UniqueKey(),
-              onPressed: (){
-                _dialogBuilder(context);
-                Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
-              },
-              tooltip: 'Add a new Group',
-              child: const Icon(Icons.add),
-            ),
-            const SizedBox(height: 10,),
-            FloatingActionButton(
-              heroTag: UniqueKey(),
-              onPressed: () async {
-                await loadData();
-                Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
-              },
-              tooltip: 'Reload Groups',
-              child: const Icon(Icons.update),
-            ),
-          ],
-      ),
+          body: _isLoading==false
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.separated(
+                    itemCount: Categories.instance().categories.length,
+                    itemBuilder: (_, i) => CategoryCard(category: Categories.instance().categories.toList()[i]),
+                    separatorBuilder: (_, __) => const Divider(color: Colors.lightBlueAccent),
+                  ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: (){
+                  _dialogBuilder(context);
+                  //Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
+                },
+                tooltip: 'Add a new Group',
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 10,),
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: () async {
+                  await loadData();
+                  //Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
+                },
+                tooltip: 'Reload Groups',
+                child: const Icon(Icons.update),
+              ),
+            ],
         ),
+          ),
+      ),
     );
   }
 

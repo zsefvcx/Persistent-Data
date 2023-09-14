@@ -20,10 +20,10 @@ Future<void> main() async {
   final Set<Group> groups = {
                 //gid = null  - создается новая запись в базе данных
                 //        group - сделаем уникальным
-      const Group(gid: 1, group:   'Movies', description: 'Фильмы'),
-      const Group(gid: 2, group:   'Series', description:  'Сериалы'),
-      const Group(gid: 3, group:    'Games', description:   'Игры'),
-      const Group(gid: 4, group: 'TV Shows', description: 'ТВ Шоу'),
+      const Group(gid: 1, group:   'Movies', description: 'Фильмы', image: 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg'),
+      const Group(gid: 2, group:   'Series', description:  'Сериалы', image: 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg'),
+      const Group(gid: 3, group:    'Games', description:   'Игры', image: 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg'),
+      const Group(gid: 4, group: 'TV Shows', description: 'ТВ Шоу', image: 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg'),
     };
 
   ///Сохраняем в db
