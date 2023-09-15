@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'categories.g.dart';
+part 'category.g.dart';
 
-///Категории по ИД.
-class Categories extends Equatable{
-
-  final Set<Category> categories;//категории
-  final Set<Group> group;//группы
-
-  static Categories? _instance;
-  ///синглтон - один он в приложении...
-  factory Categories.instance() => _instance ??= Categories._();
-
-  Categories._() : categories = {}, group = {};
-
-  @override
-  List<Object?> get props => [
-    categories,
-    group,
-  ];
-
-  @override
-  String toString() {
-    return '$categories\n$group';
-  }
-}
+// ///Категории по ИД.
+// class Categories extends Equatable{
+//
+//   final Set<Category> categories;//категории
+//   final Set<Group> group;//группы
+//
+//   static Categories? _instance;
+//   ///синглтон - один он в приложении...
+//   factory Categories.instance() => _instance ??= Categories._();
+//
+//   Categories._() : categories = {}, group = {};
+//
+//   @override
+//   List<Object?> get props => [
+//     categories,
+//     group,
+//   ];
+//
+//   @override
+//   String toString() {
+//     return '$categories\n$group';
+//   }
+// }
 
 @JsonSerializable()
 class Group extends Equatable{

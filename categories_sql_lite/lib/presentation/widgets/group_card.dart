@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
+import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import '../categories.dart';
@@ -31,7 +32,7 @@ class _GroupCardState extends State<GroupCard> {
       description: _description.text,
       image: _image.text,
     );
-    await Categories.instance().group.modEx(value: group);
+    await GroupsEntity.instance().group.modEx(value: group);
     setState(() {
     });
   }
@@ -148,7 +149,7 @@ class _GroupCardState extends State<GroupCard> {
                               onPressed: () async {
                                 removedNotifier.value = true;
                                 if (removedNotifier.value == true) {
-                                  Categories.instance().group.removeEx(value: group);
+                                  GroupsEntity.instance().group.removeEx(value: group);
                                 }
                               },
                               icon: const Icon(Icons.delete_forever)),

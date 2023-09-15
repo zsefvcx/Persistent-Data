@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/core.dart';
-import 'pages/pages.dart';
+import 'presentation/pages.dart';
 
 class RouteGenerator{
 

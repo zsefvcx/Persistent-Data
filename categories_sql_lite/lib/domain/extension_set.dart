@@ -1,14 +1,28 @@
-import '../db/database.dart';
-import 'categories.dart';
+import '../data/db/database.dart';
+import '../core/category.dart';
 
 /// расширение для класса Map
 /// Для String ограничение в 6 символов
 ///
 ///Примечание: Если убрать имя то эта конгструкция будет действроать только в
 ///этом файле и импорт в другие работать не будет.
+enum TypeT{
+  isGroup,
+  isCategory,
+}
+
 extension MyExtSet<V>  on Set<V> {
   ///не более [ $countValue ] записей
   static int countValue = 100;
+
+  ///Читаем из базы. Потом переделать.
+  Future<void> addAllEx(TypeT type, {int id = -1}) async {
+    if (type == TypeT.isCategory) {
+      addAll(await DBProvider.db.getAllElementsGroup(id) as List<V>);
+    } else if (type == TypeT.isGroup) {
+      addAll(await DBProvider.db.getGroups() as List<V>);
+    }
+  }
 
   ///Меняем в базе. менять не целесообразно в сете. Потом если использовать Bloc
   ///пересмотрть на уровне данных.

@@ -1,3 +1,2 @@
-export 'categories.dart';
+export 'category.dart';
 export 'logger.dart';
-export 'extension_set.dart';

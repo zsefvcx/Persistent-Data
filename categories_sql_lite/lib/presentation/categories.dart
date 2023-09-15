@@ -1,7 +1,7 @@
+import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import '../core/core.dart';
-import '../db/database.dart';
 import 'widgets/category_card.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -28,24 +28,24 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
 
   Future<void> loadData() async {
-    Categories.instance().categories.clear();
+    CategoriesEntity.instance().categories.clear();
     setState(() {
       _isLoading = false;
     });
-    Categories.instance().categories.addAll(await DBProvider.db.getAllElementsGroup(widget.gid));
+    await CategoriesEntity.instance().categories.addAllEx(id: widget.gid, TypeT.isCategory);
     await Future.delayed(const Duration(seconds: 1), (){
       setState(() {
         _isLoading = true;
       });
-    }
-    );
+    });
+    Logger.print('gid:${widget.gid}:categories:${CategoriesEntity.instance().categories}', name: 'log', level: 0, error: false);
   }
 
   Future<void> addData() async {
     setState(() {
       _isLoading = false;
     });
-    await Categories.instance().categories.addEx(value: Category(
+    await CategoriesEntity.instance().categories.addEx(value: Category(
       id: null,
       category: _category.text,
       gid: widget.gid,
@@ -69,7 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     _category.dispose();
     _image.dispose();
     _description.dispose();
-    Categories.instance().categories.clear();
+    CategoriesEntity.instance().categories.clear();
   }
 
   @override
@@ -83,8 +83,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
           body: _isLoading==false
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.separated(
-                    itemCount: Categories.instance().categories.length,
-                    itemBuilder: (_, i) => CategoryCard(category: Categories.instance().categories.toList()[i]),
+                    itemCount: CategoriesEntity.instance().categories.length,
+                    itemBuilder: (_, i) => CategoryCard(category: CategoriesEntity.instance().categories.toList()[i]),
                     separatorBuilder: (_, __) => const Divider(color: Colors.lightBlueAccent),
                   ),
           floatingActionButton: Padding(

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
+import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import '../pages.dart';
@@ -32,7 +33,7 @@ class _CategoryCardState extends State<CategoryCard> {
       description: _description.text,
       image: _image.text,
     );
-    await Categories.instance().categories.modEx(value: category);
+    await CategoriesEntity.instance().categories.modEx(value: category);
     setState(() {
     });
   }
@@ -140,7 +141,7 @@ class _CategoryCardState extends State<CategoryCard> {
                               onPressed: () async {
                                 removedNotifier.value = true;
                                 if (removedNotifier.value == true) {
-                                  Categories.instance().categories.removeEx(value: category);
+                                  CategoriesEntity.instance().categories.removeEx(value: category);
                                 }
                               },
                               icon: const Icon(Icons.delete_forever)),

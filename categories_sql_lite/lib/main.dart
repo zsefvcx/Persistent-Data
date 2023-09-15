@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -28,9 +29,9 @@ Future<void> main() async {
 
   ///Сохраняем в db
   for(var elem in groups) {
-    await Categories.instance().group.addEx(value: elem);
+    await GroupsEntity.instance().group.addEx(value: elem);
   }
-  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
+  Logger.print('${GroupsEntity.instance().group}', name: 'log', level: 0, error: false);
   final Set<Category> category = {
     const Category(id: 1, gid: 1, category: 'Финник (2022)', image: 'https://ithinker.ru/static/images/film/18/318578.jpg', description: 'Мало кто знает, но в каждом доме живет… свой домовой! Это забавное мохнатое существо тайно обитает в мире людей и хранит домашний очаг. Домовой Финник — добрый, озорной, но немного вредный. Он любит подшутить над жильцами своего дома, поэтому ни одна семья не задерживается в его владениях надолго. Но все меняется, когда в дом въезжают находчивая девочка Кристина и ее родители: на них уловки домового совсем не действуют! Вскоре Кристина знакомится с Финником и узнает тайны жизни домовых. Тем временем, в их городке начинают происходить странные и пугающие события… Отважной девочке и домовому придется стать командой, чтобы разобраться в происходящем и спасти город.'),
     const Category(id: 2, gid: 1, category: 'Молодой человек (2022)', image: 'https://ithinker.ru/static/images/film/no-avatar-big.jpg', description: 'Ваня Ревзин к своим 30 годам, несмотря на золотую медаль в школе и красный диплом МГУ, оказался на дне: жена ушла к КМС по боксу, с убогой работы в банке уволили, а до закрытия ипотеки за маленькую студию в человейнике — годы боли и страданий. В момент отчаяния Иван узнает, что его ушлый одноклассник-двоечник Коля стал преуспевающим бизнесменом и объявил конкурс для старшеклассников с многомиллионным призовым фондом. Ваня, который выглядит сильно моложе своих лет, и которому даже алкоголь продают только по паспорту, решается на аферу. Он сбривает бороду, подделывает документы и едет на соревнование с уверенностью, что жизненный опыт легко одолеет молодость.'),
@@ -52,15 +53,15 @@ Future<void> main() async {
 
   ///Сохраняем в db
   for(var elem in category) {
-    await Categories.instance().categories.addEx(value: elem);
+    await CategoriesEntity.instance().categories.addEx(value: elem);
   }
-  Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
+  Logger.print('${CategoriesEntity.instance().categories}', name: 'log', level: 0, error: false);
 
   ///Чистим загруженные данные....
-  Categories.instance().group.clear();
-  Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
-  Categories.instance().categories.clear();
-  Logger.print('${Categories.instance().categories}', name: 'log', level: 0, error: false);
+  GroupsEntity.instance().group.clear();
+  Logger.print('group:${GroupsEntity.instance().group}', name: 'log', level: 0, error: false);
+  CategoriesEntity.instance().categories.clear();
+  Logger.print('categories:${CategoriesEntity.instance().categories}', name: 'log', level: 0, error: false);
 
   ///Запускаем наше приложение
   runApp(const CategoriesApp());
