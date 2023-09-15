@@ -152,26 +152,36 @@ class DBProvider {
   }
 
   ///UPDATE Group
-  Future<int> updateGroup(Group data) async {
+  Future<int> updateGroup(Group data,
+      {
+        ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
+      }) async {
     Database db = await database;
 
     return await db.update(
         _groupTable,
         data.toJson(),
         where: '"$_groupId" = ?',
-        whereArgs: [data.gid]);
+        whereArgs: [data.gid],
+        conflictAlgorithm: conflictAlgorithm,
+    );
 
   }
 
   ///UPDATE Category
-  Future<int> updateCategory(Category data) async {
+  Future<int> updateCategory(Category data,
+      {
+        ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
+      }) async {
     Database db = await database;
 
     return await db.update(
         _categoriesTable,
         data.toJson(),
         where: '"$_columnId" = ?',
-        whereArgs: [data.id]);
+        whereArgs: [data.id],
+        conflictAlgorithm: conflictAlgorithm,
+    );
 
   }
 

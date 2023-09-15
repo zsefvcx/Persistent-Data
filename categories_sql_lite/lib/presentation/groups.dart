@@ -1,8 +1,8 @@
 
+import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 
-import '../core/core.dart';
 import 'widgets/group_card.dart';
 
 class GroupsPage extends StatefulWidget {

@@ -1,5 +1,6 @@
-import '../data/db/database.dart';
-import '../core/category.dart';
+
+import 'package:categories_sql_lite/core/core.dart';
+import 'package:categories_sql_lite/data/db/database.dart';
 
 /// расширение для класса Map
 /// Для String ограничение в 6 символов
