@@ -27,15 +27,25 @@ class _CategoryCardState extends State<CategoryCard> {
   late Category category;
 
   Future<void> modifyData() async {
-    category = Category(
-      id: category.id,
-      gid: category.gid,
-      category: _category.text,
-      description: _description.text,
-      image: _image.text,
+    context.read<CategoriesBloc>().add(CategoriesBlocEvent.updateCategory(
+      oldValue: category,
+      value: Category(
+        id: category.id,
+        gid: category.gid,
+        category: _category.text,
+        description: _description.text,
+        image: _image.text,
+      ),
+    ),
     );
-    //await CategoriesEntity.instance().categories.modEx(value: category);
     setState(() {
+      category = Category(
+        id: category.id,
+        gid: category.gid,
+        category: _category.text,
+        description: _description.text,
+        image: _image.text,
+      );
     });
   }
 
