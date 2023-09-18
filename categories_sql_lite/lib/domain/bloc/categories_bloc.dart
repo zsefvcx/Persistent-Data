@@ -55,8 +55,8 @@ class CategoriesBlocState with _$CategoriesBlocState{
 
 @freezed
 class CategoriesBlocEvent with _$CategoriesBlocEvent{
-  const factory CategoriesBlocEvent.init() = _initEvent;
-  const factory CategoriesBlocEvent.getCategories({required int page}) = _getCategoriesEvent;
+  const factory CategoriesBlocEvent.init({required int gid}) = _initEvent;
+  const factory CategoriesBlocEvent.getCategories({required int gid, required int page}) = _getCategoriesEvent;
   const factory CategoriesBlocEvent.insertCategory({required Category value}) = _insertCategoryEvent;
   const factory CategoriesBlocEvent.updateCategory({required Category oldValue, required Group value}) = _updateCategoryEvent;
   const factory CategoriesBlocEvent.deleteCategory({required Category value}) = _deleteCategoryEvent;
