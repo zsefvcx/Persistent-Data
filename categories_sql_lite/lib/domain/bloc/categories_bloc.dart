@@ -109,36 +109,36 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
 
   }
 
-  // Future<void> _getGroups(int page) async {
-  //   AGroupsEntity? groupsModel;
-  //   String? e;
-  //   bool? error = false;
-  //   bool? timeOut;
-  //   try {
-  //     //получаем первую страницу при инициализации
-  //     var res = await groupsRepository.getGroups(page).timeout(const Duration(seconds: 2),
-  //         onTimeout: () {
-  //           e = null;
-  //           error = true;
-  //           timeOut  = true;
-  //           return null;
-  //         });
-  //     if (res != null) {
-  //       groupsModel = GroupsModel(res, page);
-  //     }
-  //   } catch (ee){
-  //     e = ee.toString();
-  //     error = true;
-  //     timeOut  = false;
-  //   }
-  //   groupsModelData = groupsModelData.copyWith(
-  //     groups: groupsModel,
-  //     timeOut: timeOut,
-  //     e: e,
-  //     error: error,
-  //   );
-  //
-  // }
+  Future<void> _getGroups(int page) async {
+    AGroupsEntity? groupsModel;
+    String? e;
+    bool? error = false;
+    bool? timeOut;
+    try {
+      //получаем первую страницу при инициализации
+      var res = await categoriesRepository.getCategoriesGroup(page).timeout(const Duration(seconds: 2),
+          onTimeout: () {
+            e = null;
+            error = true;
+            timeOut  = true;
+            return null;
+          });
+      if (res != null) {
+        groupsModel = GroupsModel(res, page);
+      }
+    } catch (ee){
+      e = ee.toString();
+      error = true;
+      timeOut  = false;
+    }
+    groupsModelData = groupsModelData.copyWith(
+      groups: groupsModel,
+      timeOut: timeOut,
+      e: e,
+      error: error,
+    );
+
+  }
   //
   // Future<void> _insertGroup(Group value) async {
   //   String? e;
