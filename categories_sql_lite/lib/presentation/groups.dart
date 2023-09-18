@@ -83,8 +83,8 @@ class _GroupsPageState extends State<GroupsPage> {
                   },
                   loaded: ( value) {
                     return ListView.separated(
-                               itemCount: value.model.groups.group.length,
-                               itemBuilder: (_, i) => GroupCard(group: value.model.groups.group.toList()[i]),
+                               itemCount: value.model.groups.groups.length,
+                               itemBuilder: (_, i) => GroupCard(group: value.model.groups.groups.toList()[i]),
                                separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
                     );
                   },

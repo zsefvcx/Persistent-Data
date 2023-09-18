@@ -20,7 +20,7 @@ class GroupsRepositoryImpl extends GroupsRepository{
         return await DBProvider.db.deleteGroup(gid);
       }
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error deleteGroup: $e\n$t');
     }
     throw('Error deleteGroup');
@@ -31,7 +31,7 @@ class GroupsRepositoryImpl extends GroupsRepository{
     try {
        return await DBProvider.db.getGroups(page);
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error getGroups: $e\n$t');
     }
   }
@@ -44,7 +44,7 @@ class GroupsRepositoryImpl extends GroupsRepository{
     try{
       return await DBProvider.db.insertGroup(value, conflictAlgorithm:conflictAlgorithm);
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error insertGroup: $e\n$t');
     }
   }

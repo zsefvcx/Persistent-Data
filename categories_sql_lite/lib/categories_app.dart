@@ -3,6 +3,7 @@ import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import 'route_generator.dart';
 
 class CategoriesApp extends StatefulWidget {

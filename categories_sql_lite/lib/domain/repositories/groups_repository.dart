@@ -1,6 +1,5 @@
 
 import 'package:categories_sql_lite/core/core.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:sqflite/sqflite.dart'
         if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 

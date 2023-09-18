@@ -20,35 +20,35 @@ class CategoriesRepositoryImpl extends CategoriesRepository{
         return await DBProvider.db.deleteCategory(id);
       }
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error deleteCategory: $e\n$t');
     }
     throw('Error deleteCategory');
   }
 
   @override
-  Future<List<Category>> getCategoriesGroup(Group value) async {
+  Future<List<Category>?> getCategoriesGroup(Group value, int page) async {
     int? gid = value.gid;
     try {
       if (gid != null) {
-          return await DBProvider.db.getAllElementsGroup(gid);
+          return await DBProvider.db.getAllElementsGroup(gid, page);
       }
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error getAllElementsGroup: $e\n$t');
     }
     throw('Error getAllElementsGroup');
   }
 
   @override
-  Future<Category> insertCategory(Category value,
+  Future<Category?> insertCategory(Category value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
     try{
       return await DBProvider.db.insertCategory(value, conflictAlgorithm:conflictAlgorithm);
     } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
+      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error insertCategory: $e\n$t');
     }
   }

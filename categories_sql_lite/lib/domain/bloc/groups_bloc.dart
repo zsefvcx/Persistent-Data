@@ -19,7 +19,7 @@ class GroupsModelData {
   final bool error;
   final String e;
 
-  bool get isLoaded => groups.group.isNotEmpty;
+  bool get isLoaded => groups.groups.isNotEmpty;
   bool get isTimeOut => timeOut;
   bool get isError => error;
 
@@ -126,10 +126,11 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
       if (res != null) {
         groupsModel = GroupsModel(res, page);
       }
-    } catch (ee){
+    } catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
     groupsModelData = groupsModelData.copyWith(
       groups: groupsModel,
@@ -153,12 +154,13 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModelData.groups.group.add(res);
+        groupsModelData.groups.groups.add(res);
       }
-    } catch (ee){
+    } catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
     groupsModelData = groupsModelData.copyWith(
       timeOut: timeOut,
@@ -180,13 +182,14 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return 0;
           });
       if (res > 0) {
-        groupsModelData.groups.group.remove(oldValue);
-        groupsModelData.groups.group.add(value);
+        groupsModelData.groups.groups.remove(oldValue);
+        groupsModelData.groups.groups.add(value);
       }
-    } catch (ee){
+    } catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
     groupsModelData = groupsModelData.copyWith(
       timeOut: timeOut,
@@ -200,7 +203,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var (resG, resC) = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
+      var (resG, _) = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -209,12 +212,13 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
           });
       if (resG > 0)
       {
-        groupsModelData.groups.group.remove(value);
+        groupsModelData.groups.groups.remove(value);
       }
-    } catch (ee){
+    } catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
     groupsModelData = groupsModelData.copyWith(
       timeOut: timeOut,

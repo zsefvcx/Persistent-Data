@@ -55,10 +55,10 @@ class CategoriesBlocState with _$CategoriesBlocState{
 
 @freezed
 class CategoriesBlocEvent with _$CategoriesBlocEvent{
-  const factory CategoriesBlocEvent.init({required int gid}) = _initEvent;
-  const factory CategoriesBlocEvent.getCategories({required int gid, required int page}) = _getCategoriesEvent;
+  const factory CategoriesBlocEvent.init({required Group group}) = _initEvent;
+  const factory CategoriesBlocEvent.getCategories({required Group group, required int page}) = _getCategoriesEvent;
   const factory CategoriesBlocEvent.insertCategory({required Category value}) = _insertCategoryEvent;
-  const factory CategoriesBlocEvent.updateCategory({required Category oldValue, required Group value}) = _updateCategoryEvent;
+  const factory CategoriesBlocEvent.updateCategory({required Category oldValue, required Category value}) = _updateCategoryEvent;
   const factory CategoriesBlocEvent.deleteCategory({required Category value}) = _deleteCategoryEvent;
 }
 
@@ -81,25 +81,25 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
       await event.map<FutureOr<void>>(
           init: (_initEvent value) async {
             emit(const CategoriesBlocState.loading());
-            //await _getGroups(0);
+            await _getCategories(value.group, 0);
             emit(CategoriesBlocState.loaded(model: categoriesModelData));
           },
           getCategories: (_getCategoriesEvent value) async {
             emit(const CategoriesBlocState.loading());
-            //await _getGroups(value.page);
+            await _getCategories(value.group, value.page);
             emit(CategoriesBlocState.loaded(model: categoriesModelData));
           },
           insertCategory: (_insertCategoryEvent value) async {
             emit(const CategoriesBlocState.loading());
-            //await _insertGroup(value.value);
+            await _insertCategory(value.value);
             emit(CategoriesBlocState.loaded(model: categoriesModelData));
           },
           updateCategory: (_updateCategoryEvent value) async {
-           // await _updateGroup(value.oldValue, value.value);
+            await _updateCategory(value.oldValue, value.value);
           },
           deleteCategory: (_deleteCategoryEvent value) async {
             emit(const CategoriesBlocState.loading());
-            //await _deleteGroup(value.value);
+            await _deleteCategory(value.value);
             emit(CategoriesBlocState.loaded(model: categoriesModelData));
           }
 
@@ -109,14 +109,44 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
 
   }
 
-  Future<void> _getGroups(int page) async {
-    AGroupsEntity? groupsModel;
+  Future<void> _getCategories(Group value, int page) async {
+    ACategoriesEntity? categoriesModel;
     String? e;
     bool? error = false;
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await categoriesRepository.getCategoriesGroup(page).timeout(const Duration(seconds: 2),
+      var res = await categoriesRepository.getCategoriesGroup(value, page).timeout(const Duration(seconds: 2),
+          onTimeout: () {
+              e = null;
+              error = true;
+              timeOut  = true;
+              return null;
+          });
+      if (res != null) {
+        categoriesModel = CategoriesModel(res, page);
+      }
+    } catch (ee, t){
+      e = ee.toString();
+      error = true;
+      timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    }
+    categoriesModelData = categoriesModelData.copyWith(
+      categories: categoriesModel,
+      timeOut: timeOut,
+      e: e,
+      error: error,
+    );
+
+  }
+
+  Future<void> _insertCategory(Category value) async {
+    String? e;
+    bool? error = false;
+    bool? timeOut;
+    try {
+      var res = await categoriesRepository.insertCategory(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -124,102 +154,76 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModel = GroupsModel(res, page);
+        categoriesModelData.categories.categories.add(res);
       }
-    } catch (ee){
+    } catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
-      groups: groupsModel,
+    categoriesModelData = categoriesModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,
     );
-
   }
-  //
-  // Future<void> _insertGroup(Group value) async {
-  //   String? e;
-  //   bool? error = false;
-  //   bool? timeOut;
-  //   try {
-  //     var res = await groupsRepository.insertGroup(value).timeout(const Duration(seconds: 2),
-  //         onTimeout: () {
-  //           e = null;
-  //           error = true;
-  //           timeOut  = true;
-  //           return null;
-  //         });
-  //     if (res != null) {
-  //       groupsModelData.groups.group.add(res);
-  //     }
-  //   } catch (ee){
-  //     e = ee.toString();
-  //     error = true;
-  //     timeOut  = false;
-  //   }
-  //   groupsModelData = groupsModelData.copyWith(
-  //     timeOut: timeOut,
-  //     e: e,
-  //     error: error,
-  //   );
-  // }
-  //
-  // Future<void> _updateGroup(Group oldValue, Group value) async {
-  //   String? e;
-  //   bool? error = false;
-  //   bool? timeOut;
-  //   try {
-  //     var res = await groupsRepository.updateGroup(value).timeout(const Duration(seconds: 2),
-  //         onTimeout: () {
-  //           e = null;
-  //           error = true;
-  //           timeOut  = true;
-  //           return 0;
-  //         });
-  //     if (res > 0) {
-  //       groupsModelData.groups.group.remove(oldValue);
-  //       groupsModelData.groups.group.add(value);
-  //     }
-  //   } catch (ee){
-  //     e = ee.toString();
-  //     error = true;
-  //     timeOut  = false;
-  //   }
-  //   groupsModelData = groupsModelData.copyWith(
-  //     timeOut: timeOut,
-  //     e: e,
-  //     error: error,
-  //   );
-  // }
-  //
-  // Future<void> _deleteGroup(Group value) async {
-  //   String? e;
-  //   bool? error = false;
-  //   bool? timeOut;
-  //   try {
-  //     var (resG, resC) = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
-  //         onTimeout: () {
-  //           e = null;
-  //           error = true;
-  //           timeOut  = true;
-  //           return (0, 0);
-  //         });
-  //     if (resG > 0)
-  //     {
-  //       groupsModelData.groups.group.remove(value);
-  //     }
-  //   } catch (ee){
-  //     e = ee.toString();
-  //     error = true;
-  //     timeOut  = false;
-  //   }
-  //   groupsModelData = groupsModelData.copyWith(
-  //     timeOut: timeOut,
-  //     e: e,
-  //     error: error,
-  //   );
-  // }
+
+  Future<void> _updateCategory(Category oldValue, Category value) async {
+    String? e;
+    bool? error = false;
+    bool? timeOut;
+    try {
+      var res = await categoriesRepository.updateCategory(oldValue, value).timeout(const Duration(seconds: 2),
+          onTimeout: () {
+            e = null;
+            error = true;
+            timeOut  = true;
+            return 0;
+          });
+      if (res > 0) {
+        categoriesModelData.categories.categories.remove(oldValue);
+        categoriesModelData.categories.categories.add(value);
+      }
+    } catch (ee, t){
+      e = ee.toString();
+      error = true;
+      timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    }
+    categoriesModelData = categoriesModelData.copyWith(
+      timeOut: timeOut,
+      e: e,
+      error: error,
+    );
+  }
+
+  Future<void> _deleteCategory(Category value) async {
+    String? e;
+    bool? error = false;
+    bool? timeOut;
+    try {
+      var (res) = await categoriesRepository.deleteCategory(value).timeout(const Duration(seconds: 2),
+          onTimeout: () {
+            e = null;
+            error = true;
+            timeOut  = true;
+            return 0;
+          });
+      if (res > 0)
+      {
+        categoriesModelData.categories.categories.remove(value);
+      }
+    } catch (ee, t){
+      e = ee.toString();
+      error = true;
+      timeOut  = false;
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    }
+    categoriesModelData = categoriesModelData.copyWith(
+      timeOut: timeOut,
+      e: e,
+      error: error,
+    );
+  }
 }

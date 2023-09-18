@@ -1,6 +1,7 @@
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/category_card.dart';
 
@@ -8,59 +9,41 @@ class CategoriesPage extends StatefulWidget {
   static const routeName = '/cat';
   const CategoriesPage({
     super.key,
-    required this.title,
-    required this.gid,
+    required this.group,
   });
 
-  final String title;
-  final int gid;
+  final Group group;
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
-  late bool _isLoading;
   final TextEditingController _category = TextEditingController();
   final TextEditingController _image = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-
   Future<void> loadData() async {
-    CategoriesEntity.instance().categories.clear();
-    setState(() {
-      _isLoading = false;
-    });
-    await CategoriesEntity.instance().categories.addAllEx(id: widget.gid, TypeT.isCategory);
-    await Future.delayed(const Duration(seconds: 1), (){
-      setState(() {
-        _isLoading = true;
-      });
-    });
-    Logger.print('gid:${widget.gid}:categories:${CategoriesEntity.instance().categories}', name: 'log', level: 0, error: false);
+    context.read<CategoriesBloc>().add(CategoriesBlocEvent.getCategories(group: widget.group, page: 0));
   }
 
   Future<void> addData() async {
-    setState(() {
-      _isLoading = false;
-    });
-    await CategoriesEntity.instance().categories.addEx(value: Category(
-      id: null,
-      category: _category.text,
-      gid: widget.gid,
-      image: _image.text,
-      description: _description.text,
-    ));
-    setState(() {
-      _isLoading = true;
-    });
+    context.read<CategoriesBloc>().add(CategoriesBlocEvent.insertCategory(
+      value: Category(
+        id: null,
+        gid: widget.group.gid!,
+        category: _category.text,
+        description: _description.text,
+        image: _image.text,
+      ),
+    ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    loadData();
   }
 
   @override
@@ -69,7 +52,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
     _category.dispose();
     _image.dispose();
     _description.dispose();
-    CategoriesEntity.instance().categories.clear();
   }
 
   @override
@@ -77,17 +59,32 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-              title:Text(widget.title),
+              title:Text(widget.group.group),
           ),
 
-          body: _isLoading==false
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.separated(
-                    itemCount: CategoriesEntity.instance().categories.length,
-                    itemBuilder: (_, i) => CategoryCard(category: CategoriesEntity.instance().categories.toList()[i]),
+          body: BlocBuilder<CategoriesBloc, CategoriesBlocState>(
+            builder: (context, state) {
+              return state.map(
+                loading: (_) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+                error: (_) {
+                  return const Placeholder();   //ErrorTimeOutWidget();
+                },
+                timeOut: (_) {
+                  return const Placeholder();   //ErrorTimeOutWidget();
+                },
+                loaded: ( value) {
+                  return ListView.separated(
+                    itemCount: value.model.categories.categories.length,
+                    itemBuilder: (_, i) => CategoryCard(category: value.model.categories.categories.toList()[i]),
                     separatorBuilder: (_, __) => const Divider(color: Colors.lightBlueAccent),
-                  ),
-          floatingActionButton: Padding(
+                  );
+                },
+              );
+            },
+          ),
+        floatingActionButton: Padding(
             padding: const EdgeInsets.only(right: 40),
             child: Column(
             mainAxisAlignment: MainAxisAlignment.end,

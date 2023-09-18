@@ -577,28 +577,28 @@ abstract class _timeOut implements CategoriesBlocState {
 mixin _$CategoriesBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) =>
@@ -657,7 +657,7 @@ abstract class _$$_initEventCopyWith<$Res> {
           _$_initEvent value, $Res Function(_$_initEvent) then) =
       __$$_initEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({int gid});
+  $Res call({Group group});
 }
 
 /// @nodoc
@@ -671,13 +671,13 @@ class __$$_initEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? gid = null,
+    Object? group = null,
   }) {
     return _then(_$_initEvent(
-      gid: null == gid
-          ? _value.gid
-          : gid // ignore: cast_nullable_to_non_nullable
-              as int,
+      group: null == group
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as Group,
     ));
   }
 }
@@ -685,14 +685,14 @@ class __$$_initEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_initEvent implements _initEvent {
-  const _$_initEvent({required this.gid});
+  const _$_initEvent({required this.group});
 
   @override
-  final int gid;
+  final Group group;
 
   @override
   String toString() {
-    return 'CategoriesBlocEvent.init(gid: $gid)';
+    return 'CategoriesBlocEvent.init(group: $group)';
   }
 
   @override
@@ -700,11 +700,11 @@ class _$_initEvent implements _initEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_initEvent &&
-            (identical(other.gid, gid) || other.gid == gid));
+            (identical(other.group, group) || other.group == group));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, gid);
+  int get hashCode => Object.hash(runtimeType, group);
 
   @JsonKey(ignore: true)
   @override
@@ -715,39 +715,39 @@ class _$_initEvent implements _initEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) {
-    return init(gid);
+    return init(group);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) {
-    return init?.call(gid);
+    return init?.call(group);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) {
     if (init != null) {
-      return init(gid);
+      return init(group);
     }
     return orElse();
   }
@@ -794,9 +794,9 @@ class _$_initEvent implements _initEvent {
 }
 
 abstract class _initEvent implements CategoriesBlocEvent {
-  const factory _initEvent({required final int gid}) = _$_initEvent;
+  const factory _initEvent({required final Group group}) = _$_initEvent;
 
-  int get gid;
+  Group get group;
   @JsonKey(ignore: true)
   _$$_initEventCopyWith<_$_initEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -808,7 +808,7 @@ abstract class _$$_getCategoriesEventCopyWith<$Res> {
           $Res Function(_$_getCategoriesEvent) then) =
       __$$_getCategoriesEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({int gid, int page});
+  $Res call({Group group, int page});
 }
 
 /// @nodoc
@@ -822,14 +822,14 @@ class __$$_getCategoriesEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? gid = null,
+    Object? group = null,
     Object? page = null,
   }) {
     return _then(_$_getCategoriesEvent(
-      gid: null == gid
-          ? _value.gid
-          : gid // ignore: cast_nullable_to_non_nullable
-              as int,
+      group: null == group
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as Group,
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -841,16 +841,16 @@ class __$$_getCategoriesEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_getCategoriesEvent implements _getCategoriesEvent {
-  const _$_getCategoriesEvent({required this.gid, required this.page});
+  const _$_getCategoriesEvent({required this.group, required this.page});
 
   @override
-  final int gid;
+  final Group group;
   @override
   final int page;
 
   @override
   String toString() {
-    return 'CategoriesBlocEvent.getCategories(gid: $gid, page: $page)';
+    return 'CategoriesBlocEvent.getCategories(group: $group, page: $page)';
   }
 
   @override
@@ -858,12 +858,12 @@ class _$_getCategoriesEvent implements _getCategoriesEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_getCategoriesEvent &&
-            (identical(other.gid, gid) || other.gid == gid) &&
+            (identical(other.group, group) || other.group == group) &&
             (identical(other.page, page) || other.page == page));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, gid, page);
+  int get hashCode => Object.hash(runtimeType, group, page);
 
   @JsonKey(ignore: true)
   @override
@@ -875,39 +875,39 @@ class _$_getCategoriesEvent implements _getCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) {
-    return getCategories(gid, page);
+    return getCategories(group, page);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) {
-    return getCategories?.call(gid, page);
+    return getCategories?.call(group, page);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) {
     if (getCategories != null) {
-      return getCategories(gid, page);
+      return getCategories(group, page);
     }
     return orElse();
   }
@@ -955,10 +955,10 @@ class _$_getCategoriesEvent implements _getCategoriesEvent {
 
 abstract class _getCategoriesEvent implements CategoriesBlocEvent {
   const factory _getCategoriesEvent(
-      {required final int gid,
+      {required final Group group,
       required final int page}) = _$_getCategoriesEvent;
 
-  int get gid;
+  Group get group;
   int get page;
   @JsonKey(ignore: true)
   _$$_getCategoriesEventCopyWith<_$_getCategoriesEvent> get copyWith =>
@@ -1030,10 +1030,10 @@ class _$_insertCategoryEvent implements _insertCategoryEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) {
     return insertCategory(value);
@@ -1042,10 +1042,10 @@ class _$_insertCategoryEvent implements _insertCategoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) {
     return insertCategory?.call(value);
@@ -1054,10 +1054,10 @@ class _$_insertCategoryEvent implements _insertCategoryEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) {
@@ -1124,7 +1124,7 @@ abstract class _$$_updateCategoryEventCopyWith<$Res> {
           $Res Function(_$_updateCategoryEvent) then) =
       __$$_updateCategoryEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Category oldValue, Group value});
+  $Res call({Category oldValue, Category value});
 }
 
 /// @nodoc
@@ -1149,7 +1149,7 @@ class __$$_updateCategoryEventCopyWithImpl<$Res>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Group,
+              as Category,
     ));
   }
 }
@@ -1162,7 +1162,7 @@ class _$_updateCategoryEvent implements _updateCategoryEvent {
   @override
   final Category oldValue;
   @override
-  final Group value;
+  final Category value;
 
   @override
   String toString() {
@@ -1192,10 +1192,10 @@ class _$_updateCategoryEvent implements _updateCategoryEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) {
     return updateCategory(oldValue, value);
@@ -1204,10 +1204,10 @@ class _$_updateCategoryEvent implements _updateCategoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) {
     return updateCategory?.call(oldValue, value);
@@ -1216,10 +1216,10 @@ class _$_updateCategoryEvent implements _updateCategoryEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) {
@@ -1273,10 +1273,10 @@ class _$_updateCategoryEvent implements _updateCategoryEvent {
 abstract class _updateCategoryEvent implements CategoriesBlocEvent {
   const factory _updateCategoryEvent(
       {required final Category oldValue,
-      required final Group value}) = _$_updateCategoryEvent;
+      required final Category value}) = _$_updateCategoryEvent;
 
   Category get oldValue;
-  Group get value;
+  Category get value;
   @JsonKey(ignore: true)
   _$$_updateCategoryEventCopyWith<_$_updateCategoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1347,10 +1347,10 @@ class _$_deleteCategoryEvent implements _deleteCategoryEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int gid) init,
-    required TResult Function(int gid, int page) getCategories,
+    required TResult Function(Group group) init,
+    required TResult Function(Group group, int page) getCategories,
     required TResult Function(Category value) insertCategory,
-    required TResult Function(Category oldValue, Group value) updateCategory,
+    required TResult Function(Category oldValue, Category value) updateCategory,
     required TResult Function(Category value) deleteCategory,
   }) {
     return deleteCategory(value);
@@ -1359,10 +1359,10 @@ class _$_deleteCategoryEvent implements _deleteCategoryEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int gid)? init,
-    TResult? Function(int gid, int page)? getCategories,
+    TResult? Function(Group group)? init,
+    TResult? Function(Group group, int page)? getCategories,
     TResult? Function(Category value)? insertCategory,
-    TResult? Function(Category oldValue, Group value)? updateCategory,
+    TResult? Function(Category oldValue, Category value)? updateCategory,
     TResult? Function(Category value)? deleteCategory,
   }) {
     return deleteCategory?.call(value);
@@ -1371,10 +1371,10 @@ class _$_deleteCategoryEvent implements _deleteCategoryEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int gid)? init,
-    TResult Function(int gid, int page)? getCategories,
+    TResult Function(Group group)? init,
+    TResult Function(Group group, int page)? getCategories,
     TResult Function(Category value)? insertCategory,
-    TResult Function(Category oldValue, Group value)? updateCategory,
+    TResult Function(Category oldValue, Category value)? updateCategory,
     TResult Function(Category value)? deleteCategory,
     required TResult orElse(),
   }) {

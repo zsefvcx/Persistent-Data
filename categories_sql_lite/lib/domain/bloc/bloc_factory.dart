@@ -3,8 +3,6 @@ import 'package:categories_sql_lite/data/data.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:get_it/get_it.dart';
 
-import 'groups_bloc.dart';
-
 class BlocFactory {
   static final _getIt = GetIt.I;
 

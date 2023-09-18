@@ -68,10 +68,14 @@ class DBProvider {
   }
 
   ///READ ALL ELEMENT FROM GROUP
-  Future<List<Category>> getAllElementsGroup(int id) async {
+  ///Пока получаем все элементы из списка
+  Future<List<Category>> getAllElementsGroup(int id, int page) async {
     Database db = await database;
     final List<Map<String, dynamic>> categoriesMapList =
-    await db.query(_categoriesTable, where: '$_groupId = ?', whereArgs: [id]);
+    await db.query(_categoriesTable,
+        where: '$_groupId = ?',
+        whereArgs: [id]
+    );
     final List<Category> categoryList = [];
 
     for (var element in categoriesMapList) {

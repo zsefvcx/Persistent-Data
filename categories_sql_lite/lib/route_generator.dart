@@ -29,14 +29,11 @@ class RouteGenerator{
         );
       case CategoriesPage.routeName:
         if(args != null && args is Group) {
-          int? gid = args.gid;
-          if (gid != null) {
             return PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  CategoriesPage(title: args.group, gid: gid),
+                  CategoriesPage(group: args),
               transitionsBuilder: transitionsBuilder,
             );
-          }
         }
         return _errorRoute();
       case CategoryPage.routeName:

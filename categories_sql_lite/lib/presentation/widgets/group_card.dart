@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
+import 'package:categories_sql_lite/presentation/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../categories.dart';
 
 class GroupCard extends StatefulWidget {
   const GroupCard({
@@ -66,81 +65,90 @@ class _GroupCardState extends State<GroupCard> {
 
     // int? id = group.gid;
 
-    return Card(
-      child: SizedBox(
-        height: 120,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CachedNetworkImage(
-                  imageUrl: group.image,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                          //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
-                      ),
-                    ),
-                  ),
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Text(
-                              group.group,
-                              style: theme.textTheme.titleLarge,
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        group.description,
-                        style: theme.textTheme.bodySmall,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Column(
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          context.read<CategoriesBloc>().add(CategoriesBlocEvent.init(group: group));
+          Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: group);
+        },
+        child: Card(
+          child: SizedBox(
+            height: 120,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    onPressed: () async {
-                      _image.text = group.image;
-                      _group.text = group.group;
-                      _description.text = group.description;
-                      await _dialogBuilder(context);
-                    },
-                    icon: const Icon(Icons.edit),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: group.image,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      onPressed: () async {
-                          context.read<GroupsBloc>().add(GroupsBlocEvent.deleteGroup(value: group));
-                      },
-                      icon: const Icon(Icons.delete_forever)),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Center(
+                          child: Text(
+                                  group.group,
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            group.description,
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () async {
+                          _image.text = group.image;
+                          _group.text = group.group;
+                          _description.text = group.description;
+                          await _dialogBuilder(context);
+                        },
+                        icon: const Icon(Icons.edit),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                          onPressed: () async {
+                              context.read<GroupsBloc>().add(GroupsBlocEvent.deleteGroup(value: group));
+                          },
+                          icon: const Icon(Icons.delete_forever)),
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );

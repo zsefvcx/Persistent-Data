@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../pages.dart';
 
@@ -33,7 +34,7 @@ class _CategoryCardState extends State<CategoryCard> {
       description: _description.text,
       image: _image.text,
     );
-    await CategoriesEntity.instance().categories.modEx(value: category);
+    //await CategoriesEntity.instance().categories.modEx(value: category);
     setState(() {
     });
   }
@@ -55,13 +56,10 @@ class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool removed = false;
-    // int? id = group.gid;
-    final ValueNotifier<bool> removedNotifier = ValueNotifier<bool>(removed);
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: category):null,
+        onTap: () => Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: category),
         child: Card(
           child: SizedBox(
             height: 120,
@@ -94,17 +92,9 @@ class _CategoryCardState extends State<CategoryCard> {
                       Expanded(
                         flex: 2,
                         child: Center(
-                          child: ValueListenableBuilder<bool>(
-                            valueListenable: removedNotifier,
-                            builder: (_, value, __) => value
-                                ? Text(category.category,
-                                style: theme.textTheme.titleLarge?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                ))
-                                : Text(
-                              category.category,
-                              style: theme.textTheme.titleLarge,
-                            ),
+                          child: Text(
+                            category.category,
+                            style: theme.textTheme.titleLarge,
                           ),
                         ),
                       ),
@@ -113,40 +103,25 @@ class _CategoryCardState extends State<CategoryCard> {
                 ),
                 Column(
                   children: [
-                    ValueListenableBuilder<bool>(
-                    valueListenable: removedNotifier,
-                    builder: (_, value, __) => Visibility(
-                      visible: !value,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                            onPressed: () async {
-                              _image.text = category.image;
-                              _category.text = category.category;
-                              _description.text = category.description;
-                              await _dialogBuilder(context);
-                            },
-                            icon: const Icon(Icons.edit),
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                          onPressed: () async {
+                            _image.text = category.image;
+                            _category.text = category.category;
+                            _description.text = category.description;
+                            await _dialogBuilder(context);
+                          },
+                          icon: const Icon(Icons.edit),
                         ),
                       ),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: removedNotifier,
-                      builder: (_, value, __) => Visibility(
-                        visible: !value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                              onPressed: () async {
-                                removedNotifier.value = true;
-                                if (removedNotifier.value == true) {
-                                  CategoriesEntity.instance().categories.removeEx(value: category);
-                                }
-                              },
-                              icon: const Icon(Icons.delete_forever)),
-                        ),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                          onPressed: () async {
+                              context.read<CategoriesBloc>().add(CategoriesBlocEvent.deleteCategory(value: category));
+                          },
+                          icon: const Icon(Icons.delete_forever)),
                     ),
                   ],
                 ),

@@ -1,6 +1,5 @@
 
 import 'package:categories_sql_lite/data/db/database.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
 
 import 'core.dart';
 
@@ -55,7 +54,7 @@ class FakeCategoryEntity {
 
     ///Сохраняем в db
     for(var elem in category) {
-      await CategoriesEntity.instance().categories.addEx(value: elem);
+      await DBProvider.db.insertCategory(elem);
     }
 
     _loadingFake = true;
