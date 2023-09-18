@@ -27,7 +27,7 @@ class CategoriesRepositoryImpl extends CategoriesRepository{
   }
 
   @override
-  Future<List<Category>> getAllElementsGroup(Group value) async {
+  Future<List<Category>> getCategoriesGroup(Group value) async {
     int? gid = value.gid;
     try {
       if (gid != null) {

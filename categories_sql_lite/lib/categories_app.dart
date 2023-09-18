@@ -14,12 +14,14 @@ class CategoriesApp extends StatefulWidget {
 
 class _CategoriesAppState extends State<CategoriesApp> {
   late final GroupsBloc _groupsBloc;
+  late final CategoriesBloc _categoriesBloc;
 
   @override
   void initState() {
     super.initState();
     _groupsBloc = BlocFactory.instance.get<GroupsBloc>();
     _groupsBloc.add(const GroupsBlocEvent.init());
+    _categoriesBloc = BlocFactory.instance.get<CategoriesBloc>();
   }
 
   @override
@@ -29,6 +31,9 @@ class _CategoriesAppState extends State<CategoriesApp> {
         Provider<GroupsBloc>(
             create: (_) =>
             _groupsBloc),
+        Provider<CategoriesBloc>(
+            create: (_) =>
+            _categoriesBloc),
       ],
       child: MaterialApp(
         title: 'Categories',

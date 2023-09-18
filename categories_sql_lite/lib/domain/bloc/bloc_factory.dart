@@ -17,7 +17,13 @@ class BlocFactory {
 
     _getIt.registerLazySingleton<GroupsBloc>(
           () => GroupsBloc(
-       groupsRepository:  ServiceProvider.instance.get<GroupsRepository>(),
+            groupsRepository:  ServiceProvider.instance.get<GroupsRepository>(),
+      ),
+    );
+
+    _getIt.registerLazySingleton<CategoriesBloc>(
+          () => CategoriesBloc(
+            categoriesRepository:  ServiceProvider.instance.get<CategoriesRepository>(),
       ),
     );
 

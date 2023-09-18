@@ -8,9 +8,9 @@ abstract class CategoriesRepository{
 
   Future<int> deleteCategory(Category value);
 
-  Future<List<Category>> getAllElementsGroup(Group value);
+  Future<List<Category>?> getCategoriesGroup(Group value);
 
-  Future<Category> insertCategory(Category value,
+  Future<Category?> insertCategory(Category value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

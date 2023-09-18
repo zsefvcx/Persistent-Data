@@ -6,25 +6,27 @@ import 'package:equatable/equatable.dart';
 class CategoriesEntity extends ACategoriesEntity{
   static CategoriesEntity? _instance;
   ///синглтон - один он в приложении...
-  factory CategoriesEntity.instance() => _instance ??= CategoriesEntity._();
+  factory CategoriesEntity.instance() => _instance ??= const CategoriesEntity._();
 
-  CategoriesEntity._() : super();
+  const CategoriesEntity._() : super(const <Category>[], 0);
 }
 
 ///Категории.
 abstract class ACategoriesEntity extends Equatable{
-  final Set<Category> categories;//категории
+  final int page;//страница
+  final List<Category> categories;//категории
 
-  ACategoriesEntity() : categories = {};
+  const ACategoriesEntity(List<Category> listCategory, this.page) : categories = listCategory;
 
   @override
   List<Object?> get props => [
+    page,
     categories,
   ];
 
   @override
   String toString() {
-    return '$categories';
+    return '$page:$categories';
   }
 }
 

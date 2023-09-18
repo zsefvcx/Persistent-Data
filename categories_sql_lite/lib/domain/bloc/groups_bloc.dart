@@ -67,9 +67,9 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
   final GroupsRepository groupsRepository;
 
 
-  GroupsModelData groupsModelData = GroupsModelData(
+  GroupsModelData groupsModelData = const GroupsModelData(
     timeOut: false,
-    groups: GroupsModel(const <Group>[], 0),
+    groups: GroupsModel(<Group>[], 0),
     e: '',
     error: false,
   );
@@ -95,9 +95,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             emit(GroupsBlocState.loaded(model: groupsModelData));
           },
           updateGroup: (_updateGroupEvent value) async {
-            Logger.print("${groupsModelData.groups}", name: 'log', level: 0, error: false);
             await _updateGroup(value.oldValue, value.value);
-            Logger.print("${groupsModelData.groups}", name: 'log', level: 0, error: false);
           },
           deleteGroup: (_deleteGroupEvent value) async {
             emit(const GroupsBlocState.loading());
@@ -182,9 +180,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return 0;
           });
       if (res > 0) {
-        Logger.print("${oldValue}", name: 'log', level: 0, error: false);
         groupsModelData.groups.group.remove(oldValue);
-        Logger.print("${value}", name: 'log', level: 0, error: false);
         groupsModelData.groups.group.add(value);
       }
     } catch (ee){
