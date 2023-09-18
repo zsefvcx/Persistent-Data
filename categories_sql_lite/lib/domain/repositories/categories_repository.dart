@@ -6,13 +6,11 @@ if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.da
 
 abstract class CategoriesRepository{
 
-  late ACategoriesEntity categoriesModel;
-
   Future<int> deleteCategory(Category value);
 
-  Future<bool> getAllElementsGroup(Group value);
+  Future<List<Category>> getAllElementsGroup(Group value);
 
-  Future<void> insertCategory(Category value,
+  Future<Category> insertCategory(Category value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

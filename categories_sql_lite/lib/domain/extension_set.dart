@@ -21,7 +21,7 @@ extension MyExtSet<V>  on Set<V> {
     if (type == TypeT.isCategory) {
       addAll(await DBProvider.db.getAllElementsGroup(id) as List<V>);
     } else if (type == TypeT.isGroup) {
-      addAll(await DBProvider.db.getGroups() as List<V>);
+      addAll(await DBProvider.db.getGroups(0) as List<V>);
     }
   }
 

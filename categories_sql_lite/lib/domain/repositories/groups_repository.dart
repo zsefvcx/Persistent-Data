@@ -6,18 +6,16 @@ import 'package:sqflite/sqflite.dart'
 
 abstract class GroupsRepository{
 
-  late AGroupsEntity groupsModel;
-
   Future<(int, int)> deleteGroup(Group value);
 
-  Future<bool> getGroups();
+  Future<List<Group>?> getGroups(int page);
 
-  Future<void> insertGroup(Group value,
+  Future<Group?> insertGroup(Group value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });
 
-  Future<int> updateGroup(Group oldValue, Group value,
+  Future<int> updateGroup(Group value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

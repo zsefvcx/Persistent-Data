@@ -2,6 +2,7 @@
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/group_card.dart';
 
@@ -18,7 +19,6 @@ class GroupsPage extends StatefulWidget {
 
 class _GroupsPageState extends State<GroupsPage> {
 
-  late bool _isLoading;
   final TextEditingController _group = TextEditingController();
   final TextEditingController _image = TextEditingController();
   final TextEditingController _description = TextEditingController();
@@ -26,39 +26,24 @@ class _GroupsPageState extends State<GroupsPage> {
 
 
   Future<void> loadData() async {
-    GroupsEntity.instance().group.clear();
-    setState(() {
-      _isLoading = false;
-    });
-    await GroupsEntity.instance().group.addAllEx(TypeT.isGroup);
-    await Future.delayed(const Duration(seconds: 1), (){
-      setState(() {
-        _isLoading = true;
-      });
-    });
-    Logger.print('group:${GroupsEntity.instance().group}', name: 'log', level: 0, error: false);
+    context.read<GroupsBloc>().add(const GroupsBlocEvent.getGroups(page: 0));
   }
 
   Future<void> addData() async {
-    setState(() {
-      _isLoading = false;
-    });
-    await GroupsEntity.instance().group.addEx(value: Group(
-        gid: null,
-        group: _group.text,
-        description: _description.text,
-        image: _image.text,
+    context.read<GroupsBloc>().add(GroupsBlocEvent.insertGroup(
+        value: Group(
+          gid: null,
+          group: _group.text,
+          description: _description.text,
+          image: _image.text,
+        ),
       ),
     );
-    setState(() {
-      _isLoading = true;
-    });
   }
 
   @override
   void initState() {
     super.initState();
-    loadData();
   }
 
   @override
@@ -67,7 +52,7 @@ class _GroupsPageState extends State<GroupsPage> {
     _group.dispose();
     _image.dispose();
     _description.dispose();
-    GroupsEntity.instance().group.clear();
+    //GroupsEntity.instance().group.clear();
   }
 
   @override
@@ -83,13 +68,30 @@ class _GroupsPageState extends State<GroupsPage> {
             automaticallyImplyLeading: false,
               title:Text(widget.title),
             ),
-          body: _isLoading==false
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.separated(
-                itemCount: GroupsEntity.instance().group.length,
-                itemBuilder: (_, i) => GroupCard(group: GroupsEntity.instance().group.toList()[i]),
-                separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
-              ),
+          body: SafeArea(
+            child: BlocBuilder<GroupsBloc, GroupsBlocState>(
+              builder: (context, state) {
+                return state.map(
+                  loading: (_) {
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                  error: (_) {
+                    return const Placeholder();   //ErrorTimeOutWidget();
+                  },
+                  timeOut: (_) {
+                    return const Placeholder();   //ErrorTimeOutWidget();
+                  },
+                  loaded: ( value) {
+                    return ListView.separated(
+                               itemCount: value.model.groups.group.length,
+                               itemBuilder: (_, i) => GroupCard(group: value.model.groups.group.toList()[i]),
+                               separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(right: 40),
             child: Column(

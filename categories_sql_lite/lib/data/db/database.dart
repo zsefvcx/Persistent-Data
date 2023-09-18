@@ -49,10 +49,14 @@ class DBProvider {
   }
 
   ///READ GROUP
-  Future<List<Group>> getGroups() async {
+  ///Пока получаем все элементы из списка
+  Future<List<Group>> getGroups(int page) async {
     Database db = await database;
     final List<Map<String, dynamic>> groupsMapList =
-        await db.query(_groupTable);
+        await db.query(_groupTable,
+          // where: '$_columnId = ?',
+          //whereArgs: [page*10]
+        );
     final List<Group> groupList = [];
 
     for (var element in groupsMapList) {
@@ -60,7 +64,8 @@ class DBProvider {
           Group.fromJson(element)
       );
     }
-    return groupList;
+    return await Future<List<Group>>.delayed(const Duration(seconds: 1),
+          () => groupList,);
   }
 
   ///READ ALL ELEMENT FROM GROUP

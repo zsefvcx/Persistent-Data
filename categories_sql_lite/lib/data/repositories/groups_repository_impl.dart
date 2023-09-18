@@ -5,18 +5,18 @@ import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:sqflite/sqflite.dart'
 if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class GroupRepositoryImpl extends GroupsRepository{
+class GroupsRepositoryImpl extends GroupsRepository{
 
-  GroupRepositoryImpl(){
-    groupsModel = GroupsModel();
-  }
+  final NetworkInfo networkInfo;
+  //if(await networkInfo.isConnected){ <- Для работы с сетью
+
+  GroupsRepositoryImpl({required this.networkInfo});
 
   @override
   Future<(int, int)> deleteGroup(Group value) async {
     int? gid = value.gid;
     try {
       if (gid != null) {
-        groupsModel.group.remove(value);
         return await DBProvider.db.deleteGroup(gid);
       }
     } catch(e,t){
@@ -27,11 +27,9 @@ class GroupRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<bool> getGroups() async {
+  Future<List<Group>?> getGroups(int page) async {
     try {
-      groupsModel.group.addAll(
-        await DBProvider.db.getGroups());
-      return groupsModel.group.isNotEmpty;
+       return await DBProvider.db.getGroups(page);
     } catch(e,t){
       Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
       throw('Error getGroups: $e\n$t');
@@ -39,12 +37,12 @@ class GroupRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<void> insertGroup(Group value,
+  Future<Group?> insertGroup(Group value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
     try{
-      groupsModel.group.add(await DBProvider.db.insertGroup(value, conflictAlgorithm:conflictAlgorithm));
+      return await DBProvider.db.insertGroup(value, conflictAlgorithm:conflictAlgorithm);
     } catch(e,t){
       Logger.print('Error $e\n$t', name: 'log', level: 0, error: false);
       throw('Error insertGroup: $e\n$t');
@@ -52,12 +50,10 @@ class GroupRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<int> updateGroup(Group oldValue, Group value,
+  Future<int> updateGroup(Group value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
-    groupsModel.group.remove(oldValue);
-    groupsModel.group.add(value);
     return await DBProvider.db.updateGroup(value, conflictAlgorithm: conflictAlgorithm);
   }
 
