@@ -82,17 +82,17 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
           init: (_initEvent value) async {
             emit(const GroupsBlocState.loading());
             await _getGroups(0);
-            emit(GroupsBlocState.loaded(model: groupsModelData));
+            _response(emit);
           },
           getGroups: (_getGroupsEvent value) async {
             emit(const GroupsBlocState.loading());
             await _getGroups(value.page);
-            emit(GroupsBlocState.loaded(model: groupsModelData));
+            _response(emit);
           },
           insertGroup: (_insertGroupEvent value) async {
             emit(const GroupsBlocState.loading());
             await _insertGroup(value.value);
-            emit(GroupsBlocState.loaded(model: groupsModelData));
+            _response(emit);
           },
           updateGroup: (_updateGroupEvent value) async {
             await _updateGroup(value.oldValue, value.value);
@@ -100,13 +100,25 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
           deleteGroup: (_deleteGroupEvent value) async {
             emit(const GroupsBlocState.loading());
             await _deleteGroup(value.value);
-            emit(GroupsBlocState.loaded(model: groupsModelData));
+            _response(emit);
           }
 
       );
 
     });
 
+  }
+
+  void _response(Emitter<GroupsBlocState> emit){
+    if (groupsModelData.error){
+      if(groupsModelData.timeOut){
+        emit(const GroupsBlocState.timeOut());
+      } else {
+        emit(const GroupsBlocState.error());
+      }
+    } else{
+      emit(GroupsBlocState.loaded(model: groupsModelData));
+    }
   }
 
   Future<void> _getGroups(int page) async {

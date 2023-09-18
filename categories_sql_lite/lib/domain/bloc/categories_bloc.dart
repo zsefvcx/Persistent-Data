@@ -82,17 +82,17 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
           init: (_initEvent value) async {
             emit(const CategoriesBlocState.loading());
             await _getCategories(value.group, 0);
-            emit(CategoriesBlocState.loaded(model: categoriesModelData));
+            _response(emit);
           },
           getCategories: (_getCategoriesEvent value) async {
             emit(const CategoriesBlocState.loading());
             await _getCategories(value.group, value.page);
-            emit(CategoriesBlocState.loaded(model: categoriesModelData));
+            _response(emit);
           },
           insertCategory: (_insertCategoryEvent value) async {
             emit(const CategoriesBlocState.loading());
             await _insertCategory(value.value);
-            emit(CategoriesBlocState.loaded(model: categoriesModelData));
+            _response(emit);
           },
           updateCategory: (_updateCategoryEvent value) async {
             await _updateCategory(value.oldValue, value.value);
@@ -100,13 +100,25 @@ class CategoriesBloc extends Bloc<CategoriesBlocEvent, CategoriesBlocState>{
           deleteCategory: (_deleteCategoryEvent value) async {
             emit(const CategoriesBlocState.loading());
             await _deleteCategory(value.value);
-            emit(CategoriesBlocState.loaded(model: categoriesModelData));
+            _response(emit);
           }
 
       );
 
     });
 
+  }
+
+  void _response(Emitter<CategoriesBlocState> emit){
+    if (categoriesModelData.error){
+      if(categoriesModelData.timeOut){
+        emit(const CategoriesBlocState.timeOut());
+      } else {
+        emit(const CategoriesBlocState.error());
+      }
+    } else{
+      emit(CategoriesBlocState.loaded(model: categoriesModelData));
+    }
   }
 
   Future<void> _getCategories(Group value, int page) async {

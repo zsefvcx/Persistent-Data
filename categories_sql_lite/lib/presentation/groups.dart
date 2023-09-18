@@ -1,10 +1,10 @@
 
 import 'package:categories_sql_lite/core/core.dart';
 import 'package:categories_sql_lite/domain/domain.dart';
+import 'package:categories_sql_lite/presentation/widgets/error_time_out_widget.dart';
+import 'package:categories_sql_lite/presentation/widgets/group_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'widgets/group_card.dart';
 
 class GroupsPage extends StatefulWidget {
   static const routeName = '/';
@@ -76,10 +76,10 @@ class _GroupsPageState extends State<GroupsPage> {
                     return const Center(child: CircularProgressIndicator());
                   },
                   error: (_) {
-                    return const Placeholder();   //ErrorTimeOutWidget();
+                    return const ErrorTimeOutWidget<GroupsBloc>(page: 0,);
                   },
                   timeOut: (_) {
-                    return const Placeholder();   //ErrorTimeOutWidget();
+                    return const ErrorTimeOutWidget<GroupsBloc>(page: 0,);
                   },
                   loaded: ( value) {
                     return ListView.separated(
