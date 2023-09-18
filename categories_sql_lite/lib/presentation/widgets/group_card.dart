@@ -23,20 +23,13 @@ class _GroupCardState extends State<GroupCard> {
   final TextEditingController _image = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
   late Group group;
 
   Future<void> modifyData() async {
-    group = Group(
-      gid: group.gid,
-      group: _group.text,
-      description: _description.text,
-      image: _image.text,
-    );
     context.read<GroupsBloc>().add(GroupsBlocEvent.updateGroup(
       oldValue: group,
       value: Group(
-        gid: null,
+        gid: group.gid,
         group: _group.text,
         description: _description.text,
         image: _image.text,
@@ -44,6 +37,12 @@ class _GroupCardState extends State<GroupCard> {
     ),
     );
     setState(() {
+      group = Group(
+        gid: group.gid,
+        group: _group.text,
+        description: _description.text,
+        image: _image.text,
+      );
     });
   }
 
@@ -64,113 +63,84 @@ class _GroupCardState extends State<GroupCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool removed = false;
+
     // int? id = group.gid;
-    final ValueNotifier<bool> removedNotifier = ValueNotifier<bool>(removed);
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => !removedNotifier.value?Navigator.of(context).pushNamed(CategoriesPage.routeName, arguments: group):null,
-        child: Card(
-          child: SizedBox(
-            height: 120,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CachedNetworkImage(
-                      imageUrl: group.image,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                              //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
-                          ),
-                        ),
+
+    return Card(
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CachedNetworkImage(
+                  imageUrl: group.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          //colorFilter: const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
                       ),
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: ValueListenableBuilder<bool>(
-                            valueListenable: removedNotifier,
-                            builder: (_, value, __) => value
-                                ? Text(group.group,
-                                    style: theme.textTheme.titleLarge?.copyWith(
-                                      decoration: TextDecoration.lineThrough,
-                                    ))
-                                : Text(
-                                    group.group,
-                                    style: theme.textTheme.titleLarge,
-                                  ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            group.description,
-                            style: theme.textTheme.bodySmall,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    ValueListenableBuilder<bool>(
-                      valueListenable: removedNotifier,
-                      builder: (_, value, __) => Visibility(
-                        visible: !value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            onPressed: () async {
-                              _image.text = group.image;
-                              _group.text = group.group;
-                              _description.text = group.description;
-                              await _dialogBuilder(context);
-                            },
-                            icon: const Icon(Icons.edit),
-                          ),
-                        ),
-                      ),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: removedNotifier,
-                      builder: (_, value, __) => Visibility(
-                        visible: !value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                              onPressed: () async {
-                                removedNotifier.value = true;
-                                if (removedNotifier.value == true) {
-                                  //GroupsEntity.instance().group.removeEx(value: group);
-                                }
-                              },
-                              icon: const Icon(Icons.delete_forever)),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+              ),
             ),
-          ),
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Text(
+                              group.group,
+                              style: theme.textTheme.titleLarge,
+                            ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        group.description,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: () async {
+                      _image.text = group.image;
+                      _group.text = group.group;
+                      _description.text = group.description;
+                      await _dialogBuilder(context);
+                    },
+                    icon: const Icon(Icons.edit),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      onPressed: () async {
+                          context.read<GroupsBloc>().add(GroupsBlocEvent.deleteGroup(value: group));
+                      },
+                      icon: const Icon(Icons.delete_forever)),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

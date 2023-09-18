@@ -64,8 +64,7 @@ class DBProvider {
           Group.fromJson(element)
       );
     }
-    return await Future<List<Group>>.delayed(const Duration(seconds: 1),
-          () => groupList,);
+    return groupList;
   }
 
   ///READ ALL ELEMENT FROM GROUP

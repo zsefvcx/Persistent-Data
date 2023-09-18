@@ -89,22 +89,20 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             await _getGroups(value.page);
             emit(GroupsBlocState.loaded(model: groupsModelData));
           },
-          insertGroup: (_insertGroupEvent value) {
+          insertGroup: (_insertGroupEvent value) async {
             emit(const GroupsBlocState.loading());
-            _insertGroup(value.value);
+            await _insertGroup(value.value);
             emit(GroupsBlocState.loaded(model: groupsModelData));
           },
-          updateGroup: (_updateGroupEvent value) {
-            _updateGroup(value.oldValue, value.value);
+          updateGroup: (_updateGroupEvent value) async {
+            Logger.print("${groupsModelData.groups}", name: 'log', level: 0, error: false);
+            await _updateGroup(value.oldValue, value.value);
+            Logger.print("${groupsModelData.groups}", name: 'log', level: 0, error: false);
           },
-          deleteGroup: (_deleteGroupEvent value) {
+          deleteGroup: (_deleteGroupEvent value) async {
             emit(const GroupsBlocState.loading());
-            /// Бла Бла
-            ///
-            /// Удаляем группу
-            ///
-            /// обновляем страницу с текущим индексом
-            ///
+            await _deleteGroup(value.value);
+            emit(GroupsBlocState.loaded(model: groupsModelData));
           }
 
       );
@@ -184,7 +182,9 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return 0;
           });
       if (res > 0) {
+        Logger.print("${oldValue}", name: 'log', level: 0, error: false);
         groupsModelData.groups.group.remove(oldValue);
+        Logger.print("${value}", name: 'log', level: 0, error: false);
         groupsModelData.groups.group.add(value);
       }
     } catch (ee){
@@ -199,4 +199,31 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
     );
   }
 
+  Future<void> _deleteGroup(Group value) async {
+    String? e;
+    bool? error = false;
+    bool? timeOut;
+    try {
+      var (resG, resC) = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
+          onTimeout: () {
+            e = null;
+            error = true;
+            timeOut  = true;
+            return (0, 0);
+          });
+      if (resG > 0)
+      {
+        groupsModelData.groups.group.remove(value);
+      }
+    } catch (ee){
+      e = ee.toString();
+      error = true;
+      timeOut  = false;
+    }
+    groupsModelData = groupsModelData.copyWith(
+      timeOut: timeOut,
+      e: e,
+      error: error,
+    );
+  }
 }

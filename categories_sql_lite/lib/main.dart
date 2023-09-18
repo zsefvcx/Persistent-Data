@@ -38,8 +38,8 @@ Future<void> main() async {
 
   BlocFactory.instance.initialize();
 
-  FakeGroupsEntity.createFakeGroups();
-  FakeCategoryEntity.createFakeCategory();
+  await FakeGroupsEntity.createFakeGroups();
+  await FakeCategoryEntity.createFakeCategory();
 
   ///Запускаем наше приложение
   runApp(const CategoriesApp());

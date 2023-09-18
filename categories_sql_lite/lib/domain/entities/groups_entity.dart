@@ -5,9 +5,9 @@ import 'package:equatable/equatable.dart';
 ///Группы категорий.
 abstract class AGroupsEntity extends Equatable {
   final int page;//страница
-  final Set<Group> group;//группы
+  final List<Group> group;//группы
 
-  AGroupsEntity(List<Group> listGroup, this.page) : group = listGroup.toSet();
+  const AGroupsEntity(List<Group> listGroup, this.page) : group = listGroup;
 
   @override
   List<Object?> get props => [
