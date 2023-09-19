@@ -1,6 +1,6 @@
 
-import 'package:categories_sql_lite/core/core.dart';
 import 'package:equatable/equatable.dart';
+import 'package:photo_aql_lite/core/core.dart';
 
 ///Группы категорий.
 abstract class AGroupsEntity extends Equatable {

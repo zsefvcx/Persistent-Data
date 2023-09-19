@@ -1,13 +1,13 @@
 
 import 'dart:async';
 
-import 'package:categories_sql_lite/core/core.dart';
-import 'package:categories_sql_lite/data/data.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:photo_aql_lite/core/core.dart';
+import 'package:photo_aql_lite/data/data.dart';
+import 'package:photo_aql_lite/domain/domain.dart';
 
 part 'groups_bloc.freezed.dart';
 
@@ -215,14 +215,14 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var (resG, _) = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
+      var res = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
             timeOut  = true;
-            return (0, 0);
+            return 0;
           });
-      if (resG > 0)
+      if (res > 0)
       {
         groupsModelData.groups.groups.remove(value);
       }

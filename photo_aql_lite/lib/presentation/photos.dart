@@ -1,10 +1,11 @@
 
-import 'package:categories_sql_lite/core/core.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
-import 'package:categories_sql_lite/presentation/widgets/error_time_out_widget.dart';
-import 'package:categories_sql_lite/presentation/widgets/group_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photo_aql_lite/core/core.dart';
+import 'package:photo_aql_lite/domain/domain.dart';
+
+import 'widgets/error_time_out_widget.dart';
+import 'widgets/pthoto_card.dart';
 
 class GroupsPage extends StatefulWidget {
   static const routeName = '/';
@@ -36,6 +37,7 @@ class _GroupsPageState extends State<GroupsPage> {
           group: _group.text,
           description: _description.text,
           image: _image.text,
+          locator: ''
         ),
       ),
     );
@@ -76,16 +78,16 @@ class _GroupsPageState extends State<GroupsPage> {
                     return const Center(child: CircularProgressIndicator());
                   },
                   error: (_) {
-                    return const ErrorTimeOutWidget<GroupsBloc>(page: 0,);
+                    return const ErrorTimeOutWidget(page: 0,);
                   },
                   timeOut: (_) {
-                    return const ErrorTimeOutWidget<GroupsBloc>(page: 0,);
+                    return const ErrorTimeOutWidget(page: 0,);
                   },
                   loaded: ( value) {
                     return ListView.separated(
                                itemCount: value.model.groups.groups.length,
-                               itemBuilder: (_, i) => GroupCard(group: value.model.groups.groups.toList()[i]),
-                               separatorBuilder: (_, __) => const Divider(color: Colors.lightGreenAccent),
+                               itemBuilder: (_, i) => PhotoCard(group: value.model.groups.groups.toList()[i]),
+                               separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },
                 );
@@ -93,7 +95,7 @@ class _GroupsPageState extends State<GroupsPage> {
             ),
           ),
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(right: 40),
+            padding: const EdgeInsets.only(right: 5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -104,11 +106,8 @@ class _GroupsPageState extends State<GroupsPage> {
                     _dialogBuilder(context);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
-                  tooltip: 'Add a new Group',
-                  child: const Hero(
-                      tag: 'animateHero',
-                      child: Icon(Icons.add),
-                  ),
+                  tooltip: 'Add',
+                  child: const Icon(Icons.add),
                 ),
                 const SizedBox(height: 10,),
                 FloatingActionButton(
@@ -117,7 +116,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     await loadData();
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
-                  tooltip: 'Reload Groups',
+                  tooltip: 'Reload',
                   child: const Icon(Icons.update),
                 ),
               ],
@@ -128,15 +127,15 @@ class _GroupsPageState extends State<GroupsPage> {
     );
 
   }
-//https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
+
+  void _dialogBuilder(BuildContext context) {
+    showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return Hero(
           tag: 'animateHero',
           child: AlertDialog(
-            title: const Text('Add a new Group'),
+            title: const Text('Add a new Photo'),
             content: SizedBox(
               width: 300,
               height: 300,
@@ -152,7 +151,7 @@ class _GroupsPageState extends State<GroupsPage> {
                         maxLength: 10,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Group Name',
+                          labelText: 'Photo Name',
                         ),
                         validator: (text) =>
                             (text == null || text.isEmpty)?

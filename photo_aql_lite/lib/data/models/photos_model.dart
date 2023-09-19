@@ -1,5 +1,6 @@
-import 'package:categories_sql_lite/core/core.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
+
+import 'package:photo_aql_lite/core/core.dart';
+import 'package:photo_aql_lite/domain/domain.dart';
 
 ///Модель
 class GroupsModel extends AGroupsEntity{

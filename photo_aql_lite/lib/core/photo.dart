@@ -15,12 +15,15 @@ class Group extends Equatable{
   final String    description;
   @JsonKey(defaultValue: '')
   final String image;
+  @JsonKey(defaultValue: '')
+  final String locator;
 
   const Group({
     required this.gid,
     required this.group,
     required this.description,
-    required this.image
+    required this.image,
+    required this.locator,
   });
 
   Group copyWith({//
@@ -28,12 +31,14 @@ class Group extends Equatable{
     String?    group,
     String?    description,
     String?    image,
+    String?    locator,
   }) =>
       Group(
         gid:         gid         ?? this.gid,
         group:       group       ?? this.group,
         description: description ?? this.description,
         image:       image       ?? this.image,
+        locator:     locator     ?? this.locator,
       );
 
   @override
@@ -42,6 +47,7 @@ class Group extends Equatable{
     group,
     description,
     image,
+    locator,
   ];
 
   /// Connect the generated [_$GroupFromJson] function to the `fromJson`

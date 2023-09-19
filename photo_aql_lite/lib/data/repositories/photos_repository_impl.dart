@@ -1,7 +1,7 @@
 
-import 'package:categories_sql_lite/core/core.dart';
-import 'package:categories_sql_lite/data/data.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
+import 'package:photo_aql_lite/core/core.dart';
+import 'package:photo_aql_lite/data/data.dart';
+import 'package:photo_aql_lite/domain/domain.dart';
 import 'package:sqflite/sqflite.dart'
 if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -13,7 +13,7 @@ class GroupsRepositoryImpl extends GroupsRepository{
   GroupsRepositoryImpl({required this.networkInfo});
 
   @override
-  Future<(int, int)> deleteGroup(Group value) async {
+  Future<int> deleteGroup(Group value) async {
     int? gid = value.gid;
     try {
       if (gid != null) {

@@ -11,6 +11,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       group: json['group'] as String? ?? 'default',
       description: json['description'] as String? ?? '',
       image: json['image'] as String? ?? '',
+      locator: json['locator'] as String? ?? '',
     );
 
 Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'group': instance.group,
       'description': instance.description,
       'image': instance.image,
+      'locator': instance.locator,
     };
