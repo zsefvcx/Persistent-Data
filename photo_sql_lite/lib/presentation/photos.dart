@@ -25,17 +25,18 @@ class _PhotosPageState extends State<PhotosPage> {
   final _formKey = GlobalKey<FormState>();
 
 
-  Future<void> loadData() async {
-    context.read<PhotosBloc>().add(const PhotosBlocEvent.get(page: 0));
+  Future<void> loadData(PhotosBloc photosBloc) async {
+    photosBloc.add(const PhotosBlocEvent.get(page: 0));
   }
 
-  Future<void> addData() async {
-    context.read<PhotosBloc>().add(PhotosBlocEvent.insert(
+  Future<void> addData(PhotosBloc photosBloc) async {
+    final uuid = await photosBloc.writeToFile(_image.text);
+    photosBloc.add(PhotosBlocEvent.insert(
         value: Photo(
           id: null,
           name: _group.text,
           image: _image.text,
-          locator: ''
+          locator: uuid,
         ),
       ),
     );
@@ -55,7 +56,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    PhotosBloc photosBloc = context.read<PhotosBloc>();
     return WillPopScope(
       onWillPop: () async {
           return false;
@@ -82,7 +83,7 @@ class _PhotosPageState extends State<PhotosPage> {
                   loaded: ( value) {
                     return ListView.separated(
                                itemCount: value.model.data.photos.length,
-                               itemBuilder: (_, i) => PhotoCard(group: value.model.data.photos.toList()[i]),
+                               itemBuilder: (_, i) => PhotoCard(photo: value.model.data.photos.toList()[i]),
                                separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },
@@ -99,7 +100,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 FloatingActionButton(
                   heroTag: UniqueKey(),
                   onPressed: (){
-                    _dialogBuilder(context);
+                    _dialogBuilder(context, photosBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
                   tooltip: 'Load',
@@ -109,7 +110,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 FloatingActionButton(
                   heroTag: UniqueKey(),
                   onPressed: () async {
-                    await loadData();
+                    await loadData(photosBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
                   tooltip: 'Reload',
@@ -124,7 +125,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   }
 
-  void _dialogBuilder(BuildContext context) {
+  void _dialogBuilder(BuildContext context, PhotosBloc photosBloc) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -212,10 +213,10 @@ class _PhotosPageState extends State<PhotosPage> {
                   textStyle: Theme.of(context).textTheme.labelLarge,
                 ),
                 child: const Text('Load'),
-                onPressed: () async {
+                onPressed: () {
                   var cSt = _formKey.currentState;
                   if(cSt != null && cSt.validate()){
-                    addData();
+                    addData(photosBloc);
                     Navigator.of(context).pop();
                   }
                 },

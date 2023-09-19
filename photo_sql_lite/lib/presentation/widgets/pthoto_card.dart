@@ -8,38 +8,39 @@ import 'package:provider/provider.dart';
 class PhotoCard extends StatefulWidget {
   const PhotoCard({
     super.key,
-    required this.group,
+    required this.photo,
   });
 
-  final Photo group;
+  final Photo photo;
 
   @override
   State<PhotoCard> createState() => _PhotoCardState();
 }
 
 class _PhotoCardState extends State<PhotoCard> {
-  final TextEditingController _group = TextEditingController();
+  final TextEditingController _photoName = TextEditingController();
   final TextEditingController _image = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   late Photo photo;
 
-  Future<void> modifyData() async {
-    context.read<PhotosBloc>().add(PhotosBlocEvent.update(
+  Future<void> modifyData(PhotosBloc photosBloc) async {
+    final uuid = await photosBloc.writeToFile(_image.text, photo.locator);
+    photosBloc.add(PhotosBlocEvent.update(
       oldValue: photo,
       value: Photo(
         id: photo.id,
-        name: _group.text,
+        name: _photoName.text,
         image: _image.text,
-        locator: ''
+        locator: uuid,
       ),
     ),
     );
     setState(() {
       photo = Photo(
         id: photo.id,
-        name: _group.text,
+        name: _photoName.text,
         image: _image.text,
-        locator: '',
+        locator: uuid,
       );
     });
   }
@@ -47,18 +48,19 @@ class _PhotoCardState extends State<PhotoCard> {
   @override
   void initState() {
     super.initState();
-    photo = widget.group;
+    photo = widget.photo;
   }
 
   @override
   void dispose() {
     super.dispose();
-    _group.dispose();
+    _photoName.dispose();
     _image.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    PhotosBloc photosBloc = context.read<PhotosBloc>();
     return Card(
       child: SizedBox(
         height: 400,
@@ -84,13 +86,14 @@ class _PhotoCardState extends State<PhotoCard> {
             ),
             Column(
               children: [
+                Center(child: Text('${widget.photo.id}')),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () async {
                       _image.text = photo.image;
-                      _group.text = photo.name;
-                      _dialogBuilder(context);
+                      _photoName.text = photo.name;
+                      _dialogBuilder(context, photosBloc);
                     },
                     icon: const Icon(Icons.edit),
                   ),
@@ -111,7 +114,7 @@ class _PhotoCardState extends State<PhotoCard> {
     );
   }
 
-  void _dialogBuilder(BuildContext context) {
+  void _dialogBuilder(BuildContext context, PhotosBloc photosBloc) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -127,7 +130,7 @@ class _PhotoCardState extends State<PhotoCard> {
                   SizedBox(
                     width: 250,
                     child: TextFormField(
-                      controller: _group,
+                      controller: _photoName,
                       maxLines: 1,
                       maxLength: 255,
                       decoration: const InputDecoration(
@@ -200,7 +203,7 @@ class _PhotoCardState extends State<PhotoCard> {
               onPressed: () async {
                 var cSt = _formKey.currentState;
                 if(cSt != null && cSt.validate()){
-                  modifyData();
+                  modifyData(photosBloc);
                   Navigator.of(context).pop();
                 }
               },

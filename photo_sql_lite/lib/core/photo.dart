@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -53,6 +51,6 @@ class Photo extends Equatable{
 
   @override
   String toString() {
-    return "$id:$name:$image";
+    return "$id:$name:$image:$locator";
   }
 }

@@ -111,9 +111,13 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
   }
 
   Future<Uint8List> getUint8List(String locator) async {
-    var (res, _ ) = await PhotoReadFromIntFile().readCounter(uuid: locator);
-    return res;
+    return (await PhotoReadFromIntFile().readCounter(uuid: locator)).$1;
   }
+
+  Future<String> writeToFile(String url , [String? locator]) async {
+    return (await PhotoReadFromIntFile().writeCounter(url, locator)).$2;
+  }
+
 
   void _response(Emitter<PhotosBlocState> emit){
     if (groupsModelData.error){

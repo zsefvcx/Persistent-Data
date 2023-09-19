@@ -34,9 +34,9 @@ class PhotoReadFromIntFile {
     }
   }
 
-  Future<(File, String)> writeCounter(String url) async {
+  Future<(File, String)> writeCounter(String url, [String? uuid]) async {
     try {
-      final (file, uuidLoc) = await _localFile(uuid: null);
+      final (file, uuidLoc) = await _localFile(uuid: uuid);
 
       final dio = Dio();
       final response = await dio.get<List<int>>(
