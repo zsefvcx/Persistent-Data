@@ -116,8 +116,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
+  void _dialogBuilder(BuildContext context) {
+    showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
