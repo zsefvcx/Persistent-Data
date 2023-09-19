@@ -22,23 +22,23 @@ class ErrorTimeOutWidget<T> extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            (GroupsBloc is GroupsBloc)?
-            Text('isTimeOut  :${(blocBloc as GroupsBloc).groupsModelData.isTimeOut.toString()}'):
+            (blocBloc is GroupsBloc)?
+            Text('isTimeOut  :${blocBloc.groupsModelData.isTimeOut.toString()}'):
             Text('isTimeOut  :${(blocBloc as CategoriesBloc).categoriesModelData.isTimeOut.toString()}'),
-            (GroupsBloc is GroupsBloc)?
-            Text('isError  :${(blocBloc as GroupsBloc).groupsModelData.isError.toString()}'):
+            (blocBloc is GroupsBloc)?
+            Text('isError  :${blocBloc.groupsModelData.isError.toString()}'):
             Text('isError  :${(blocBloc as CategoriesBloc).categoriesModelData.isError.toString()}'),
             const SizedBox(
               height: 50,
             ),
             TextButton(
                 onPressed: () {
-                  if(GroupsBloc is GroupsBloc) {
-                    (blocBloc as GroupsBloc).add(GroupsBlocEvent.getGroups(page: page));
-                  } else if(GroupsBloc is CategoriesBloc) {
+                  if(blocBloc is GroupsBloc) {
+                     blocBloc.add(GroupsBlocEvent.getGroups(page: page));
+                  } else if(blocBloc is CategoriesBloc) {
                     Group? group = this.group;
                     if(group!=null) {
-                      (blocBloc as CategoriesBloc).add(CategoriesBlocEvent.getCategories(group: group, page: page));
+                       blocBloc.add(CategoriesBlocEvent.getCategories(group: group, page: page));
                     }
                   }
                 },
