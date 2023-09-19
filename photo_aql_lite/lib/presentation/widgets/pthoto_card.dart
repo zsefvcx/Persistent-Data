@@ -4,42 +4,39 @@ import 'package:photo_aql_lite/core/core.dart';
 import 'package:photo_aql_lite/domain/domain.dart';
 import 'package:provider/provider.dart';
 
-class GroupCard extends StatefulWidget {
-  const GroupCard({
+class PhotoCard extends StatefulWidget {
+  const PhotoCard({
     super.key,
     required this.group,
   });
 
-  final Group group;
+  final Photo group;
 
   @override
-  State<GroupCard> createState() => _GroupCardState();
+  State<PhotoCard> createState() => _PhotoCardState();
 }
 
-class _GroupCardState extends State<GroupCard> {
+class _PhotoCardState extends State<PhotoCard> {
   final TextEditingController _group = TextEditingController();
   final TextEditingController _image = TextEditingController();
-  final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  late Group group;
+  late Photo group;
 
   Future<void> modifyData() async {
-    context.read<GroupsBloc>().add(GroupsBlocEvent.updateGroup(
+    context.read<PhotosBloc>().add(PhotosBlocEvent.update(
       oldValue: group,
-      value: Group(
-        gid: group.gid,
-        group: _group.text,
-        description: _description.text,
+      value: Photo(
+        id: group.id,
+        name: _group.text,
         image: _image.text,
         locator: ''
       ),
     ),
     );
     setState(() {
-      group = Group(
-        gid: group.gid,
-        group: _group.text,
-        description: _description.text,
+      group = Photo(
+        id: group.id,
+        name: _group.text,
         image: _image.text,
         locator: '',
       );
@@ -57,18 +54,13 @@ class _GroupCardState extends State<GroupCard> {
     super.dispose();
     _group.dispose();
     _image.dispose();
-    _description.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    // int? id = group.gid;
-
     return Card(
       child: SizedBox(
-        height: 120,
+        height: 400,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,30 +84,6 @@ class _GroupCardState extends State<GroupCard> {
                 ),
               ),
             ),
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Text(
-                              group.group,
-                              style: theme.textTheme.titleLarge,
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        group.description,
-                        style: theme.textTheme.bodySmall,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Column(
               children: [
                 Padding(
@@ -123,8 +91,7 @@ class _GroupCardState extends State<GroupCard> {
                   child: IconButton(
                     onPressed: () async {
                       _image.text = group.image;
-                      _group.text = group.group;
-                      _description.text = group.description;
+                      _group.text = group.name;
                       await _dialogBuilder(context);
                     },
                     icon: const Icon(Icons.edit),
@@ -134,7 +101,7 @@ class _GroupCardState extends State<GroupCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                       onPressed: () async {
-                          context.read<GroupsBloc>().add(GroupsBlocEvent.deleteGroup(value: group));
+                          context.read<PhotosBloc>().add(PhotosBlocEvent.delete(value: group));
                       },
                       icon: const Icon(Icons.delete_forever)),
                 ),
@@ -212,30 +179,6 @@ class _GroupCardState extends State<GroupCard> {
                         //   return null;
                         // }
                       },
-                    ),
-                  ),
-                  const Divider(height: 20,),
-                  Expanded(
-                    child: Container(
-                      constraints: const BoxConstraints(maxHeight: 200),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        reverse: false,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: _description,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 1, //grow automatically
-                            maxLength: 40,
-                            minLines: 1,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Description',
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ],

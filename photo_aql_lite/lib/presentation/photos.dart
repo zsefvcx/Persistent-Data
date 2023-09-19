@@ -7,35 +7,33 @@ import 'package:photo_aql_lite/domain/domain.dart';
 import 'widgets/error_time_out_widget.dart';
 import 'widgets/pthoto_card.dart';
 
-class GroupsPage extends StatefulWidget {
+class PhotosPage extends StatefulWidget {
   static const routeName = '/';
 
-  const GroupsPage({super.key, required this.title});
+  const PhotosPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<GroupsPage> createState() => _GroupsPageState();
+  State<PhotosPage> createState() => _PhotosPageState();
 }
 
-class _GroupsPageState extends State<GroupsPage> {
+class _PhotosPageState extends State<PhotosPage> {
 
   final TextEditingController _group = TextEditingController();
   final TextEditingController _image = TextEditingController();
-  final TextEditingController _description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
 
   Future<void> loadData() async {
-    context.read<GroupsBloc>().add(const GroupsBlocEvent.getGroups(page: 0));
+    context.read<PhotosBloc>().add(const PhotosBlocEvent.get(page: 0));
   }
 
   Future<void> addData() async {
-    context.read<GroupsBloc>().add(GroupsBlocEvent.insertGroup(
-        value: Group(
-          gid: null,
-          group: _group.text,
-          description: _description.text,
+    context.read<PhotosBloc>().add(PhotosBlocEvent.insert(
+        value: Photo(
+          id: null,
+          name: _group.text,
           image: _image.text,
           locator: ''
         ),
@@ -53,8 +51,6 @@ class _GroupsPageState extends State<GroupsPage> {
     super.dispose();
     _group.dispose();
     _image.dispose();
-    _description.dispose();
-    //GroupsEntity.instance().group.clear();
   }
 
   @override
@@ -71,7 +67,7 @@ class _GroupsPageState extends State<GroupsPage> {
               title:Text(widget.title),
             ),
           body: SafeArea(
-            child: BlocBuilder<GroupsBloc, GroupsBlocState>(
+            child: BlocBuilder<PhotosBloc, PhotosBlocState>(
               builder: (context, state) {
                 return state.map(
                   loading: (_) {
@@ -85,8 +81,8 @@ class _GroupsPageState extends State<GroupsPage> {
                   },
                   loaded: ( value) {
                     return ListView.separated(
-                               itemCount: value.model.groups.groups.length,
-                               itemBuilder: (_, i) => PhotoCard(group: value.model.groups.groups.toList()[i]),
+                               itemCount: value.model.data.photos.length,
+                               itemBuilder: (_, i) => PhotoCard(group: value.model.data.photos.toList()[i]),
                                separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },
@@ -196,30 +192,6 @@ class _GroupsPageState extends State<GroupsPage> {
                           //   return null;
                           // }
                         },
-                      ),
-                    ),
-                    const Divider(height: 20,),
-                    Expanded(
-                      child: Container(
-                        constraints: const BoxConstraints(maxHeight: 200),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          reverse: false,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              controller: _description,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 1, //grow automatically
-                              maxLength: 40,
-                              minLines: 1,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Description',
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],

@@ -5,7 +5,7 @@ import 'package:photo_aql_lite/domain/domain.dart';
 import 'package:sqflite/sqflite.dart'
 if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class GroupsRepositoryImpl extends GroupsRepository{
+class GroupsRepositoryImpl extends PhotosRepository{
 
   final NetworkInfo networkInfo;
   //if(await networkInfo.isConnected){ <- Для работы с сетью
@@ -13,11 +13,11 @@ class GroupsRepositoryImpl extends GroupsRepository{
   GroupsRepositoryImpl({required this.networkInfo});
 
   @override
-  Future<int> deleteGroup(Group value) async {
-    int? gid = value.gid;
+  Future<int> deleteGroup(Photo value) async {
+    int? gid = value.id;
     try {
       if (gid != null) {
-        return await DBProvider.db.deleteGroup(gid);
+        return await DBProvider.db.delete(gid);
       }
     } catch(e,t){
       Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
@@ -27,9 +27,9 @@ class GroupsRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<List<Group>?> getGroups(int page) async {
+  Future<List<Photo>?> getGroups(int page) async {
     try {
-       return await DBProvider.db.getGroups(page);
+       return await DBProvider.db.get(page);
     } catch(e,t){
       Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error getGroups: $e\n$t');
@@ -37,12 +37,12 @@ class GroupsRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<Group?> insertGroup(Group value,
+  Future<Photo?> insertGroup(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
     try{
-      return await DBProvider.db.insertGroup(value, conflictAlgorithm:conflictAlgorithm);
+      return await DBProvider.db.insert(value, conflictAlgorithm:conflictAlgorithm);
     } catch(e,t){
       Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
       throw('Error insertGroup: $e\n$t');
@@ -50,11 +50,11 @@ class GroupsRepositoryImpl extends GroupsRepository{
   }
 
   @override
-  Future<int> updateGroup(Group value,
+  Future<int> updateGroup(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
-    return await DBProvider.db.updateGroup(value, conflictAlgorithm: conflictAlgorithm);
+    return await DBProvider.db.update(value, conflictAlgorithm: conflictAlgorithm);
   }
 
 }

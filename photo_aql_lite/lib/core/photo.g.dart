@@ -1,23 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'group.dart';
+part of 'photo.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Group _$GroupFromJson(Map<String, dynamic> json) => Group(
-      gid: json['gid'] as int?,
-      group: json['group'] as String? ?? 'default',
-      description: json['description'] as String? ?? '',
+Photo _$PhotoFromJson(Map<String, dynamic> json) => Photo(
+      id: json['id'] as int?,
+      name: json['name'] as String? ?? 'default',
       image: json['image'] as String? ?? '',
       locator: json['locator'] as String? ?? '',
     );
 
-Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
-      'gid': instance.gid,
-      'group': instance.group,
-      'description': instance.description,
+Map<String, dynamic> _$PhotoToJson(Photo instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
       'image': instance.image,
       'locator': instance.locator,
     };

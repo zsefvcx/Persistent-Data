@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'core/core.dart';
 import 'presentation/pages.dart';
 
 class RouteGenerator{
 
   static Route<dynamic> generateRoute(RouteSettings settings){
-    final args = settings.arguments;
+    //final args = settings.arguments;
 
     Widget transitionsBuilder(context, animation, secondaryAnimation, child){
       CurvedAnimation curved = CurvedAnimation(
@@ -21,30 +20,12 @@ class RouteGenerator{
     }
 
     switch(settings.name){
-      case GroupsPage.routeName:
+      case PhotosPage.routeName:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-          const GroupsPage(title: 'Categories',),
+          const PhotosPage(title: 'Categories',),
           transitionsBuilder: transitionsBuilder,
         );
-      case CategoriesPage.routeName:
-        if(args != null && args is Group) {
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  CategoriesPage(group: args),
-              transitionsBuilder: transitionsBuilder,
-            );
-        }
-        return _errorRoute();
-      case CategoryPage.routeName:
-        if(args != null && args is Category) {
-          return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                CategoryPage(category: args),
-            transitionsBuilder: transitionsBuilder,
-          );
-        }
-        return _errorRoute();
       default:
         return _errorRoute();
     }
@@ -68,7 +49,7 @@ class RouteGenerator{
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.of(context).pushNamed(GroupsPage.routeName);
+                    Navigator.of(context).pushNamed(PhotosPage.routeName);
                   },
                   child: const Center(
                     child: Text('Goto GroupsPages', style: TextStyle(color: Colors.blue)),

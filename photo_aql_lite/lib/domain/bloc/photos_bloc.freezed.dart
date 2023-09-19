@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'groups_bloc.dart';
+part of 'photos_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -19,7 +19,7 @@ mixin _$GroupsBlocState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(GroupsModelData model) loaded,
+    required TResult Function(PhotosModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) =>
@@ -27,7 +27,7 @@ mixin _$GroupsBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(GroupsModelData model)? loaded,
+    TResult? Function(PhotosModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) =>
@@ -35,7 +35,7 @@ mixin _$GroupsBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(GroupsModelData model)? loaded,
+    TResult Function(PhotosModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -71,12 +71,12 @@ mixin _$GroupsBlocState {
 /// @nodoc
 abstract class $GroupsBlocStateCopyWith<$Res> {
   factory $GroupsBlocStateCopyWith(
-          GroupsBlocState value, $Res Function(GroupsBlocState) then) =
-      _$GroupsBlocStateCopyWithImpl<$Res, GroupsBlocState>;
+          PhotosBlocState value, $Res Function(PhotosBlocState) then) =
+      _$GroupsBlocStateCopyWithImpl<$Res, PhotosBlocState>;
 }
 
 /// @nodoc
-class _$GroupsBlocStateCopyWithImpl<$Res, $Val extends GroupsBlocState>
+class _$GroupsBlocStateCopyWithImpl<$Res, $Val extends PhotosBlocState>
     implements $GroupsBlocStateCopyWith<$Res> {
   _$GroupsBlocStateCopyWithImpl(this._value, this._then);
 
@@ -125,7 +125,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(GroupsModelData model) loaded,
+    required TResult Function(PhotosModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -136,7 +136,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(GroupsModelData model)? loaded,
+    TResult? Function(PhotosModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -147,7 +147,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(GroupsModelData model)? loaded,
+    TResult Function(PhotosModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -196,7 +196,7 @@ class _$_loadingState implements _loadingState {
   }
 }
 
-abstract class _loadingState implements GroupsBlocState {
+abstract class _loadingState implements PhotosBlocState {
   const factory _loadingState() = _$_loadingState;
 }
 
@@ -206,7 +206,7 @@ abstract class _$$_loadedStateCopyWith<$Res> {
           _$_loadedState value, $Res Function(_$_loadedState) then) =
       __$$_loadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({GroupsModelData model});
+  $Res call({PhotosModelData model});
 }
 
 /// @nodoc
@@ -226,7 +226,7 @@ class __$$_loadedStateCopyWithImpl<$Res>
       model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as GroupsModelData,
+              as PhotosModelData,
     ));
   }
 }
@@ -237,7 +237,7 @@ class _$_loadedState implements _loadedState {
   const _$_loadedState({required this.model});
 
   @override
-  final GroupsModelData model;
+  final PhotosModelData model;
 
   @override
   String toString() {
@@ -265,7 +265,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(GroupsModelData model) loaded,
+    required TResult Function(PhotosModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -276,7 +276,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(GroupsModelData model)? loaded,
+    TResult? Function(PhotosModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -287,7 +287,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(GroupsModelData model)? loaded,
+    TResult Function(PhotosModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -336,11 +336,11 @@ class _$_loadedState implements _loadedState {
   }
 }
 
-abstract class _loadedState implements GroupsBlocState {
-  const factory _loadedState({required final GroupsModelData model}) =
+abstract class _loadedState implements PhotosBlocState {
+  const factory _loadedState({required final PhotosModelData model}) =
       _$_loadedState;
 
-  GroupsModelData get model;
+  PhotosModelData get model;
   @JsonKey(ignore: true)
   _$$_loadedStateCopyWith<_$_loadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -385,7 +385,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(GroupsModelData model) loaded,
+    required TResult Function(PhotosModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -396,7 +396,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(GroupsModelData model)? loaded,
+    TResult? Function(PhotosModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -407,7 +407,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(GroupsModelData model)? loaded,
+    TResult Function(PhotosModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -456,7 +456,7 @@ class _$_errorState implements _errorState {
   }
 }
 
-abstract class _errorState implements GroupsBlocState {
+abstract class _errorState implements PhotosBlocState {
   const factory _errorState() = _$_errorState;
 }
 
@@ -498,7 +498,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(GroupsModelData model) loaded,
+    required TResult Function(PhotosModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -509,7 +509,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(GroupsModelData model)? loaded,
+    TResult? Function(PhotosModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -520,7 +520,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(GroupsModelData model)? loaded,
+    TResult Function(PhotosModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -569,7 +569,7 @@ class _$_timeOut implements _timeOut {
   }
 }
 
-abstract class _timeOut implements GroupsBlocState {
+abstract class _timeOut implements PhotosBlocState {
   const factory _timeOut() = _$_timeOut;
 }
 
@@ -579,55 +579,55 @@ mixin _$GroupsBlocEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -636,12 +636,12 @@ mixin _$GroupsBlocEvent {
 /// @nodoc
 abstract class $GroupsBlocEventCopyWith<$Res> {
   factory $GroupsBlocEventCopyWith(
-          GroupsBlocEvent value, $Res Function(GroupsBlocEvent) then) =
-      _$GroupsBlocEventCopyWithImpl<$Res, GroupsBlocEvent>;
+          PhotosBlocEvent value, $Res Function(PhotosBlocEvent) then) =
+      _$GroupsBlocEventCopyWithImpl<$Res, PhotosBlocEvent>;
 }
 
 /// @nodoc
-class _$GroupsBlocEventCopyWithImpl<$Res, $Val extends GroupsBlocEvent>
+class _$GroupsBlocEventCopyWithImpl<$Res, $Val extends PhotosBlocEvent>
     implements $GroupsBlocEventCopyWith<$Res> {
   _$GroupsBlocEventCopyWithImpl(this._value, this._then);
 
@@ -691,9 +691,9 @@ class _$_initEvent implements _initEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) {
     return init();
   }
@@ -703,9 +703,9 @@ class _$_initEvent implements _initEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) {
     return init?.call();
   }
@@ -715,9 +715,9 @@ class _$_initEvent implements _initEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -730,10 +730,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) {
     return init(this);
   }
@@ -742,10 +742,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) {
     return init?.call(this);
   }
@@ -754,10 +754,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -767,7 +767,7 @@ class _$_initEvent implements _initEvent {
   }
 }
 
-abstract class _initEvent implements GroupsBlocEvent {
+abstract class _initEvent implements PhotosBlocEvent {
   const factory _initEvent() = _$_initEvent;
 }
 
@@ -804,7 +804,7 @@ class __$$_getGroupsEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_getGroupsEvent implements _getGroupsEvent {
+class _$_getGroupsEvent implements _getEvent {
   const _$_getGroupsEvent({required this.page});
 
   @override
@@ -837,9 +837,9 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) {
     return getGroups(page);
   }
@@ -849,9 +849,9 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) {
     return getGroups?.call(page);
   }
@@ -861,9 +861,9 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (getGroups != null) {
@@ -876,10 +876,10 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) {
     return getGroups(this);
   }
@@ -888,10 +888,10 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) {
     return getGroups?.call(this);
   }
@@ -900,10 +900,10 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (getGroups != null) {
@@ -913,8 +913,8 @@ class _$_getGroupsEvent implements _getGroupsEvent {
   }
 }
 
-abstract class _getGroupsEvent implements GroupsBlocEvent {
-  const factory _getGroupsEvent({required final int page}) = _$_getGroupsEvent;
+abstract class _getEvent implements PhotosBlocEvent {
+  const factory _getEvent({required final int page}) = _$_getGroupsEvent;
 
   int get page;
   @JsonKey(ignore: true)
@@ -928,7 +928,7 @@ abstract class _$$_insertGroupEventCopyWith<$Res> {
           _$_insertGroupEvent value, $Res Function(_$_insertGroupEvent) then) =
       __$$_insertGroupEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Group value});
+  $Res call({Photo value});
 }
 
 /// @nodoc
@@ -948,18 +948,18 @@ class __$$_insertGroupEventCopyWithImpl<$Res>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Group,
+              as Photo,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_insertGroupEvent implements _insertGroupEvent {
+class _$_insertGroupEvent implements _insertEvent {
   const _$_insertGroupEvent({required this.value});
 
   @override
-  final Group value;
+  final Photo value;
 
   @override
   String toString() {
@@ -988,9 +988,9 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) {
     return insertGroup(value);
   }
@@ -1000,9 +1000,9 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) {
     return insertGroup?.call(value);
   }
@@ -1012,9 +1012,9 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (insertGroup != null) {
@@ -1027,10 +1027,10 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) {
     return insertGroup(this);
   }
@@ -1039,10 +1039,10 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) {
     return insertGroup?.call(this);
   }
@@ -1051,10 +1051,10 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (insertGroup != null) {
@@ -1064,11 +1064,11 @@ class _$_insertGroupEvent implements _insertGroupEvent {
   }
 }
 
-abstract class _insertGroupEvent implements GroupsBlocEvent {
-  const factory _insertGroupEvent({required final Group value}) =
+abstract class _insertEvent implements PhotosBlocEvent {
+  const factory _insertEvent({required final Photo value}) =
       _$_insertGroupEvent;
 
-  Group get value;
+  Photo get value;
   @JsonKey(ignore: true)
   _$$_insertGroupEventCopyWith<_$_insertGroupEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1080,7 +1080,7 @@ abstract class _$$_updateGroupEventCopyWith<$Res> {
           _$_updateGroupEvent value, $Res Function(_$_updateGroupEvent) then) =
       __$$_updateGroupEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Group oldValue, Group value});
+  $Res call({Photo oldValue, Photo value});
 }
 
 /// @nodoc
@@ -1101,24 +1101,24 @@ class __$$_updateGroupEventCopyWithImpl<$Res>
       oldValue: null == oldValue
           ? _value.oldValue
           : oldValue // ignore: cast_nullable_to_non_nullable
-              as Group,
+              as Photo,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Group,
+              as Photo,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_updateGroupEvent implements _updateGroupEvent {
+class _$_updateGroupEvent implements _updateEvent {
   const _$_updateGroupEvent({required this.oldValue, required this.value});
 
   @override
-  final Group oldValue;
+  final Photo oldValue;
   @override
-  final Group value;
+  final Photo value;
 
   @override
   String toString() {
@@ -1149,9 +1149,9 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) {
     return updateGroup(oldValue, value);
   }
@@ -1161,9 +1161,9 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) {
     return updateGroup?.call(oldValue, value);
   }
@@ -1173,9 +1173,9 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (updateGroup != null) {
@@ -1188,10 +1188,10 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) {
     return updateGroup(this);
   }
@@ -1200,10 +1200,10 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) {
     return updateGroup?.call(this);
   }
@@ -1212,10 +1212,10 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (updateGroup != null) {
@@ -1225,13 +1225,13 @@ class _$_updateGroupEvent implements _updateGroupEvent {
   }
 }
 
-abstract class _updateGroupEvent implements GroupsBlocEvent {
-  const factory _updateGroupEvent(
-      {required final Group oldValue,
-      required final Group value}) = _$_updateGroupEvent;
+abstract class _updateEvent implements PhotosBlocEvent {
+  const factory _updateEvent(
+      {required final Photo oldValue,
+      required final Photo value}) = _$_updateGroupEvent;
 
-  Group get oldValue;
-  Group get value;
+  Photo get oldValue;
+  Photo get value;
   @JsonKey(ignore: true)
   _$$_updateGroupEventCopyWith<_$_updateGroupEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1243,7 +1243,7 @@ abstract class _$$_deleteGroupEventCopyWith<$Res> {
           _$_deleteGroupEvent value, $Res Function(_$_deleteGroupEvent) then) =
       __$$_deleteGroupEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Group value});
+  $Res call({Photo value});
 }
 
 /// @nodoc
@@ -1263,18 +1263,18 @@ class __$$_deleteGroupEventCopyWithImpl<$Res>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Group,
+              as Photo,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_deleteGroupEvent implements _deleteGroupEvent {
+class _$_deleteGroupEvent implements _deleteEvent {
   const _$_deleteGroupEvent({required this.value});
 
   @override
-  final Group value;
+  final Photo value;
 
   @override
   String toString() {
@@ -1303,9 +1303,9 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) getGroups,
-    required TResult Function(Group value) insertGroup,
-    required TResult Function(Group oldValue, Group value) updateGroup,
-    required TResult Function(Group value) deleteGroup,
+    required TResult Function(Photo value) insertGroup,
+    required TResult Function(Photo oldValue, Photo value) updateGroup,
+    required TResult Function(Photo value) deleteGroup,
   }) {
     return deleteGroup(value);
   }
@@ -1315,9 +1315,9 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? getGroups,
-    TResult? Function(Group value)? insertGroup,
-    TResult? Function(Group oldValue, Group value)? updateGroup,
-    TResult? Function(Group value)? deleteGroup,
+    TResult? Function(Photo value)? insertGroup,
+    TResult? Function(Photo oldValue, Photo value)? updateGroup,
+    TResult? Function(Photo value)? deleteGroup,
   }) {
     return deleteGroup?.call(value);
   }
@@ -1327,9 +1327,9 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? getGroups,
-    TResult Function(Group value)? insertGroup,
-    TResult Function(Group oldValue, Group value)? updateGroup,
-    TResult Function(Group value)? deleteGroup,
+    TResult Function(Photo value)? insertGroup,
+    TResult Function(Photo oldValue, Photo value)? updateGroup,
+    TResult Function(Photo value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (deleteGroup != null) {
@@ -1342,10 +1342,10 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getGroupsEvent value) getGroups,
-    required TResult Function(_insertGroupEvent value) insertGroup,
-    required TResult Function(_updateGroupEvent value) updateGroup,
-    required TResult Function(_deleteGroupEvent value) deleteGroup,
+    required TResult Function(_getEvent value) getGroups,
+    required TResult Function(_insertEvent value) insertGroup,
+    required TResult Function(_updateEvent value) updateGroup,
+    required TResult Function(_deleteEvent value) deleteGroup,
   }) {
     return deleteGroup(this);
   }
@@ -1354,10 +1354,10 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getGroupsEvent value)? getGroups,
-    TResult? Function(_insertGroupEvent value)? insertGroup,
-    TResult? Function(_updateGroupEvent value)? updateGroup,
-    TResult? Function(_deleteGroupEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? getGroups,
+    TResult? Function(_insertEvent value)? insertGroup,
+    TResult? Function(_updateEvent value)? updateGroup,
+    TResult? Function(_deleteEvent value)? deleteGroup,
   }) {
     return deleteGroup?.call(this);
   }
@@ -1366,10 +1366,10 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getGroupsEvent value)? getGroups,
-    TResult Function(_insertGroupEvent value)? insertGroup,
-    TResult Function(_updateGroupEvent value)? updateGroup,
-    TResult Function(_deleteGroupEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? getGroups,
+    TResult Function(_insertEvent value)? insertGroup,
+    TResult Function(_updateEvent value)? updateGroup,
+    TResult Function(_deleteEvent value)? deleteGroup,
     required TResult orElse(),
   }) {
     if (deleteGroup != null) {
@@ -1379,11 +1379,11 @@ class _$_deleteGroupEvent implements _deleteGroupEvent {
   }
 }
 
-abstract class _deleteGroupEvent implements GroupsBlocEvent {
-  const factory _deleteGroupEvent({required final Group value}) =
+abstract class _deleteEvent implements PhotosBlocEvent {
+  const factory _deleteEvent({required final Photo value}) =
       _$_deleteGroupEvent;
 
-  Group get value;
+  Photo get value;
   @JsonKey(ignore: true)
   _$$_deleteGroupEventCopyWith<_$_deleteGroupEvent> get copyWith =>
       throw _privateConstructorUsedError;

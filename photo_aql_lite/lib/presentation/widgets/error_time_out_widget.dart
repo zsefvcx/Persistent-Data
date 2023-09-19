@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:photo_aql_lite/core/core.dart';
 import 'package:photo_aql_lite/domain/domain.dart';
 import 'package:provider/provider.dart';
 
@@ -7,15 +8,15 @@ class ErrorTimeOutWidget extends StatelessWidget {
   const ErrorTimeOutWidget({
     super.key,
     required this.page,
-    this.group,
+    this.photo,
   });
 
   final int page;
-  final Group? group;
+  final Photo? photo;
 
   @override
   Widget build(BuildContext context) {
-    var blocBloc = context.read<GroupsBloc>();
+    var blocBloc = context.read<PhotosBloc>();
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,14 +29,7 @@ class ErrorTimeOutWidget extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  if(GroupsBloc is GroupsBloc) {
-                    (blocBloc as GroupsBloc).add(GroupsBlocEvent.getGroups(page: page));
-                  } else if(GroupsBloc is CategoriesBloc) {
-                    Group? group = this.group;
-                    if(group!=null) {
-                      (blocBloc as CategoriesBloc).add(CategoriesBlocEvent.getCategories(group: group, page: page));
-                    }
-                  }
+                    blocBloc.add(PhotosBlocEvent.get(page: page));
                 },
                 child: const Text('Try again')),
           ],

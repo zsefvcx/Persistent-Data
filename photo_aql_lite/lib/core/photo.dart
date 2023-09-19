@@ -3,62 +3,56 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'group.g.dart';
+part 'photo.g.dart';
 
 @JsonSerializable()
-class Group extends Equatable{
+class Photo extends Equatable{
   @JsonKey(defaultValue: null,)
-  final int?       gid;
+  final int?       id;
   @JsonKey(defaultValue: 'default')
-  final String    group;
-  @JsonKey(defaultValue: '')
-  final String    description;
+  final String    name;
   @JsonKey(defaultValue: '')
   final String image;
   @JsonKey(defaultValue: '')
   final String locator;
 
-  const Group({
-    required this.gid,
-    required this.group,
-    required this.description,
+  const Photo({
+    required this.id,
+    required this.name,
     required this.image,
     required this.locator,
   });
 
-  Group copyWith({//
+  Photo copyWith({//
     int?       gid,
-    String?    group,
-    String?    description,
+    String?    name,
     String?    image,
     String?    locator,
   }) =>
-      Group(
-        gid:         gid         ?? this.gid,
-        group:       group       ?? this.group,
-        description: description ?? this.description,
+      Photo(
+        id:         gid         ?? this.id,
+        name:       name       ?? this.name,
         image:       image       ?? this.image,
         locator:     locator     ?? this.locator,
       );
 
   @override
   List<Object?> get props => [
-    gid,
-    group,
-    description,
+    id,
+    name,
     image,
     locator,
   ];
 
   /// Connect the generated [_$GroupFromJson] function to the `fromJson`
   /// factory.
-  factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
+  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
 
   /// Connect the generated [_$GroupToJson] function to the `toJson` method.
-  Map<String, dynamic> toJson() => _$GroupToJson(this);
+  Map<String, dynamic> toJson() => _$PhotoToJson(this);
 
   @override
   String toString() {
-    return "$gid:$group:$description:$image";
+    return "$id:$name:$image";
   }
 }

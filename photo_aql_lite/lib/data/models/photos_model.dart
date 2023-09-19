@@ -3,7 +3,7 @@ import 'package:photo_aql_lite/core/core.dart';
 import 'package:photo_aql_lite/domain/domain.dart';
 
 ///Модель
-class GroupsModel extends AGroupsEntity{
+class PhotosModel extends APhotosEntity{
 
-  const GroupsModel(List<Group> listGroup, int page): super(listGroup, page);
+  const PhotosModel(List<Photo> list, int page): super(list, page);
 }

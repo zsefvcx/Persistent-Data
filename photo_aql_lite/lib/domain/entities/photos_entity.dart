@@ -3,20 +3,20 @@ import 'package:equatable/equatable.dart';
 import 'package:photo_aql_lite/core/core.dart';
 
 ///Группы категорий.
-abstract class AGroupsEntity extends Equatable {
+abstract class APhotosEntity extends Equatable {
   final int page;//страница
-  final List<Group> groups;//группы
+  final List<Photo> photos;//группы
 
-  const AGroupsEntity(List<Group> listGroup, this.page) : groups = listGroup;
+  const APhotosEntity(List<Photo> list, this.page) : photos = list;
 
   @override
   List<Object?> get props => [
     page,
-    groups,
+    photos,
   ];
 
   @override
   String toString() {
-    return '$page:$groups';
+    return '$page:$photos';
   }
 }

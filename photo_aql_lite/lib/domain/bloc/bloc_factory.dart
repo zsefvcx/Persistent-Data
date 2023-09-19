@@ -1,7 +1,7 @@
 
-import 'package:categories_sql_lite/data/data.dart';
-import 'package:categories_sql_lite/domain/domain.dart';
 import 'package:get_it/get_it.dart';
+import 'package:photo_aql_lite/data/data.dart';
+import 'package:photo_aql_lite/domain/domain.dart';
 
 class BlocFactory {
   static final _getIt = GetIt.I;
@@ -13,9 +13,9 @@ class BlocFactory {
   void initialize(){
     ServiceProvider.instance.initialize();
 
-    _getIt.registerLazySingleton<GroupsBloc>(
-          () => GroupsBloc(
-            groupsRepository:  ServiceProvider.instance.get<GroupsRepository>(),
+    _getIt.registerLazySingleton<PhotosBloc>(
+          () => PhotosBloc(
+            groupsRepository:  ServiceProvider.instance.get<PhotosRepository>(),
       ),
     );
 

@@ -3,18 +3,18 @@ import 'package:photo_aql_lite/core/core.dart';
 import 'package:sqflite/sqflite.dart'
         if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-abstract class GroupsRepository{
+abstract class PhotosRepository{
 
-  Future<int> deleteGroup(Group value);
+  Future<int> deleteGroup(Photo value);
 
-  Future<List<Group>?> getGroups(int page);
+  Future<List<Photo>?> getGroups(int page);
 
-  Future<Group?> insertGroup(Group value,
+  Future<Photo?> insertGroup(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });
 
-  Future<int> updateGroup(Group value,
+  Future<int> updateGroup(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

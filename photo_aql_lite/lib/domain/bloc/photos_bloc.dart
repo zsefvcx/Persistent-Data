@@ -9,35 +9,35 @@ import 'package:photo_aql_lite/core/core.dart';
 import 'package:photo_aql_lite/data/data.dart';
 import 'package:photo_aql_lite/domain/domain.dart';
 
-part 'groups_bloc.freezed.dart';
+part 'photos_bloc.freezed.dart';
 
 @injectable
-class GroupsModelData {
+class PhotosModelData {
 
   final bool timeOut;
-  final AGroupsEntity groups;
+  final APhotosEntity data;
   final bool error;
   final String e;
 
-  bool get isLoaded => groups.groups.isNotEmpty;
+  bool get isLoaded => data.photos.isNotEmpty;
   bool get isTimeOut => timeOut;
   bool get isError => error;
 
-  const GroupsModelData({
-    required this.groups,
+  const PhotosModelData({
+    required this.data,
     required this.e,
     required this.timeOut,
     required this.error,
   });
 
-  GroupsModelData copyWith({
-    AGroupsEntity? groups,
+  PhotosModelData copyWith({
+    APhotosEntity? data,
     String? e,
     bool? timeOut,
     bool? error,
   }){
-    return GroupsModelData(
-      groups: groups ?? this.groups,
+    return PhotosModelData(
+      data: data ?? this.data,
       e: e ?? this.e,
       timeOut: timeOut ?? this.timeOut,
       error: error ?? this.error,
@@ -46,60 +46,60 @@ class GroupsModelData {
 }
 
 @freezed
-class GroupsBlocState with _$GroupsBlocState{
-  const factory GroupsBlocState.loading() = _loadingState;
-  const factory GroupsBlocState.loaded({required GroupsModelData model}) = _loadedState;
-  const factory GroupsBlocState.error() = _errorState;
-  const factory GroupsBlocState.timeOut() = _timeOut;
+class PhotosBlocState with _$GroupsBlocState{
+  const factory PhotosBlocState.loading() = _loadingState;
+  const factory PhotosBlocState.loaded({required PhotosModelData model}) = _loadedState;
+  const factory PhotosBlocState.error() = _errorState;
+  const factory PhotosBlocState.timeOut() = _timeOut;
 }
 
 @freezed
-class GroupsBlocEvent with _$GroupsBlocEvent{
-  const factory GroupsBlocEvent.init() = _initEvent;
-  const factory GroupsBlocEvent.getGroups({required int page}) = _getGroupsEvent;
-  const factory GroupsBlocEvent.insertGroup({required Group value}) = _insertGroupEvent;
-  const factory GroupsBlocEvent.updateGroup({required Group oldValue, required Group value}) = _updateGroupEvent;
-  const factory GroupsBlocEvent.deleteGroup({required Group value}) = _deleteGroupEvent;
+class PhotosBlocEvent with _$GroupsBlocEvent{
+  const factory PhotosBlocEvent.init() = _initEvent;
+  const factory PhotosBlocEvent.get({required int page}) = _getEvent;
+  const factory PhotosBlocEvent.insert({required Photo value}) = _insertEvent;
+  const factory PhotosBlocEvent.update({required Photo oldValue, required Photo value}) = _updateEvent;
+  const factory PhotosBlocEvent.delete({required Photo value}) = _deleteEvent;
 }
 
 @injectable
-class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
-  final GroupsRepository groupsRepository;
+class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
+  final PhotosRepository groupsRepository;
 
 
-  GroupsModelData groupsModelData = const GroupsModelData(
+  PhotosModelData groupsModelData = const PhotosModelData(
     timeOut: false,
-    groups: GroupsModel(<Group>[], 0),
+    data: PhotosModel(<Photo>[], 0),
     e: '',
     error: false,
   );
 
-  GroupsBloc({
+  PhotosBloc({
     required this.groupsRepository,
-  }) : super(const GroupsBlocState.loading()) {
-    on<GroupsBlocEvent>((event, emit) async {
+  }) : super(const PhotosBlocState.loading()) {
+    on<PhotosBlocEvent>((event, emit) async {
       await event.map<FutureOr<void>>(
           init: (_initEvent value) async {
-            emit(const GroupsBlocState.loading());
-            await _getGroups(0);
+            emit(const PhotosBlocState.loading());
+            await _get(0);
             _response(emit);
           },
-          getGroups: (_getGroupsEvent value) async {
-            emit(const GroupsBlocState.loading());
-            await _getGroups(value.page);
+          getGroups: (_getEvent value) async {
+            emit(const PhotosBlocState.loading());
+            await _get(value.page);
             _response(emit);
           },
-          insertGroup: (_insertGroupEvent value) async {
-            emit(const GroupsBlocState.loading());
-            await _insertGroup(value.value);
+          insertGroup: (_insertEvent value) async {
+            emit(const PhotosBlocState.loading());
+            await _insert(value.value);
             _response(emit);
           },
-          updateGroup: (_updateGroupEvent value) async {
-            await _updateGroup(value.oldValue, value.value);
+          updateGroup: (_updateEvent value) async {
+            await _update(value.oldValue, value.value);
           },
-          deleteGroup: (_deleteGroupEvent value) async {
-            emit(const GroupsBlocState.loading());
-            await _deleteGroup(value.value);
+          deleteGroup: (_deleteEvent value) async {
+            emit(const PhotosBlocState.loading());
+            await _delete(value.value);
             _response(emit);
           }
 
@@ -109,20 +109,20 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
 
   }
 
-  void _response(Emitter<GroupsBlocState> emit){
+  void _response(Emitter<PhotosBlocState> emit){
     if (groupsModelData.error){
       if(groupsModelData.timeOut){
-        emit(const GroupsBlocState.timeOut());
+        emit(const PhotosBlocState.timeOut());
       } else {
-        emit(const GroupsBlocState.error());
+        emit(const PhotosBlocState.error());
       }
     } else{
-      emit(GroupsBlocState.loaded(model: groupsModelData));
+      emit(PhotosBlocState.loaded(model: groupsModelData));
     }
   }
 
-  Future<void> _getGroups(int page) async {
-    AGroupsEntity? groupsModel;
+  Future<void> _get(int page) async {
+    APhotosEntity? groupsModel;
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -136,7 +136,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModel = GroupsModel(res, page);
+        groupsModel = PhotosModel(res, page);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -145,7 +145,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
     groupsModelData = groupsModelData.copyWith(
-      groups: groupsModel,
+      data: groupsModel,
       timeOut: timeOut,
       e: e,
       error: error,
@@ -153,7 +153,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
 
   }
 
-  Future<void> _insertGroup(Group value) async {
+  Future<void> _insert(Photo value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -166,7 +166,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModelData.groups.groups.add(res);
+        groupsModelData.data.photos.add(res);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -181,7 +181,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
     );
   }
 
-  Future<void> _updateGroup(Group oldValue, Group value) async {
+  Future<void> _update(Photo oldValue, Photo value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -194,8 +194,8 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
             return 0;
           });
       if (res > 0) {
-        groupsModelData.groups.groups.remove(oldValue);
-        groupsModelData.groups.groups.add(value);
+        groupsModelData.data.photos.remove(oldValue);
+        groupsModelData.data.photos.add(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -210,7 +210,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
     );
   }
 
-  Future<void> _deleteGroup(Group value) async {
+  Future<void> _delete(Photo value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -224,7 +224,7 @@ class GroupsBloc extends Bloc<GroupsBlocEvent, GroupsBlocState>{
           });
       if (res > 0)
       {
-        groupsModelData.groups.groups.remove(value);
+        groupsModelData.data.photos.remove(value);
       }
     } catch (ee, t){
       e = ee.toString();
