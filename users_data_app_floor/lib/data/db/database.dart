@@ -21,21 +21,34 @@ class DBProvider {
 
   Future<Database> _initDB() async {
     Directory dir = await getApplicationCacheDirectory();
-    String path = '${dir.path}/photo_base.db';
+    String path = '${dir.path}/user_base.db';
     Logger.print("PathToDB:$path", name: 'log', level: 0, error: false);
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
-  final String _table = 'PhotosTable';
+  final String _table = 'UsersTable';
   final String _image = 'image';
   final String _locator = 'locator';
   final String _id = 'id';
+  final String _firstName = 'firstName';
   final String _name = 'name';
+  final String _lastName = 'lastName';
+  final String _phone = 'phone';
+  final String _uuid = 'uuid';
 
   Future<void> _createDB(Database db, int version) async {
     try {
       await db.execute(
-          'CREATE TABLE "$_table" ("$_id" INTEGER PRIMARY KEY AUTOINCREMENT, "$_name" TEXT, "$_image" TEXT, "$_locator" TEXT)'
+          'CREATE TABLE "$_table" ('
+              '"$_id" INTEGER PRIMARY KEY AUTOINCREMENT, '
+              '"$_firstName" TEXT, '
+              '"$_name" TEXT, '
+              '"$_lastName" TEXT, '
+              '"$_image" TEXT, '
+              '"$_phone" TEXT, '
+              '"$_uuid" TEXT, '
+              '"$_locator" TEXT'
+              ')'
       );
     } catch (e,t){
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);

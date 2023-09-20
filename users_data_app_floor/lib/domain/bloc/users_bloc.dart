@@ -11,10 +11,10 @@ import '../../core/core.dart';
 import '../../data/data.dart';
 import '../domain.dart';
 
-part 'photos_bloc.freezed.dart';
+part 'users_bloc.freezed.dart';
 
 @injectable
-class PhotosModelData {
+class UsersModelData {
 
   final bool timeOut;
   final AUsersEntity data;
@@ -25,20 +25,20 @@ class PhotosModelData {
   bool get isTimeOut => timeOut;
   bool get isError => error;
 
-  const PhotosModelData({
+  const UsersModelData({
     required this.data,
     required this.e,
     required this.timeOut,
     required this.error,
   });
 
-  PhotosModelData copyWith({
+  UsersModelData copyWith({
     AUsersEntity? data,
     String? e,
     bool? timeOut,
     bool? error,
   }){
-    return PhotosModelData(
+    return UsersModelData(
       data: data ?? this.data,
       e: e ?? this.e,
       timeOut: timeOut ?? this.timeOut,
@@ -48,41 +48,41 @@ class PhotosModelData {
 }
 
 @freezed
-class PhotosBlocState with _$GroupsBlocState{
-  const factory PhotosBlocState.loading() = _loadingState;
-  const factory PhotosBlocState.loaded({required PhotosModelData model}) = _loadedState;
-  const factory PhotosBlocState.error() = _errorState;
-  const factory PhotosBlocState.timeOut() = _timeOut;
+class UsersBlocState with _$UsersBlocState{
+  const factory UsersBlocState.loading() = _loadingState;
+  const factory UsersBlocState.loaded({required UsersModelData model}) = _loadedState;
+  const factory UsersBlocState.error() = _errorState;
+  const factory UsersBlocState.timeOut() = _timeOut;
 }
 
 @freezed
-class PhotosBlocEvent with _$GroupsBlocEvent{
-  const factory PhotosBlocEvent.init() = _initEvent;
-  const factory PhotosBlocEvent.get({required int page}) = _getEvent;
-  const factory PhotosBlocEvent.insert({required User value}) = _insertEvent;
-  const factory PhotosBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
-  const factory PhotosBlocEvent.delete({required User value}) = _deleteEvent;
+class UsersBlocEvent with _$UsersBlocEvent{
+  const factory UsersBlocEvent.init() = _initEvent;
+  const factory UsersBlocEvent.get({required int page}) = _getEvent;
+  const factory UsersBlocEvent.insert({required User value}) = _insertEvent;
+  const factory UsersBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
+  const factory UsersBlocEvent.delete({required User value}) = _deleteEvent;
 }
 
 @injectable
-class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
+class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   final PhotosRepository groupsRepository;
 
 
-  PhotosModelData groupsModelData = const PhotosModelData(
+  UsersModelData groupsModelData = const UsersModelData(
     timeOut: false,
     data: UsersModel(<User>[], 0),
     e: '',
     error: false,
   );
 
-  PhotosBloc({
+  UsersBloc({
     required this.groupsRepository,
-  }) : super(const PhotosBlocState.loading()) {
-    on<PhotosBlocEvent>((event, emit) async {
+  }) : super(const UsersBlocState.loading()) {
+    on<UsersBlocEvent>((event, emit) async {
       await event.map<FutureOr<void>>(
           init: (_initEvent value) async {
-            emit(const PhotosBlocState.loading());
+            emit(const UsersBlocState.loading());
             await _get(0);
             _response(emit);
           },

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'photos_bloc.dart';
+part of 'users_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,11 +15,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PhotosBlocState {
+mixin _$UsersBlocState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(PhotosModelData model) loaded,
+    required TResult Function(UsersModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) =>
@@ -27,7 +27,7 @@ mixin _$PhotosBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(PhotosModelData model)? loaded,
+    TResult? Function(UsersModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) =>
@@ -35,7 +35,7 @@ mixin _$PhotosBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(PhotosModelData model)? loaded,
+    TResult Function(UsersModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -69,16 +69,16 @@ mixin _$PhotosBlocState {
 }
 
 /// @nodoc
-abstract class $PhotosBlocStateCopyWith<$Res> {
-  factory $PhotosBlocStateCopyWith(
-          PhotosBlocState value, $Res Function(PhotosBlocState) then) =
-      _$PhotosBlocStateCopyWithImpl<$Res, PhotosBlocState>;
+abstract class $UsersBlocStateCopyWith<$Res> {
+  factory $UsersBlocStateCopyWith(
+          UsersBlocState value, $Res Function(UsersBlocState) then) =
+      _$UsersBlocStateCopyWithImpl<$Res, UsersBlocState>;
 }
 
 /// @nodoc
-class _$PhotosBlocStateCopyWithImpl<$Res, $Val extends PhotosBlocState>
-    implements $PhotosBlocStateCopyWith<$Res> {
-  _$PhotosBlocStateCopyWithImpl(this._value, this._then);
+class _$UsersBlocStateCopyWithImpl<$Res, $Val extends UsersBlocState>
+    implements $UsersBlocStateCopyWith<$Res> {
+  _$UsersBlocStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$_loadingStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_loadingStateCopyWithImpl<$Res>
-    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_loadingState>
+    extends _$UsersBlocStateCopyWithImpl<$Res, _$_loadingState>
     implements _$$_loadingStateCopyWith<$Res> {
   __$$_loadingStateCopyWithImpl(
       _$_loadingState _value, $Res Function(_$_loadingState) _then)
@@ -109,7 +109,7 @@ class _$_loadingState implements _loadingState {
 
   @override
   String toString() {
-    return 'PhotosBlocState.loading()';
+    return 'UsersBlocState.loading()';
   }
 
   @override
@@ -125,7 +125,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(PhotosModelData model) loaded,
+    required TResult Function(UsersModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -136,7 +136,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(PhotosModelData model)? loaded,
+    TResult? Function(UsersModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -147,7 +147,7 @@ class _$_loadingState implements _loadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(PhotosModelData model)? loaded,
+    TResult Function(UsersModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -196,7 +196,7 @@ class _$_loadingState implements _loadingState {
   }
 }
 
-abstract class _loadingState implements PhotosBlocState {
+abstract class _loadingState implements UsersBlocState {
   const factory _loadingState() = _$_loadingState;
 }
 
@@ -206,12 +206,12 @@ abstract class _$$_loadedStateCopyWith<$Res> {
           _$_loadedState value, $Res Function(_$_loadedState) then) =
       __$$_loadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({PhotosModelData model});
+  $Res call({UsersModelData model});
 }
 
 /// @nodoc
 class __$$_loadedStateCopyWithImpl<$Res>
-    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_loadedState>
+    extends _$UsersBlocStateCopyWithImpl<$Res, _$_loadedState>
     implements _$$_loadedStateCopyWith<$Res> {
   __$$_loadedStateCopyWithImpl(
       _$_loadedState _value, $Res Function(_$_loadedState) _then)
@@ -226,7 +226,7 @@ class __$$_loadedStateCopyWithImpl<$Res>
       model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as PhotosModelData,
+              as UsersModelData,
     ));
   }
 }
@@ -237,11 +237,11 @@ class _$_loadedState implements _loadedState {
   const _$_loadedState({required this.model});
 
   @override
-  final PhotosModelData model;
+  final UsersModelData model;
 
   @override
   String toString() {
-    return 'PhotosBlocState.loaded(model: $model)';
+    return 'UsersBlocState.loaded(model: $model)';
   }
 
   @override
@@ -265,7 +265,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(PhotosModelData model) loaded,
+    required TResult Function(UsersModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -276,7 +276,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(PhotosModelData model)? loaded,
+    TResult? Function(UsersModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -287,7 +287,7 @@ class _$_loadedState implements _loadedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(PhotosModelData model)? loaded,
+    TResult Function(UsersModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -336,11 +336,11 @@ class _$_loadedState implements _loadedState {
   }
 }
 
-abstract class _loadedState implements PhotosBlocState {
-  const factory _loadedState({required final PhotosModelData model}) =
+abstract class _loadedState implements UsersBlocState {
+  const factory _loadedState({required final UsersModelData model}) =
       _$_loadedState;
 
-  PhotosModelData get model;
+  UsersModelData get model;
   @JsonKey(ignore: true)
   _$$_loadedStateCopyWith<_$_loadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -355,7 +355,7 @@ abstract class _$$_errorStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_errorStateCopyWithImpl<$Res>
-    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_errorState>
+    extends _$UsersBlocStateCopyWithImpl<$Res, _$_errorState>
     implements _$$_errorStateCopyWith<$Res> {
   __$$_errorStateCopyWithImpl(
       _$_errorState _value, $Res Function(_$_errorState) _then)
@@ -369,7 +369,7 @@ class _$_errorState implements _errorState {
 
   @override
   String toString() {
-    return 'PhotosBlocState.error()';
+    return 'UsersBlocState.error()';
   }
 
   @override
@@ -385,7 +385,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(PhotosModelData model) loaded,
+    required TResult Function(UsersModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -396,7 +396,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(PhotosModelData model)? loaded,
+    TResult? Function(UsersModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -407,7 +407,7 @@ class _$_errorState implements _errorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(PhotosModelData model)? loaded,
+    TResult Function(UsersModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -456,7 +456,7 @@ class _$_errorState implements _errorState {
   }
 }
 
-abstract class _errorState implements PhotosBlocState {
+abstract class _errorState implements UsersBlocState {
   const factory _errorState() = _$_errorState;
 }
 
@@ -469,7 +469,7 @@ abstract class _$$_timeOutCopyWith<$Res> {
 
 /// @nodoc
 class __$$_timeOutCopyWithImpl<$Res>
-    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_timeOut>
+    extends _$UsersBlocStateCopyWithImpl<$Res, _$_timeOut>
     implements _$$_timeOutCopyWith<$Res> {
   __$$_timeOutCopyWithImpl(_$_timeOut _value, $Res Function(_$_timeOut) _then)
       : super(_value, _then);
@@ -482,7 +482,7 @@ class _$_timeOut implements _timeOut {
 
   @override
   String toString() {
-    return 'PhotosBlocState.timeOut()';
+    return 'UsersBlocState.timeOut()';
   }
 
   @override
@@ -498,7 +498,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(PhotosModelData model) loaded,
+    required TResult Function(UsersModelData model) loaded,
     required TResult Function() error,
     required TResult Function() timeOut,
   }) {
@@ -509,7 +509,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(PhotosModelData model)? loaded,
+    TResult? Function(UsersModelData model)? loaded,
     TResult? Function()? error,
     TResult? Function()? timeOut,
   }) {
@@ -520,7 +520,7 @@ class _$_timeOut implements _timeOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(PhotosModelData model)? loaded,
+    TResult Function(UsersModelData model)? loaded,
     TResult Function()? error,
     TResult Function()? timeOut,
     required TResult orElse(),
@@ -569,12 +569,12 @@ class _$_timeOut implements _timeOut {
   }
 }
 
-abstract class _timeOut implements PhotosBlocState {
+abstract class _timeOut implements UsersBlocState {
   const factory _timeOut() = _$_timeOut;
 }
 
 /// @nodoc
-mixin _$PhotosBlocEvent {
+mixin _$UsersBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
@@ -634,16 +634,16 @@ mixin _$PhotosBlocEvent {
 }
 
 /// @nodoc
-abstract class $PhotosBlocEventCopyWith<$Res> {
-  factory $PhotosBlocEventCopyWith(
-          PhotosBlocEvent value, $Res Function(PhotosBlocEvent) then) =
-      _$PhotosBlocEventCopyWithImpl<$Res, PhotosBlocEvent>;
+abstract class $UsersBlocEventCopyWith<$Res> {
+  factory $UsersBlocEventCopyWith(
+          UsersBlocEvent value, $Res Function(UsersBlocEvent) then) =
+      _$UsersBlocEventCopyWithImpl<$Res, UsersBlocEvent>;
 }
 
 /// @nodoc
-class _$PhotosBlocEventCopyWithImpl<$Res, $Val extends PhotosBlocEvent>
-    implements $PhotosBlocEventCopyWith<$Res> {
-  _$PhotosBlocEventCopyWithImpl(this._value, this._then);
+class _$UsersBlocEventCopyWithImpl<$Res, $Val extends UsersBlocEvent>
+    implements $UsersBlocEventCopyWith<$Res> {
+  _$UsersBlocEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -660,7 +660,7 @@ abstract class _$$_initEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_initEventCopyWithImpl<$Res>
-    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_initEvent>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_initEvent>
     implements _$$_initEventCopyWith<$Res> {
   __$$_initEventCopyWithImpl(
       _$_initEvent _value, $Res Function(_$_initEvent) _then)
@@ -674,7 +674,7 @@ class _$_initEvent implements _initEvent {
 
   @override
   String toString() {
-    return 'PhotosBlocEvent.init()';
+    return 'UsersBlocEvent.init()';
   }
 
   @override
@@ -767,7 +767,7 @@ class _$_initEvent implements _initEvent {
   }
 }
 
-abstract class _initEvent implements PhotosBlocEvent {
+abstract class _initEvent implements UsersBlocEvent {
   const factory _initEvent() = _$_initEvent;
 }
 
@@ -782,7 +782,7 @@ abstract class _$$_getEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_getEventCopyWithImpl<$Res>
-    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_getEvent>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_getEvent>
     implements _$$_getEventCopyWith<$Res> {
   __$$_getEventCopyWithImpl(
       _$_getEvent _value, $Res Function(_$_getEvent) _then)
@@ -812,7 +812,7 @@ class _$_getEvent implements _getEvent {
 
   @override
   String toString() {
-    return 'PhotosBlocEvent.get(page: $page)';
+    return 'UsersBlocEvent.get(page: $page)';
   }
 
   @override
@@ -913,7 +913,7 @@ class _$_getEvent implements _getEvent {
   }
 }
 
-abstract class _getEvent implements PhotosBlocEvent {
+abstract class _getEvent implements UsersBlocEvent {
   const factory _getEvent({required final int page}) = _$_getEvent;
 
   int get page;
@@ -933,7 +933,7 @@ abstract class _$$_insertEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_insertEventCopyWithImpl<$Res>
-    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_insertEvent>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_insertEvent>
     implements _$$_insertEventCopyWith<$Res> {
   __$$_insertEventCopyWithImpl(
       _$_insertEvent _value, $Res Function(_$_insertEvent) _then)
@@ -963,7 +963,7 @@ class _$_insertEvent implements _insertEvent {
 
   @override
   String toString() {
-    return 'PhotosBlocEvent.insert(value: $value)';
+    return 'UsersBlocEvent.insert(value: $value)';
   }
 
   @override
@@ -1064,7 +1064,7 @@ class _$_insertEvent implements _insertEvent {
   }
 }
 
-abstract class _insertEvent implements PhotosBlocEvent {
+abstract class _insertEvent implements UsersBlocEvent {
   const factory _insertEvent({required final User value}) = _$_insertEvent;
 
   User get value;
@@ -1084,7 +1084,7 @@ abstract class _$$_updateEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_updateEventCopyWithImpl<$Res>
-    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_updateEvent>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_updateEvent>
     implements _$$_updateEventCopyWith<$Res> {
   __$$_updateEventCopyWithImpl(
       _$_updateEvent _value, $Res Function(_$_updateEvent) _then)
@@ -1121,7 +1121,7 @@ class _$_updateEvent implements _updateEvent {
 
   @override
   String toString() {
-    return 'PhotosBlocEvent.update(oldValue: $oldValue, value: $value)';
+    return 'UsersBlocEvent.update(oldValue: $oldValue, value: $value)';
   }
 
   @override
@@ -1224,7 +1224,7 @@ class _$_updateEvent implements _updateEvent {
   }
 }
 
-abstract class _updateEvent implements PhotosBlocEvent {
+abstract class _updateEvent implements UsersBlocEvent {
   const factory _updateEvent(
       {required final User oldValue,
       required final User value}) = _$_updateEvent;
@@ -1247,7 +1247,7 @@ abstract class _$$_deleteEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_deleteEventCopyWithImpl<$Res>
-    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_deleteEvent>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_deleteEvent>
     implements _$$_deleteEventCopyWith<$Res> {
   __$$_deleteEventCopyWithImpl(
       _$_deleteEvent _value, $Res Function(_$_deleteEvent) _then)
@@ -1277,7 +1277,7 @@ class _$_deleteEvent implements _deleteEvent {
 
   @override
   String toString() {
-    return 'PhotosBlocEvent.delete(value: $value)';
+    return 'UsersBlocEvent.delete(value: $value)';
   }
 
   @override
@@ -1378,7 +1378,7 @@ class _$_deleteEvent implements _deleteEvent {
   }
 }
 
-abstract class _deleteEvent implements PhotosBlocEvent {
+abstract class _deleteEvent implements UsersBlocEvent {
   const factory _deleteEvent({required final User value}) = _$_deleteEvent;
 
   User get value;

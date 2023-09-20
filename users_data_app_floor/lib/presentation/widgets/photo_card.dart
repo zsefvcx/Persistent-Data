@@ -30,18 +30,26 @@ class _PhotoCardState extends State<PhotoCard> {
       oldValue: photo,
       value: User(
         id: photo.id,
+        firstName: '',
         name: _photoName.text,
+        lastName: '',
         image: _image.text,
         locator: uuid,
+        uuid: '',
+        phone: '',
       ),
     ),
     );
     setState(() {
       photo = User(
         id: photo.id,
+        firstName: '',
         name: _photoName.text,
+        lastName: '',
         image: _image.text,
         locator: uuid,
+        uuid: '',
+        phone: '',
       );
     });
   }

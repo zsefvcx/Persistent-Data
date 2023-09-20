@@ -47,7 +47,7 @@ class PhotosModelData {
 }
 
 @freezed
-class PhotosBlocState with _$GroupsBlocState{
+class PhotosBlocState with _$PhotosBlocState{
   const factory PhotosBlocState.loading() = _loadingState;
   const factory PhotosBlocState.loaded({required PhotosModelData model}) = _loadedState;
   const factory PhotosBlocState.error() = _errorState;
@@ -138,7 +138,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await groupsRepository.getGroups(page).timeout(const Duration(seconds: 2),
+      var res = await groupsRepository.get(page).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -168,7 +168,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.insertGroup(value).timeout(const Duration(seconds: 2),
+      var res = await groupsRepository.insert(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -196,7 +196,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.updateGroup(value).timeout(const Duration(seconds: 2),
+      var res = await groupsRepository.update(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -225,7 +225,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
+      var res = await groupsRepository.delete(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;

@@ -5,16 +5,16 @@ import 'package:sqflite/sqflite.dart'
 
 abstract class PhotosRepository{
 
-  Future<int> deleteGroup(Photo value);
+  Future<int> delete(Photo value);
 
-  Future<List<Photo>?> getGroups(int page);
+  Future<List<Photo>?> get(int page);
 
-  Future<Photo?> insertGroup(Photo value,
+  Future<Photo?> insert(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });
 
-  Future<int> updateGroup(Photo value,
+  Future<int> update(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

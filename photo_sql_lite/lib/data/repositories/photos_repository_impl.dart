@@ -13,7 +13,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   GroupsRepositoryImpl({required this.networkInfo});
 
   @override
-  Future<int> deleteGroup(Photo value) async {
+  Future<int> delete(Photo value) async {
     int? gid = value.id;
     try {
       if (gid != null) {
@@ -27,7 +27,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<List<Photo>?> getGroups(int page) async {
+  Future<List<Photo>?> get(int page) async {
     try {
        return await DBProvider.db.get(page);
     } catch(e,t){
@@ -37,7 +37,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<Photo?> insertGroup(Photo value,
+  Future<Photo?> insert(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
@@ -50,7 +50,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<int> updateGroup(Photo value,
+  Future<int> update(Photo value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {

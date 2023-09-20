@@ -4,17 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
-// class CardDetail extends Equatable{
-//   final int       id;
-//   final int       uuidUser;
-//   final String    cardNum;
-//   final String    cardYear;
-//   final String    cardMonth;
-//
-//
-// }
-
-
 @JsonSerializable()
 class User extends Equatable{
   @JsonKey(defaultValue: null,)
@@ -43,6 +32,7 @@ class User extends Equatable{
 
 
   User copyWith({//
+    int?       id,
     String?    firstName,
     String?    name,
     String?    lastName,
@@ -51,7 +41,7 @@ class User extends Equatable{
     String?    phone,
   }) =>
       User(
-        id:         id,//неизменно
+        id:         id         ?? this.id,
         firstName:  firstName  ?? this.firstName,
         name:       name       ?? this.name,
         lastName:   lastName   ?? this.lastName,

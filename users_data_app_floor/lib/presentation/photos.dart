@@ -35,9 +35,13 @@ class _PhotosPageState extends State<PhotosPage> {
     photosBloc.add(PhotosBlocEvent.insert(
         value: User(
           id: null,
+          lastName: '',
           name: _group.text,
+          firstName: '',
           image: _image.text,
           locator: uuid,
+          uuid: '',
+          phone: '',
         ),
       ),
     );
