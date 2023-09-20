@@ -14,9 +14,9 @@ class BlocFactory {
   void initialize(){
     ServiceProvider.instance.initialize();
 
-    _getIt.registerLazySingleton<PhotosBloc>(
-          () => PhotosBloc(
-            groupsRepository:  ServiceProvider.instance.get<PhotosRepository>(),
+    _getIt.registerLazySingleton<UsersBloc>(
+          () => UsersBloc(
+            usersRepository:  ServiceProvider.instance.get<UsersRepository>(),
       ),
     );
 

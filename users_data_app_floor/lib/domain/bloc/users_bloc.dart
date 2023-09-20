@@ -66,10 +66,10 @@ class UsersBlocEvent with _$UsersBlocEvent{
 
 @injectable
 class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
-  final PhotosRepository groupsRepository;
+  final UsersRepository usersRepository;
 
 
-  UsersModelData groupsModelData = const UsersModelData(
+  UsersModelData usersModelData = const UsersModelData(
     timeOut: false,
     data: UsersModel(<User>[], 0),
     e: '',
@@ -77,7 +77,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   );
 
   UsersBloc({
-    required this.groupsRepository,
+    required this.usersRepository,
   }) : super(const UsersBlocState.loading()) {
     on<UsersBlocEvent>((event, emit) async {
       await event.map<FutureOr<void>>(
@@ -86,21 +86,21 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             await _get(0);
             _response(emit);
           },
-          getGroups: (_getEvent value) async {
-            emit(const PhotosBlocState.loading());
+          get: (_getEvent value) async {
+            emit(const UsersBlocState.loading());
             await _get(value.page);
             _response(emit);
           },
-          insertGroup: (_insertEvent value) async {
-            emit(const PhotosBlocState.loading());
+          insert: (_insertEvent value) async {
+            emit(const UsersBlocState.loading());
             await _insert(value.value);
             _response(emit);
           },
-          updateGroup: (_updateEvent value) async {
+          update: (_updateEvent value) async {
             await _update(value.oldValue, value.value);
           },
-          deleteGroup: (_deleteEvent value) async {
-            emit(const PhotosBlocState.loading());
+          delete: (_deleteEvent value) async {
+            emit(const UsersBlocState.loading());
             await _delete(value.value);
             _response(emit);
           }
@@ -120,15 +120,15 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   }
 
 
-  void _response(Emitter<PhotosBlocState> emit){
-    if (groupsModelData.error){
-      if(groupsModelData.timeOut){
-        emit(const PhotosBlocState.timeOut());
+  void _response(Emitter<UsersBlocState> emit){
+    if (usersModelData.error){
+      if(usersModelData.timeOut){
+        emit(const UsersBlocState.timeOut());
       } else {
-        emit(const PhotosBlocState.error());
+        emit(const UsersBlocState.error());
       }
     } else{
-      emit(PhotosBlocState.loaded(model: groupsModelData));
+      emit(UsersBlocState.loaded(model: usersModelData));
     }
   }
 
@@ -139,7 +139,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await groupsRepository.getGroups(page).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.get(page).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -155,7 +155,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    usersModelData = usersModelData.copyWith(
       data: groupsModel,
       timeOut: timeOut,
       e: e,
@@ -169,7 +169,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.insertGroup(value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.insert(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -177,7 +177,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModelData.data.users.add(res);
+        usersModelData.data.users.add(res);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -185,7 +185,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    usersModelData = usersModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,
@@ -197,7 +197,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.updateGroup(value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.update(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -205,8 +205,8 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             return 0;
           });
       if (res > 0) {
-        groupsModelData.data.users.remove(oldValue);
-        groupsModelData.data.users.add(value);
+        usersModelData.data.users.remove(oldValue);
+        usersModelData.data.users.add(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -214,7 +214,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    usersModelData = usersModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,
@@ -226,7 +226,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.deleteGroup(value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.delete(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -235,7 +235,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
           });
       if (res > 0)
       {
-        groupsModelData.data.users.remove(value);
+        usersModelData.data.users.remove(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -243,7 +243,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    usersModelData = usersModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,

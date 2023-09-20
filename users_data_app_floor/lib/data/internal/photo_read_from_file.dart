@@ -12,7 +12,7 @@ class PhotoReadFromIntFile {
 
 
   Future<String> get _localPath async {
-    final directory = await getApplicationCacheDirectory();
+    final directory = await getApplicationSupportDirectory();
 
     return directory.path;
   }

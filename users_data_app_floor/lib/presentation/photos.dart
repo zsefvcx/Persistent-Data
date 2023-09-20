@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../core/core.dart';
 import '../domain/domain.dart';
 import 'widgets/error_time_out_widget.dart';
-import 'widgets/photo_card.dart';
+import 'widgets/user_card.dart';
 
 
 class PhotosPage extends StatefulWidget {
@@ -26,18 +26,19 @@ class _PhotosPageState extends State<PhotosPage> {
   final _formKey = GlobalKey<FormState>();
 
 
-  Future<void> loadData(PhotosBloc photosBloc) async {
-    photosBloc.add(const PhotosBlocEvent.get(page: 0));
+  Future<void> loadData(UsersBloc photosBloc) async {
+    photosBloc.add(const UsersBlocEvent.get(page: 0));
   }
 
-  Future<void> addData(PhotosBloc photosBloc) async {
-    final uuid = await photosBloc.writeToFile(_image.text);
-    photosBloc.add(PhotosBlocEvent.insert(
+  Future<void> addData(UsersBloc usersBloc) async {
+    final uuid = await usersBloc.writeToFile(_image.text);
+    usersBloc.add(UsersBlocEvent.insert(
         value: User(
           id: null,
           lastName: '',
           name: _group.text,
           firstName: '',
+          age: 18,
           image: _image.text,
           locator: uuid,
           uuid: '',
@@ -61,7 +62,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   @override
   Widget build(BuildContext context) {
-    PhotosBloc photosBloc = context.read<PhotosBloc>();
+    UsersBloc usersBloc = context.read<UsersBloc>();
     return WillPopScope(
       onWillPop: () async {
           return false;
@@ -73,7 +74,7 @@ class _PhotosPageState extends State<PhotosPage> {
               title:Text(widget.title),
             ),
           body: SafeArea(
-            child: BlocBuilder<PhotosBloc, PhotosBlocState>(
+            child: BlocBuilder<UsersBloc, UsersBlocState>(
               builder: (context, state) {
                 return state.map(
                   loading: (_) {
@@ -88,7 +89,7 @@ class _PhotosPageState extends State<PhotosPage> {
                   loaded: ( value) {
                     return ListView.separated(
                                itemCount: value.model.data.users.length,
-                               itemBuilder: (_, i) => PhotoCard(photo: value.model.data.users.toList()[i]),
+                               itemBuilder: (_, i) => UserCard(photo: value.model.data.users.toList()[i]),
                                separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },
@@ -105,7 +106,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 FloatingActionButton(
                   heroTag: UniqueKey(),
                   onPressed: (){
-                    _dialogBuilder(context, photosBloc);
+                    _dialogBuilder(context, usersBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
                   tooltip: 'Load',
@@ -115,7 +116,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 FloatingActionButton(
                   heroTag: UniqueKey(),
                   onPressed: () async {
-                    await loadData(photosBloc);
+                    await loadData(usersBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
                   tooltip: 'Reload',
@@ -130,7 +131,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   }
 
-  void _dialogBuilder(BuildContext context, PhotosBloc photosBloc) {
+  void _dialogBuilder(BuildContext context, UsersBloc usersBloc) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -221,7 +222,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 onPressed: () {
                   var cSt = _formKey.currentState;
                   if(cSt != null && cSt.validate()){
-                    addData(photosBloc);
+                    addData(usersBloc);
                     Navigator.of(context).pop();
                   }
                 },

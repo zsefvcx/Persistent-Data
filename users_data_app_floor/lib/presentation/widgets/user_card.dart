@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../../core/core.dart';
 import '../../domain/domain.dart';
 
-class PhotoCard extends StatefulWidget {
-  const PhotoCard({
+class UserCard extends StatefulWidget {
+  const UserCard({
     super.key,
     required this.photo,
   });
@@ -15,10 +15,10 @@ class PhotoCard extends StatefulWidget {
   final User photo;
 
   @override
-  State<PhotoCard> createState() => _PhotoCardState();
+  State<UserCard> createState() => _UserCardState();
 }
 
-class _PhotoCardState extends State<PhotoCard> {
+class _UserCardState extends State<UserCard> {
   final TextEditingController _photoName = TextEditingController();
   final TextEditingController _image = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -33,6 +33,7 @@ class _PhotoCardState extends State<PhotoCard> {
         firstName: '',
         name: _photoName.text,
         lastName: '',
+        age: 18,
         image: _image.text,
         locator: uuid,
         uuid: '',
@@ -46,6 +47,7 @@ class _PhotoCardState extends State<PhotoCard> {
         firstName: '',
         name: _photoName.text,
         lastName: '',
+        age: 18,
         image: _image.text,
         locator: uuid,
         uuid: '',
@@ -72,26 +74,54 @@ class _PhotoCardState extends State<PhotoCard> {
     UsersBloc usersBloc = context.read<UsersBloc>();
     return Card(
       child: SizedBox(
-        height: 400,
+        height: 200,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.greenAccent[400],
+                radius: 100,
                 child: FutureBuilder(
                   future: usersBloc.getUint8List(photo.locator),
                     builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
-                      if(snapshot.hasError) return const Center(child: Text('Error Data'),);
+                      if(snapshot.hasError) return const Center(child: Text('Error'),);
                       if(!snapshot.hasData) {
                         return const Center(child: CircularProgressIndicator(),);
                       } else {
-                        return Image.memory(snapshot.requireData);
+                        return CircleAvatar(
+                          backgroundColor: Colors.greenAccent[400],
+                          radius: 100,
+                          backgroundImage: MemoryImage(
+                                snapshot.requireData,
+                            ),
+                        );
                       }
                     },
                 ),
               ),
+            ),
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Name:  ${widget.photo.firstName} ${widget.photo.name} ${widget.photo.lastName}'),
+                          Text('Age:   ${widget.photo.age}'),
+                          Text('Phone: ${widget.photo.phone}'),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
             ),
             Column(
               children: [
@@ -111,7 +141,7 @@ class _PhotoCardState extends State<PhotoCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                       onPressed: () async {
-                          context.read<PhotosBloc>().add(PhotosBlocEvent.delete(value: photo));
+                        usersBloc.add(UsersBlocEvent.delete(value: photo));
                       },
                       icon: const Icon(Icons.delete_forever)),
                 ),
@@ -123,7 +153,7 @@ class _PhotoCardState extends State<PhotoCard> {
     );
   }
 
-  void _dialogBuilder(BuildContext context, PhotosBloc photosBloc) {
+  void _dialogBuilder(BuildContext context, UsersBloc photosBloc) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {

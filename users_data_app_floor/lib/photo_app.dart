@@ -13,25 +13,25 @@ class PhotoApp extends StatefulWidget {
 }
 
 class _PhotoAppState extends State<PhotoApp> {
-  late final PhotosBloc _groupsBloc;
+  late final UsersBloc _usersBloc;
 
   @override
   void initState() {
     super.initState();
-    _groupsBloc = BlocFactory.instance.get<PhotosBloc>();
-    _groupsBloc.add(const PhotosBlocEvent.init());
+    _usersBloc = BlocFactory.instance.get<UsersBloc>();
+    _usersBloc.add(const UsersBlocEvent.init());
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<PhotosBloc>(
+        Provider<UsersBloc>(
             create: (_) =>
-            _groupsBloc),
+            _usersBloc),
       ],
       child: MaterialApp(
-        title: 'Photo',
+        title: 'Users',
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
         theme: ThemeData(

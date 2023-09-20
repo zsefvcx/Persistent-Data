@@ -21,7 +21,7 @@ Future<void> main() async {
       skipTaskbar: false,
       fullScreen: false,
       backgroundColor: Colors.transparent,
-      title: 'Store',
+      title: 'Users',
       titleBarStyle: TitleBarStyle.normal,
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {

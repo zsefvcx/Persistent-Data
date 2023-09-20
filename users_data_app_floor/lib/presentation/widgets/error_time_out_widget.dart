@@ -17,20 +17,20 @@ class ErrorTimeOutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var blocBloc = context.read<PhotosBloc>();
+    var blocBloc = context.read<UsersBloc>();
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('isTimeOut  :${blocBloc.groupsModelData.isTimeOut.toString()}'),
-            Text('isError  :${blocBloc.groupsModelData.isError.toString()}'),
+            Text('isTimeOut  :${blocBloc.usersModelData.isTimeOut.toString()}'),
+            Text('isError  :${blocBloc.usersModelData.isError.toString()}'),
             const SizedBox(
               height: 50,
             ),
             TextButton(
                 onPressed: () {
-                    blocBloc.add(PhotosBlocEvent.get(page: page));
+                    blocBloc.add(UsersBlocEvent.get(page: page));
                 },
                 child: const Text('Try again')),
           ],

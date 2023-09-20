@@ -6,15 +6,15 @@ import '../../core/core.dart';
 import '../../domain/domain.dart';
 import '../data.dart';
 
-class GroupsRepositoryImpl extends PhotosRepository{
+class UsersRepositoryImpl extends UsersRepository{
 
   final NetworkInfo networkInfo;
   //if(await networkInfo.isConnected){ <- Для работы с сетью
 
-  GroupsRepositoryImpl({required this.networkInfo});
+  UsersRepositoryImpl({required this.networkInfo});
 
   @override
-  Future<int> deleteGroup(User value) async {
+  Future<int> delete(User value) async {
     int? gid = value.id;
     try {
       if (gid != null) {
@@ -28,7 +28,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<List<User>?> getGroups(int page) async {
+  Future<List<User>?> get(int page) async {
     try {
        return await DBProvider.db.get(page);
     } catch(e,t){
@@ -38,7 +38,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<User?> insertGroup(User value,
+  Future<User?> insert(User value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
@@ -51,7 +51,7 @@ class GroupsRepositoryImpl extends PhotosRepository{
   }
 
   @override
-  Future<int> updateGroup(User value,
+  Future<int> update(User value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {

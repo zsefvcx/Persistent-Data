@@ -23,7 +23,7 @@ class RouteGenerator{
       case PhotosPage.routeName:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-          const PhotosPage(title: 'Categories',),
+          const PhotosPage(title: 'Users',),
           transitionsBuilder: transitionsBuilder,
         );
       default:

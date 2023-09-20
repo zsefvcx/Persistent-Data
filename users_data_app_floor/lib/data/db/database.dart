@@ -20,8 +20,8 @@ class DBProvider {
   Future<Database> get database async => _database ??= await _initDB();
 
   Future<Database> _initDB() async {
-    Directory dir = await getApplicationCacheDirectory();
-    String path = '${dir.path}/user_base.db';
+    Directory dir = await getApplicationSupportDirectory();
+    String path = '${dir.path}/users_base.db';
     Logger.print("PathToDB:$path", name: 'log', level: 0, error: false);
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
@@ -33,6 +33,7 @@ class DBProvider {
   final String _firstName = 'firstName';
   final String _name = 'name';
   final String _lastName = 'lastName';
+  final String _age = 'age';
   final String _phone = 'phone';
   final String _uuid = 'uuid';
 
@@ -44,6 +45,7 @@ class DBProvider {
               '"$_firstName" TEXT, '
               '"$_name" TEXT, '
               '"$_lastName" TEXT, '
+              '"$_age" INTEGER, '
               '"$_image" TEXT, '
               '"$_phone" TEXT, '
               '"$_uuid" TEXT, '

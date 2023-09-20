@@ -1,4 +1,4 @@
 export 'entities/users_entity.dart';
-export 'repositories/photos_repository.dart';
+export 'repositories/users_repository.dart';
 export 'bloc/bloc_factory.dart';
-export 'bloc/photos_bloc.dart';
+export 'bloc/users_bloc.dart';

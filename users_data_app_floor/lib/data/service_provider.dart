@@ -15,8 +15,8 @@ class ServiceProvider{
   static final instance = ServiceProvider();
 
   void initialize(){
-    _getIt.registerLazySingleton<PhotosRepository>(
-          () => GroupsRepositoryImpl(networkInfo: networkInfo
+    _getIt.registerLazySingleton<UsersRepository>(
+          () => UsersRepositoryImpl(networkInfo: networkInfo
       ),
     );
   }

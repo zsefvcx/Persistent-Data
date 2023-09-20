@@ -12,6 +12,8 @@ class User extends Equatable{
   final String    name;
   @JsonKey(defaultValue: '')
   final String    lastName;
+  @JsonKey(defaultValue: 18)
+  final int       age;
   @JsonKey(defaultValue: '')
   final String    image;
   @JsonKey(defaultValue: '')
@@ -24,6 +26,7 @@ class User extends Equatable{
     required this.firstName,
     required this.name,
     required this.lastName,
+    required this.age,
     required this.image,
     required this.locator,
     required this.phone,
@@ -36,6 +39,7 @@ class User extends Equatable{
     String?    firstName,
     String?    name,
     String?    lastName,
+    int?       age,
     String?    locator,
     String?    image,
     String?    phone,
@@ -45,6 +49,7 @@ class User extends Equatable{
         firstName:  firstName  ?? this.firstName,
         name:       name       ?? this.name,
         lastName:   lastName   ?? this.lastName,
+        age:        age        ?? this.age,
         image:      image      ?? this.image,
         locator:    locator    ?? this.locator,
         phone:      phone      ?? this.phone,
@@ -57,6 +62,7 @@ class User extends Equatable{
     firstName,
     name,
     lastName,
+    age,
     image,
     locator,
     phone,
@@ -72,6 +78,6 @@ class User extends Equatable{
 
   @override
   String toString() {
-    return "$id:$firstName:$name:$lastName:$image:$locator:$phone:$uuid";
+    return "$id:$firstName:$name:$lastName:$age:$image:$locator:$phone:$uuid";
   }
 }
