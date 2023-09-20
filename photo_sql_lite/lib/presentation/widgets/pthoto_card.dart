@@ -90,7 +90,7 @@ class _PhotoCardState extends State<PhotoCard> {
             ),
             Column(
               children: [
-                Center(child: Text('${widget.photo.id}')),
+                Center(child: Text('${photo.id}')),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
