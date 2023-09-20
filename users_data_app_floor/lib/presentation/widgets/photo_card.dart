@@ -12,7 +12,7 @@ class PhotoCard extends StatefulWidget {
     required this.photo,
   });
 
-  final Photo photo;
+  final User photo;
 
   @override
   State<PhotoCard> createState() => _PhotoCardState();
@@ -22,13 +22,13 @@ class _PhotoCardState extends State<PhotoCard> {
   final TextEditingController _photoName = TextEditingController();
   final TextEditingController _image = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  late Photo photo;
+  late User photo;
 
   Future<void> modifyData(PhotosBloc photosBloc) async {
     final uuid = await photosBloc.writeToFile(_image.text, photo.locator);
     photosBloc.add(PhotosBlocEvent.update(
       oldValue: photo,
-      value: Photo(
+      value: User(
         id: photo.id,
         name: _photoName.text,
         image: _image.text,
@@ -37,7 +37,7 @@ class _PhotoCardState extends State<PhotoCard> {
     ),
     );
     setState(() {
-      photo = Photo(
+      photo = User(
         id: photo.id,
         name: _photoName.text,
         image: _image.text,

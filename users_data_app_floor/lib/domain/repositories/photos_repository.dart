@@ -6,16 +6,16 @@ import '../../core/core.dart';
 
 abstract class PhotosRepository{
 
-  Future<int> deleteGroup(Photo value);
+  Future<int> deleteGroup(User value);
 
-  Future<List<Photo>?> getGroups(int page);
+  Future<List<User>?> getGroups(int page);
 
-  Future<Photo?> insertGroup(Photo value,
+  Future<User?> insertGroup(User value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });
 
-  Future<int> updateGroup(Photo value,
+  Future<int> updateGroup(User value,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       });

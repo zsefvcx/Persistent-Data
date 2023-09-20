@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$GroupsBlocState {
+mixin _$PhotosBlocState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
@@ -69,16 +69,16 @@ mixin _$GroupsBlocState {
 }
 
 /// @nodoc
-abstract class $GroupsBlocStateCopyWith<$Res> {
-  factory $GroupsBlocStateCopyWith(
+abstract class $PhotosBlocStateCopyWith<$Res> {
+  factory $PhotosBlocStateCopyWith(
           PhotosBlocState value, $Res Function(PhotosBlocState) then) =
-      _$GroupsBlocStateCopyWithImpl<$Res, PhotosBlocState>;
+      _$PhotosBlocStateCopyWithImpl<$Res, PhotosBlocState>;
 }
 
 /// @nodoc
-class _$GroupsBlocStateCopyWithImpl<$Res, $Val extends PhotosBlocState>
-    implements $GroupsBlocStateCopyWith<$Res> {
-  _$GroupsBlocStateCopyWithImpl(this._value, this._then);
+class _$PhotosBlocStateCopyWithImpl<$Res, $Val extends PhotosBlocState>
+    implements $PhotosBlocStateCopyWith<$Res> {
+  _$PhotosBlocStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$_loadingStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_loadingStateCopyWithImpl<$Res>
-    extends _$GroupsBlocStateCopyWithImpl<$Res, _$_loadingState>
+    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_loadingState>
     implements _$$_loadingStateCopyWith<$Res> {
   __$$_loadingStateCopyWithImpl(
       _$_loadingState _value, $Res Function(_$_loadingState) _then)
@@ -109,7 +109,7 @@ class _$_loadingState implements _loadingState {
 
   @override
   String toString() {
-    return 'GroupsBlocState.loading()';
+    return 'PhotosBlocState.loading()';
   }
 
   @override
@@ -211,7 +211,7 @@ abstract class _$$_loadedStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_loadedStateCopyWithImpl<$Res>
-    extends _$GroupsBlocStateCopyWithImpl<$Res, _$_loadedState>
+    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_loadedState>
     implements _$$_loadedStateCopyWith<$Res> {
   __$$_loadedStateCopyWithImpl(
       _$_loadedState _value, $Res Function(_$_loadedState) _then)
@@ -241,7 +241,7 @@ class _$_loadedState implements _loadedState {
 
   @override
   String toString() {
-    return 'GroupsBlocState.loaded(model: $model)';
+    return 'PhotosBlocState.loaded(model: $model)';
   }
 
   @override
@@ -355,7 +355,7 @@ abstract class _$$_errorStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_errorStateCopyWithImpl<$Res>
-    extends _$GroupsBlocStateCopyWithImpl<$Res, _$_errorState>
+    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_errorState>
     implements _$$_errorStateCopyWith<$Res> {
   __$$_errorStateCopyWithImpl(
       _$_errorState _value, $Res Function(_$_errorState) _then)
@@ -369,7 +369,7 @@ class _$_errorState implements _errorState {
 
   @override
   String toString() {
-    return 'GroupsBlocState.error()';
+    return 'PhotosBlocState.error()';
   }
 
   @override
@@ -469,7 +469,7 @@ abstract class _$$_timeOutCopyWith<$Res> {
 
 /// @nodoc
 class __$$_timeOutCopyWithImpl<$Res>
-    extends _$GroupsBlocStateCopyWithImpl<$Res, _$_timeOut>
+    extends _$PhotosBlocStateCopyWithImpl<$Res, _$_timeOut>
     implements _$$_timeOutCopyWith<$Res> {
   __$$_timeOutCopyWithImpl(_$_timeOut _value, $Res Function(_$_timeOut) _then)
       : super(_value, _then);
@@ -482,7 +482,7 @@ class _$_timeOut implements _timeOut {
 
   @override
   String toString() {
-    return 'GroupsBlocState.timeOut()';
+    return 'PhotosBlocState.timeOut()';
   }
 
   @override
@@ -574,76 +574,76 @@ abstract class _timeOut implements PhotosBlocState {
 }
 
 /// @nodoc
-mixin _$GroupsBlocEvent {
+mixin _$PhotosBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GroupsBlocEventCopyWith<$Res> {
-  factory $GroupsBlocEventCopyWith(
+abstract class $PhotosBlocEventCopyWith<$Res> {
+  factory $PhotosBlocEventCopyWith(
           PhotosBlocEvent value, $Res Function(PhotosBlocEvent) then) =
-      _$GroupsBlocEventCopyWithImpl<$Res, PhotosBlocEvent>;
+      _$PhotosBlocEventCopyWithImpl<$Res, PhotosBlocEvent>;
 }
 
 /// @nodoc
-class _$GroupsBlocEventCopyWithImpl<$Res, $Val extends PhotosBlocEvent>
-    implements $GroupsBlocEventCopyWith<$Res> {
-  _$GroupsBlocEventCopyWithImpl(this._value, this._then);
+class _$PhotosBlocEventCopyWithImpl<$Res, $Val extends PhotosBlocEvent>
+    implements $PhotosBlocEventCopyWith<$Res> {
+  _$PhotosBlocEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -660,7 +660,7 @@ abstract class _$$_initEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_initEventCopyWithImpl<$Res>
-    extends _$GroupsBlocEventCopyWithImpl<$Res, _$_initEvent>
+    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_initEvent>
     implements _$$_initEventCopyWith<$Res> {
   __$$_initEventCopyWithImpl(
       _$_initEvent _value, $Res Function(_$_initEvent) _then)
@@ -674,7 +674,7 @@ class _$_initEvent implements _initEvent {
 
   @override
   String toString() {
-    return 'GroupsBlocEvent.init()';
+    return 'PhotosBlocEvent.init()';
   }
 
   @override
@@ -690,10 +690,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) {
     return init();
   }
@@ -702,10 +702,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) {
     return init?.call();
   }
@@ -714,10 +714,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -730,10 +730,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) {
     return init(this);
   }
@@ -742,10 +742,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) {
     return init?.call(this);
   }
@@ -754,10 +754,10 @@ class _$_initEvent implements _initEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -772,20 +772,20 @@ abstract class _initEvent implements PhotosBlocEvent {
 }
 
 /// @nodoc
-abstract class _$$_getGroupsEventCopyWith<$Res> {
-  factory _$$_getGroupsEventCopyWith(
-          _$_getGroupsEvent value, $Res Function(_$_getGroupsEvent) then) =
-      __$$_getGroupsEventCopyWithImpl<$Res>;
+abstract class _$$_getEventCopyWith<$Res> {
+  factory _$$_getEventCopyWith(
+          _$_getEvent value, $Res Function(_$_getEvent) then) =
+      __$$_getEventCopyWithImpl<$Res>;
   @useResult
   $Res call({int page});
 }
 
 /// @nodoc
-class __$$_getGroupsEventCopyWithImpl<$Res>
-    extends _$GroupsBlocEventCopyWithImpl<$Res, _$_getGroupsEvent>
-    implements _$$_getGroupsEventCopyWith<$Res> {
-  __$$_getGroupsEventCopyWithImpl(
-      _$_getGroupsEvent _value, $Res Function(_$_getGroupsEvent) _then)
+class __$$_getEventCopyWithImpl<$Res>
+    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_getEvent>
+    implements _$$_getEventCopyWith<$Res> {
+  __$$_getEventCopyWithImpl(
+      _$_getEvent _value, $Res Function(_$_getEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -793,7 +793,7 @@ class __$$_getGroupsEventCopyWithImpl<$Res>
   $Res call({
     Object? page = null,
   }) {
-    return _then(_$_getGroupsEvent(
+    return _then(_$_getEvent(
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -804,22 +804,22 @@ class __$$_getGroupsEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_getGroupsEvent implements _getEvent {
-  const _$_getGroupsEvent({required this.page});
+class _$_getEvent implements _getEvent {
+  const _$_getEvent({required this.page});
 
   @override
   final int page;
 
   @override
   String toString() {
-    return 'GroupsBlocEvent.getGroups(page: $page)';
+    return 'PhotosBlocEvent.get(page: $page)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_getGroupsEvent &&
+            other is _$_getEvent &&
             (identical(other.page, page) || other.page == page));
   }
 
@@ -829,45 +829,45 @@ class _$_getGroupsEvent implements _getEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_getGroupsEventCopyWith<_$_getGroupsEvent> get copyWith =>
-      __$$_getGroupsEventCopyWithImpl<_$_getGroupsEvent>(this, _$identity);
+  _$$_getEventCopyWith<_$_getEvent> get copyWith =>
+      __$$_getEventCopyWithImpl<_$_getEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) {
-    return getGroups(page);
+    return get(page);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) {
-    return getGroups?.call(page);
+    return get?.call(page);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) {
-    if (getGroups != null) {
-      return getGroups(page);
+    if (get != null) {
+      return get(page);
     }
     return orElse();
   }
@@ -876,67 +876,67 @@ class _$_getGroupsEvent implements _getEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) {
-    return getGroups(this);
+    return get(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) {
-    return getGroups?.call(this);
+    return get?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) {
-    if (getGroups != null) {
-      return getGroups(this);
+    if (get != null) {
+      return get(this);
     }
     return orElse();
   }
 }
 
 abstract class _getEvent implements PhotosBlocEvent {
-  const factory _getEvent({required final int page}) = _$_getGroupsEvent;
+  const factory _getEvent({required final int page}) = _$_getEvent;
 
   int get page;
   @JsonKey(ignore: true)
-  _$$_getGroupsEventCopyWith<_$_getGroupsEvent> get copyWith =>
+  _$$_getEventCopyWith<_$_getEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_insertGroupEventCopyWith<$Res> {
-  factory _$$_insertGroupEventCopyWith(
-          _$_insertGroupEvent value, $Res Function(_$_insertGroupEvent) then) =
-      __$$_insertGroupEventCopyWithImpl<$Res>;
+abstract class _$$_insertEventCopyWith<$Res> {
+  factory _$$_insertEventCopyWith(
+          _$_insertEvent value, $Res Function(_$_insertEvent) then) =
+      __$$_insertEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Photo value});
+  $Res call({User value});
 }
 
 /// @nodoc
-class __$$_insertGroupEventCopyWithImpl<$Res>
-    extends _$GroupsBlocEventCopyWithImpl<$Res, _$_insertGroupEvent>
-    implements _$$_insertGroupEventCopyWith<$Res> {
-  __$$_insertGroupEventCopyWithImpl(
-      _$_insertGroupEvent _value, $Res Function(_$_insertGroupEvent) _then)
+class __$$_insertEventCopyWithImpl<$Res>
+    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_insertEvent>
+    implements _$$_insertEventCopyWith<$Res> {
+  __$$_insertEventCopyWithImpl(
+      _$_insertEvent _value, $Res Function(_$_insertEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -944,33 +944,33 @@ class __$$_insertGroupEventCopyWithImpl<$Res>
   $Res call({
     Object? value = null,
   }) {
-    return _then(_$_insertGroupEvent(
+    return _then(_$_insertEvent(
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Photo,
+              as User,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_insertGroupEvent implements _insertEvent {
-  const _$_insertGroupEvent({required this.value});
+class _$_insertEvent implements _insertEvent {
+  const _$_insertEvent({required this.value});
 
   @override
-  final Photo value;
+  final User value;
 
   @override
   String toString() {
-    return 'GroupsBlocEvent.insertGroup(value: $value)';
+    return 'PhotosBlocEvent.insert(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_insertGroupEvent &&
+            other is _$_insertEvent &&
             (identical(other.value, value) || other.value == value));
   }
 
@@ -980,45 +980,45 @@ class _$_insertGroupEvent implements _insertEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_insertGroupEventCopyWith<_$_insertGroupEvent> get copyWith =>
-      __$$_insertGroupEventCopyWithImpl<_$_insertGroupEvent>(this, _$identity);
+  _$$_insertEventCopyWith<_$_insertEvent> get copyWith =>
+      __$$_insertEventCopyWithImpl<_$_insertEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) {
-    return insertGroup(value);
+    return insert(value);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) {
-    return insertGroup?.call(value);
+    return insert?.call(value);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) {
-    if (insertGroup != null) {
-      return insertGroup(value);
+    if (insert != null) {
+      return insert(value);
     }
     return orElse();
   }
@@ -1027,68 +1027,67 @@ class _$_insertGroupEvent implements _insertEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) {
-    return insertGroup(this);
+    return insert(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) {
-    return insertGroup?.call(this);
+    return insert?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) {
-    if (insertGroup != null) {
-      return insertGroup(this);
+    if (insert != null) {
+      return insert(this);
     }
     return orElse();
   }
 }
 
 abstract class _insertEvent implements PhotosBlocEvent {
-  const factory _insertEvent({required final Photo value}) =
-      _$_insertGroupEvent;
+  const factory _insertEvent({required final User value}) = _$_insertEvent;
 
-  Photo get value;
+  User get value;
   @JsonKey(ignore: true)
-  _$$_insertGroupEventCopyWith<_$_insertGroupEvent> get copyWith =>
+  _$$_insertEventCopyWith<_$_insertEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_updateGroupEventCopyWith<$Res> {
-  factory _$$_updateGroupEventCopyWith(
-          _$_updateGroupEvent value, $Res Function(_$_updateGroupEvent) then) =
-      __$$_updateGroupEventCopyWithImpl<$Res>;
+abstract class _$$_updateEventCopyWith<$Res> {
+  factory _$$_updateEventCopyWith(
+          _$_updateEvent value, $Res Function(_$_updateEvent) then) =
+      __$$_updateEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Photo oldValue, Photo value});
+  $Res call({User oldValue, User value});
 }
 
 /// @nodoc
-class __$$_updateGroupEventCopyWithImpl<$Res>
-    extends _$GroupsBlocEventCopyWithImpl<$Res, _$_updateGroupEvent>
-    implements _$$_updateGroupEventCopyWith<$Res> {
-  __$$_updateGroupEventCopyWithImpl(
-      _$_updateGroupEvent _value, $Res Function(_$_updateGroupEvent) _then)
+class __$$_updateEventCopyWithImpl<$Res>
+    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_updateEvent>
+    implements _$$_updateEventCopyWith<$Res> {
+  __$$_updateEventCopyWithImpl(
+      _$_updateEvent _value, $Res Function(_$_updateEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1097,39 +1096,39 @@ class __$$_updateGroupEventCopyWithImpl<$Res>
     Object? oldValue = null,
     Object? value = null,
   }) {
-    return _then(_$_updateGroupEvent(
+    return _then(_$_updateEvent(
       oldValue: null == oldValue
           ? _value.oldValue
           : oldValue // ignore: cast_nullable_to_non_nullable
-              as Photo,
+              as User,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Photo,
+              as User,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_updateGroupEvent implements _updateEvent {
-  const _$_updateGroupEvent({required this.oldValue, required this.value});
+class _$_updateEvent implements _updateEvent {
+  const _$_updateEvent({required this.oldValue, required this.value});
 
   @override
-  final Photo oldValue;
+  final User oldValue;
   @override
-  final Photo value;
+  final User value;
 
   @override
   String toString() {
-    return 'GroupsBlocEvent.updateGroup(oldValue: $oldValue, value: $value)';
+    return 'PhotosBlocEvent.update(oldValue: $oldValue, value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_updateGroupEvent &&
+            other is _$_updateEvent &&
             (identical(other.oldValue, oldValue) ||
                 other.oldValue == oldValue) &&
             (identical(other.value, value) || other.value == value));
@@ -1141,45 +1140,45 @@ class _$_updateGroupEvent implements _updateEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_updateGroupEventCopyWith<_$_updateGroupEvent> get copyWith =>
-      __$$_updateGroupEventCopyWithImpl<_$_updateGroupEvent>(this, _$identity);
+  _$$_updateEventCopyWith<_$_updateEvent> get copyWith =>
+      __$$_updateEventCopyWithImpl<_$_updateEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) {
-    return updateGroup(oldValue, value);
+    return update(oldValue, value);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) {
-    return updateGroup?.call(oldValue, value);
+    return update?.call(oldValue, value);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) {
-    if (updateGroup != null) {
-      return updateGroup(oldValue, value);
+    if (update != null) {
+      return update(oldValue, value);
     }
     return orElse();
   }
@@ -1188,38 +1187,38 @@ class _$_updateGroupEvent implements _updateEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) {
-    return updateGroup(this);
+    return update(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) {
-    return updateGroup?.call(this);
+    return update?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) {
-    if (updateGroup != null) {
-      return updateGroup(this);
+    if (update != null) {
+      return update(this);
     }
     return orElse();
   }
@@ -1227,31 +1226,31 @@ class _$_updateGroupEvent implements _updateEvent {
 
 abstract class _updateEvent implements PhotosBlocEvent {
   const factory _updateEvent(
-      {required final Photo oldValue,
-      required final Photo value}) = _$_updateGroupEvent;
+      {required final User oldValue,
+      required final User value}) = _$_updateEvent;
 
-  Photo get oldValue;
-  Photo get value;
+  User get oldValue;
+  User get value;
   @JsonKey(ignore: true)
-  _$$_updateGroupEventCopyWith<_$_updateGroupEvent> get copyWith =>
+  _$$_updateEventCopyWith<_$_updateEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_deleteGroupEventCopyWith<$Res> {
-  factory _$$_deleteGroupEventCopyWith(
-          _$_deleteGroupEvent value, $Res Function(_$_deleteGroupEvent) then) =
-      __$$_deleteGroupEventCopyWithImpl<$Res>;
+abstract class _$$_deleteEventCopyWith<$Res> {
+  factory _$$_deleteEventCopyWith(
+          _$_deleteEvent value, $Res Function(_$_deleteEvent) then) =
+      __$$_deleteEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Photo value});
+  $Res call({User value});
 }
 
 /// @nodoc
-class __$$_deleteGroupEventCopyWithImpl<$Res>
-    extends _$GroupsBlocEventCopyWithImpl<$Res, _$_deleteGroupEvent>
-    implements _$$_deleteGroupEventCopyWith<$Res> {
-  __$$_deleteGroupEventCopyWithImpl(
-      _$_deleteGroupEvent _value, $Res Function(_$_deleteGroupEvent) _then)
+class __$$_deleteEventCopyWithImpl<$Res>
+    extends _$PhotosBlocEventCopyWithImpl<$Res, _$_deleteEvent>
+    implements _$$_deleteEventCopyWith<$Res> {
+  __$$_deleteEventCopyWithImpl(
+      _$_deleteEvent _value, $Res Function(_$_deleteEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1259,33 +1258,33 @@ class __$$_deleteGroupEventCopyWithImpl<$Res>
   $Res call({
     Object? value = null,
   }) {
-    return _then(_$_deleteGroupEvent(
+    return _then(_$_deleteEvent(
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as Photo,
+              as User,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_deleteGroupEvent implements _deleteEvent {
-  const _$_deleteGroupEvent({required this.value});
+class _$_deleteEvent implements _deleteEvent {
+  const _$_deleteEvent({required this.value});
 
   @override
-  final Photo value;
+  final User value;
 
   @override
   String toString() {
-    return 'GroupsBlocEvent.deleteGroup(value: $value)';
+    return 'PhotosBlocEvent.delete(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_deleteGroupEvent &&
+            other is _$_deleteEvent &&
             (identical(other.value, value) || other.value == value));
   }
 
@@ -1295,45 +1294,45 @@ class _$_deleteGroupEvent implements _deleteEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_deleteGroupEventCopyWith<_$_deleteGroupEvent> get copyWith =>
-      __$$_deleteGroupEventCopyWithImpl<_$_deleteGroupEvent>(this, _$identity);
+  _$$_deleteEventCopyWith<_$_deleteEvent> get copyWith =>
+      __$$_deleteEventCopyWithImpl<_$_deleteEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(int page) getGroups,
-    required TResult Function(Photo value) insertGroup,
-    required TResult Function(Photo oldValue, Photo value) updateGroup,
-    required TResult Function(Photo value) deleteGroup,
+    required TResult Function(int page) get,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
   }) {
-    return deleteGroup(value);
+    return delete(value);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(int page)? getGroups,
-    TResult? Function(Photo value)? insertGroup,
-    TResult? Function(Photo oldValue, Photo value)? updateGroup,
-    TResult? Function(Photo value)? deleteGroup,
+    TResult? Function(int page)? get,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
   }) {
-    return deleteGroup?.call(value);
+    return delete?.call(value);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(int page)? getGroups,
-    TResult Function(Photo value)? insertGroup,
-    TResult Function(Photo oldValue, Photo value)? updateGroup,
-    TResult Function(Photo value)? deleteGroup,
+    TResult Function(int page)? get,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
     required TResult orElse(),
   }) {
-    if (deleteGroup != null) {
-      return deleteGroup(value);
+    if (delete != null) {
+      return delete(value);
     }
     return orElse();
   }
@@ -1342,49 +1341,48 @@ class _$_deleteGroupEvent implements _deleteEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) getGroups,
-    required TResult Function(_insertEvent value) insertGroup,
-    required TResult Function(_updateEvent value) updateGroup,
-    required TResult Function(_deleteEvent value) deleteGroup,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
   }) {
-    return deleteGroup(this);
+    return delete(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? getGroups,
-    TResult? Function(_insertEvent value)? insertGroup,
-    TResult? Function(_updateEvent value)? updateGroup,
-    TResult? Function(_deleteEvent value)? deleteGroup,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
   }) {
-    return deleteGroup?.call(this);
+    return delete?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? getGroups,
-    TResult Function(_insertEvent value)? insertGroup,
-    TResult Function(_updateEvent value)? updateGroup,
-    TResult Function(_deleteEvent value)? deleteGroup,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
   }) {
-    if (deleteGroup != null) {
-      return deleteGroup(this);
+    if (delete != null) {
+      return delete(this);
     }
     return orElse();
   }
 }
 
 abstract class _deleteEvent implements PhotosBlocEvent {
-  const factory _deleteEvent({required final Photo value}) =
-      _$_deleteGroupEvent;
+  const factory _deleteEvent({required final User value}) = _$_deleteEvent;
 
-  Photo get value;
+  User get value;
   @JsonKey(ignore: true)
-  _$$_deleteGroupEventCopyWith<_$_deleteGroupEvent> get copyWith =>
+  _$$_deleteEventCopyWith<_$_deleteEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }

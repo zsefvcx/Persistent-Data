@@ -33,7 +33,7 @@ class _PhotosPageState extends State<PhotosPage> {
   Future<void> addData(PhotosBloc photosBloc) async {
     final uuid = await photosBloc.writeToFile(_image.text);
     photosBloc.add(PhotosBlocEvent.insert(
-        value: Photo(
+        value: User(
           id: null,
           name: _group.text,
           image: _image.text,
@@ -83,8 +83,8 @@ class _PhotosPageState extends State<PhotosPage> {
                   },
                   loaded: ( value) {
                     return ListView.separated(
-                               itemCount: value.model.data.photos.length,
-                               itemBuilder: (_, i) => PhotoCard(photo: value.model.data.photos.toList()[i]),
+                               itemCount: value.model.data.users.length,
+                               itemBuilder: (_, i) => PhotoCard(photo: value.model.data.users.toList()[i]),
                                separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },

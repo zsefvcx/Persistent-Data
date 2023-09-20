@@ -13,7 +13,7 @@ class ErrorTimeOutWidget extends StatelessWidget {
   });
 
   final int page;
-  final Photo? photo;
+  final User? photo;
 
   @override
   Widget build(BuildContext context) {

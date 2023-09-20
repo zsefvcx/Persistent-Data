@@ -17,11 +17,11 @@ part 'photos_bloc.freezed.dart';
 class PhotosModelData {
 
   final bool timeOut;
-  final APhotosEntity data;
+  final AUsersEntity data;
   final bool error;
   final String e;
 
-  bool get isLoaded => data.photos.isNotEmpty;
+  bool get isLoaded => data.users.isNotEmpty;
   bool get isTimeOut => timeOut;
   bool get isError => error;
 
@@ -33,7 +33,7 @@ class PhotosModelData {
   });
 
   PhotosModelData copyWith({
-    APhotosEntity? data,
+    AUsersEntity? data,
     String? e,
     bool? timeOut,
     bool? error,
@@ -59,9 +59,9 @@ class PhotosBlocState with _$GroupsBlocState{
 class PhotosBlocEvent with _$GroupsBlocEvent{
   const factory PhotosBlocEvent.init() = _initEvent;
   const factory PhotosBlocEvent.get({required int page}) = _getEvent;
-  const factory PhotosBlocEvent.insert({required Photo value}) = _insertEvent;
-  const factory PhotosBlocEvent.update({required Photo oldValue, required Photo value}) = _updateEvent;
-  const factory PhotosBlocEvent.delete({required Photo value}) = _deleteEvent;
+  const factory PhotosBlocEvent.insert({required User value}) = _insertEvent;
+  const factory PhotosBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
+  const factory PhotosBlocEvent.delete({required User value}) = _deleteEvent;
 }
 
 @injectable
@@ -71,7 +71,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
 
   PhotosModelData groupsModelData = const PhotosModelData(
     timeOut: false,
-    data: PhotosModel(<Photo>[], 0),
+    data: UsersModel(<User>[], 0),
     e: '',
     error: false,
   );
@@ -133,7 +133,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
   }
 
   Future<void> _get(int page) async {
-    APhotosEntity? groupsModel;
+    AUsersEntity? groupsModel;
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -147,7 +147,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModel = PhotosModel(res, page);
+        groupsModel = UsersModel(res, page);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -164,7 +164,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
 
   }
 
-  Future<void> _insert(Photo value) async {
+  Future<void> _insert(User value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -177,7 +177,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModelData.data.photos.add(res);
+        groupsModelData.data.users.add(res);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -192,7 +192,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     );
   }
 
-  Future<void> _update(Photo oldValue, Photo value) async {
+  Future<void> _update(User oldValue, User value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -205,8 +205,8 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             return 0;
           });
       if (res > 0) {
-        groupsModelData.data.photos.remove(oldValue);
-        groupsModelData.data.photos.add(value);
+        groupsModelData.data.users.remove(oldValue);
+        groupsModelData.data.users.add(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -221,7 +221,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     );
   }
 
-  Future<void> _delete(Photo value) async {
+  Future<void> _delete(User value) async {
     String? e;
     bool? error = false;
     bool? timeOut;
@@ -235,7 +235,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
           });
       if (res > 0)
       {
-        groupsModelData.data.photos.remove(value);
+        groupsModelData.data.users.remove(value);
       }
     } catch (ee, t){
       e = ee.toString();

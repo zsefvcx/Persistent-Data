@@ -45,25 +45,25 @@ class DBProvider {
 
   ///READ GROUP
   ///Пока получаем все элементы из списка
-  Future<List<Photo>> get(int page) async {
+  Future<List<User>> get(int page) async {
     Database db = await database;
     final List<Map<String, dynamic>> groupsMapList =
         await db.query(_table,
           // where: '$_columnId = ?',
           //whereArgs: [page*10]
         );
-    final List<Photo> groupList = [];
+    final List<User> groupList = [];
 
     for (var element in groupsMapList) {
       groupList.add(
-          Photo.fromJson(element)
+          User.fromJson(element)
       );
     }
     return groupList;
   }
 
   ///INSERT Group
-  Future<Photo> insert(Photo data,
+  Future<User> insert(User data,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
@@ -97,7 +97,7 @@ class DBProvider {
   }
 
   ///UPDATE Group
-  Future<int> update(Photo data,
+  Future<int> update(User data,
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
