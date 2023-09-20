@@ -24,14 +24,18 @@ class _PhotoCardState extends State<PhotoCard> {
   late Photo photo;
 
   Future<void> modifyData(PhotosBloc photosBloc) async {
-    final uuid = await photosBloc.writeToFile(_image.text, photo.locator);
+    String? locator;
+    if(_image.text != photo.image) {
+      locator = await photosBloc.writeToFile(_image.text, photo.locator);
+    }
+
     photosBloc.add(PhotosBlocEvent.update(
       oldValue: photo,
       value: Photo(
         id: photo.id,
         name: _photoName.text,
         image: _image.text,
-        locator: uuid,
+        locator: locator ?? photo.locator,
       ),
     ),
     );
@@ -40,7 +44,7 @@ class _PhotoCardState extends State<PhotoCard> {
         id: photo.id,
         name: _photoName.text,
         image: _image.text,
-        locator: uuid,
+        locator: locator ?? photo.locator,
       );
     });
   }
