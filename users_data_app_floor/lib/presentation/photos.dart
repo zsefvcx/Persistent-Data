@@ -89,7 +89,7 @@ class _PhotosPageState extends State<PhotosPage> {
                   loaded: ( value) {
                     return ListView.separated(
                                itemCount: value.model.data.users.length,
-                               itemBuilder: (_, i) => UserCard(photo: value.model.data.users.toList()[i]),
+                               itemBuilder: (_, i) => UserCard(user: value.model.data.users.toList()[i]),
                                separatorBuilder: (_, __) => const SizedBox(height: 10),
                     );
                   },

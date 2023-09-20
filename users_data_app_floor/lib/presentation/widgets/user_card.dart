@@ -9,10 +9,10 @@ import '../../domain/domain.dart';
 class UserCard extends StatefulWidget {
   const UserCard({
     super.key,
-    required this.photo,
+    required this.user,
   });
 
-  final User photo;
+  final User user;
 
   @override
   State<UserCard> createState() => _UserCardState();
@@ -58,12 +58,13 @@ class _UserCardState extends State<UserCard> {
     setState(() {
       user = modifyUser;
     });
+    Logger.print("$user", name: 'log', level: 0, error: false);
   }
 
   @override
   void initState() {
     super.initState();
-    user = widget.photo;
+    user = widget.user;
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
@@ -121,9 +122,9 @@ class _UserCardState extends State<UserCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Name:  ${widget.photo.firstName} ${widget.photo.name} ${widget.photo.lastName}'),
-                          Text('Age:   ${widget.photo.age}'),
-                          Text('Phone: ${widget.photo.phone}'),
+                          Text('Name:  ${user.firstName} ${user.name} ${user.lastName}'),
+                          Text('Age:   ${user.age}'),
+                          Text('Phone: ${user.phone}'),
                         ],
                       ),
                     ),
@@ -132,7 +133,7 @@ class _UserCardState extends State<UserCard> {
             ),
             Column(
               children: [
-                Center(child: Text('${widget.photo.id}')),
+                Center(child: Text('${user.id}')),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
@@ -169,136 +170,151 @@ class _UserCardState extends State<UserCard> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Center(child: Text('Add a new Photo')),
-          content: SizedBox(
-            width: 300,
-            height: 600,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _firstName,
-                      maxLines: 1,
-                      maxLength: 255,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'First Name',
+          title: const Center(child: Text('Modify User')),
+          content: Container(
+            constraints: const BoxConstraints(maxHeight: 400),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              reverse: false,
+              child: SizedBox(
+                width: 300,
+                height: 600,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _firstName,
+                          maxLines: 1,
+                          maxLength: 255,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'First Name',
+                          ),
+                          validator: (text) =>
+                          (text == null || text.isEmpty)?
+                          'Text is empty':
+                          null,
+                        ),
                       ),
-                      validator: (text) =>
-                      (text == null || text.isEmpty)?
-                      'Text is empty':
-                      null,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _name,
-                      maxLines: 1,
-                      maxLength: 255,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Name',
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _name,
+                          maxLines: 1,
+                          maxLength: 255,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Name',
+                          ),
+                          validator: (text) =>
+                          (text == null || text.isEmpty)?
+                          'Text is empty':
+                          null,
+                        ),
                       ),
-                      validator: (text) =>
-                      (text == null || text.isEmpty)?
-                      'Text is empty':
-                      null,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _lastname,
-                      maxLines: 1,
-                      maxLength: 255,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Last Name',
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _lastname,
+                          maxLines: 1,
+                          maxLength: 255,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Last Name',
+                          ),
+                          validator: (text) =>
+                          (text == null || text.isEmpty)?
+                          'Text is empty':
+                          null,
+                        ),
                       ),
-                      validator: (text) =>
-                      (text == null || text.isEmpty)?
-                      'Text is empty':
-                      null,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _age,
-                      maxLines: 1,
-                      maxLength: 255,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Age',
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _age,
+                          maxLines: 1,
+                          maxLength: 255,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Age',
+                          ),
+                          validator: (text) {
+                            if(text == null || text.isEmpty) return 'Text is empty';
+                            int? age = int.tryParse(text);
+                            if (age == null ) return 'Age is not recognise';
+                            if (age < 18 || age > 110) return 'Age is wrong';
+                            return null;
+                          },
+                        ),
                       ),
-                      validator: (text) {
-                        if(text == null || text.isEmpty) return 'Text is empty';
-                        int? age = int.tryParse(text);
-                        if (age == null ) return 'Age is not recognise';
-                        if (age < 18 || age > 110) return 'Age is wrong';
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _phone,
-                      maxLines: 1,
-                      maxLength: 255,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Phone',
-                      ),
-                      validator: (text) =>
-                      (text == null || text.isEmpty)?
-                      'Text is empty':
-                      null,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    child: TextFormField(
-                      controller: _image,
-                      maxLength: 255,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Image URL',
-                      ),
-                      validator: (value) {
-                        ///Используем встроенный валидатор
-                        if(value != null){
-                          final Uri? uri = Uri.tryParse(value);
-                          if(uri != null) {
-                            if (!uri.hasAbsolutePath) {
-                              return 'Please enter valid url';
-                            } else {
-                              return null;
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _phone,
+                          maxLines: 1,
+                          maxLength: 255,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Phone int format +7 (XXX) XXX-XX-XX',
+                          ),
+                          validator: (text) {
+                            if(text == null || text.isEmpty) return 'Text is empty';
+                            if(!RegExp(r'(^[\+]?[0-9]{1,3}[-\s\.]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{2}[-\s\.]?[0-9]{2}$)').hasMatch(text ?? '')){
+                              return 'Format Phone number is wrong';
                             }
-                          }
-                        }
-                        return 'Please enter valid url';
-                        ///Используем регулярные выражения
-                        // String hasValidUrl(String value) {
-                        //   String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
-                        //   RegExp regExp = new RegExp(pattern);
-                        //   if (value.length == 0) {
-                        //     return 'Please enter url';
-                        //   }
-                        //   else if (!regExp.hasMatch(value)) {
-                        //     return 'Please enter valid url';
-                        //   }
-                        //   return null;
-                        // }
-                      },
-                    ),
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 280,
+                        child: TextFormField(
+                          controller: _image,
+                          maxLength: 255,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Image URL',
+                          ),
+                          validator: (value) {
+                            ///Используем встроенный валидатор
+                            if(value != null){
+                              final Uri? uri = Uri.tryParse(value);
+                              if(uri != null) {
+                                if (!uri.hasAbsolutePath) {
+                                  return 'Please enter valid url';
+                                } else {
+                                  return null;
+                                }
+                              }
+                            }
+                            return 'Please enter valid url';
+                            ///Используем регулярные выражения
+                            // String hasValidUrl(String value) {
+                            //   String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+                            //   RegExp regExp = new RegExp(pattern);
+                            //   if (value.length == 0) {
+                            //     return 'Please enter url';
+                            //   }
+                            //   else if (!regExp.hasMatch(value)) {
+                            //     return 'Please enter valid url';
+                            //   }
+                            //   return null;
+                            // }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
