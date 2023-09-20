@@ -19,54 +19,60 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
-  final TextEditingController _photoName = TextEditingController();
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastname = TextEditingController();
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _image = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _age = TextEditingController();
+  int age = 18;
+
   final _formKey = GlobalKey<FormState>();
-  late User photo;
+  late User user;
 
   Future<void> modifyData(UsersBloc usersBloc) async {
-    final uuid = await usersBloc.writeToFile(_image.text, photo.locator);
+    String? locator;
+    if(_image.text != user.image) {
+      locator = await usersBloc.writeToFile(_image.text, user.locator);
+    }
+    final modifyUser = User(
+      id: user.id,
+      firstName: _firstName.text,
+      name: _name.text,
+      lastName: _lastname.text,
+      age: age,
+      image: _image.text,
+      locator: locator ?? user.locator,
+      uuid: user.uuid,
+      phone: _phone.text,
+    );
+    if (modifyUser == user){
+      Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false);
+      return;
+    }
     usersBloc.add(UsersBlocEvent.update(
-      oldValue: photo,
-      value: User(
-        id: photo.id,
-        firstName: '',
-        name: _photoName.text,
-        lastName: '',
-        age: 18,
-        image: _image.text,
-        locator: uuid,
-        uuid: '',
-        phone: '',
+        oldValue: user,
+        value: modifyUser,
       ),
-    ),
     );
     setState(() {
-      photo = User(
-        id: photo.id,
-        firstName: '',
-        name: _photoName.text,
-        lastName: '',
-        age: 18,
-        image: _image.text,
-        locator: uuid,
-        uuid: '',
-        phone: '',
-      );
+      user = modifyUser;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    photo = widget.photo;
+    user = widget.photo;
+    Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _photoName.dispose();
+    _name.dispose();
     _image.dispose();
+    Logger.print('Dispose Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
   @override
@@ -85,8 +91,9 @@ class _UserCardState extends State<UserCard> {
                 backgroundColor: Colors.greenAccent[400],
                 radius: 100,
                 child: FutureBuilder(
-                  future: usersBloc.getUint8List(photo.locator),
+                  future: usersBloc.getUint8List(user.locator),
                     builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+                      Logger.print('Get img uuid:"${user.locator}" for Card ${user.id}', name: 'log', level: 0, error: false);
                       if(snapshot.hasError) return const Center(child: Text('Error'),);
                       if(!snapshot.hasData) {
                         return const Center(child: CircularProgressIndicator(),);
@@ -130,8 +137,12 @@ class _UserCardState extends State<UserCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () async {
-                      _image.text = photo.image;
-                      _photoName.text = photo.name;
+                      _image.text = user.image;
+                      _name.text = user.name;
+                      _lastname.text = user.lastName;
+                      _firstName.text = user.firstName;
+                      _phone.text = user.phone;
+                      _age.text = user.age.toString();
                       _dialogBuilder(context, usersBloc);
                     },
                     icon: const Icon(Icons.edit),
@@ -141,7 +152,7 @@ class _UserCardState extends State<UserCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                       onPressed: () async {
-                        usersBloc.add(UsersBlocEvent.delete(value: photo));
+                        usersBloc.add(UsersBlocEvent.delete(value: user));
                       },
                       icon: const Icon(Icons.delete_forever)),
                 ),
@@ -161,7 +172,7 @@ class _UserCardState extends State<UserCard> {
           title: const Center(child: Text('Add a new Photo')),
           content: SizedBox(
             width: 300,
-            height: 180,
+            height: 600,
             child: Form(
               key: _formKey,
               child: Column(
@@ -169,12 +180,79 @@ class _UserCardState extends State<UserCard> {
                   SizedBox(
                     width: 250,
                     child: TextFormField(
-                      controller: _photoName,
+                      controller: _firstName,
                       maxLines: 1,
                       maxLength: 255,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Photo Name',
+                        labelText: 'First Name',
+                      ),
+                      validator: (text) =>
+                      (text == null || text.isEmpty)?
+                      'Text is empty':
+                      null,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _name,
+                      maxLines: 1,
+                      maxLength: 255,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Name',
+                      ),
+                      validator: (text) =>
+                      (text == null || text.isEmpty)?
+                      'Text is empty':
+                      null,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _lastname,
+                      maxLines: 1,
+                      maxLength: 255,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Last Name',
+                      ),
+                      validator: (text) =>
+                      (text == null || text.isEmpty)?
+                      'Text is empty':
+                      null,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _age,
+                      maxLines: 1,
+                      maxLength: 255,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Age',
+                      ),
+                      validator: (text) {
+                        if(text == null || text.isEmpty) return 'Text is empty';
+                        int? age = int.tryParse(text);
+                        if (age == null ) return 'Age is not recognise';
+                        if (age < 18 || age > 110) return 'Age is wrong';
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 250,
+                    child: TextFormField(
+                      controller: _phone,
+                      maxLines: 1,
+                      maxLength: 255,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Phone',
                       ),
                       validator: (text) =>
                       (text == null || text.isEmpty)?
