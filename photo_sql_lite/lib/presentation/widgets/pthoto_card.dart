@@ -72,7 +72,7 @@ class _PhotoCardState extends State<PhotoCard> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FutureBuilder(
-                  future: context.read<PhotosBloc>().getUint8List(photo.locator),
+                  future: photosBloc.getUint8List(photo.locator),
                     builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
                       if(snapshot.hasError) return const Center(child: Text('Error Data'),);
                       if(!snapshot.hasData) {
@@ -102,7 +102,7 @@ class _PhotoCardState extends State<PhotoCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                       onPressed: () async {
-                          context.read<PhotosBloc>().add(PhotosBlocEvent.delete(value: photo));
+                          photosBloc.add(PhotosBlocEvent.delete(value: photo));
                       },
                       icon: const Icon(Icons.delete_forever)),
                 ),
