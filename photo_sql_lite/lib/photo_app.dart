@@ -13,13 +13,13 @@ class PhotoApp extends StatefulWidget {
 }
 
 class _PhotoAppState extends State<PhotoApp> {
-  late final PhotosBloc _groupsBloc;
+  late final PhotosBloc _usersBloc;
 
   @override
   void initState() {
     super.initState();
-    _groupsBloc = BlocFactory.instance.get<PhotosBloc>();
-    _groupsBloc.add(const PhotosBlocEvent.init());
+    _usersBloc = BlocFactory.instance.get<PhotosBloc>();
+    _usersBloc.add(const PhotosBlocEvent.init());
   }
 
   @override
@@ -28,7 +28,7 @@ class _PhotoAppState extends State<PhotoApp> {
       providers: [
         Provider<PhotosBloc>(
             create: (_) =>
-            _groupsBloc),
+            _usersBloc),
       ],
       child: MaterialApp(
         title: 'Photo',
