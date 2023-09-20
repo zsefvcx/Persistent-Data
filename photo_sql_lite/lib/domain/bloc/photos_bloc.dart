@@ -55,7 +55,7 @@ class PhotosBlocState with _$PhotosBlocState{
 }
 
 @freezed
-class PhotosBlocEvent with _$GroupsBlocEvent{
+class PhotosBlocEvent with _$PhotosBlocEvent{
   const factory PhotosBlocEvent.init() = _initEvent;
   const factory PhotosBlocEvent.get({required int page}) = _getEvent;
   const factory PhotosBlocEvent.insert({required Photo value}) = _insertEvent;
@@ -85,20 +85,20 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             await _get(0);
             _response(emit);
           },
-          getGroups: (_getEvent value) async {
+          get: (_getEvent value) async {
             emit(const PhotosBlocState.loading());
             await _get(value.page);
             _response(emit);
           },
-          insertGroup: (_insertEvent value) async {
+          insert: (_insertEvent value) async {
             emit(const PhotosBlocState.loading());
             await _insert(value.value);
             _response(emit);
           },
-          updateGroup: (_updateEvent value) async {
+          update: (_updateEvent value) async {
             await _update(value.oldValue, value.value);
           },
-          deleteGroup: (_deleteEvent value) async {
+          delete: (_deleteEvent value) async {
             emit(const PhotosBlocState.loading());
             await _delete(value.value);
             _response(emit);
