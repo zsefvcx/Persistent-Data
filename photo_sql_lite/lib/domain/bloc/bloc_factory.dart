@@ -15,7 +15,7 @@ class BlocFactory {
 
     _getIt.registerLazySingleton<PhotosBloc>(
           () => PhotosBloc(
-            groupsRepository:  ServiceProvider.instance.get<PhotosRepository>(),
+            photosRepository:  ServiceProvider.instance.get<PhotosRepository>(),
       ),
     );
 

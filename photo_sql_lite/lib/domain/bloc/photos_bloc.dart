@@ -65,10 +65,10 @@ class PhotosBlocEvent with _$PhotosBlocEvent{
 
 @injectable
 class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
-  final PhotosRepository groupsRepository;
+  final PhotosRepository photosRepository;
 
 
-  PhotosModelData groupsModelData = const PhotosModelData(
+  PhotosModelData photosModelData = const PhotosModelData(
     timeOut: false,
     data: PhotosModel(<Photo>[], 0),
     e: '',
@@ -76,7 +76,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
   );
 
   PhotosBloc({
-    required this.groupsRepository,
+    required this.photosRepository,
   }) : super(const PhotosBlocState.loading()) {
     on<PhotosBlocEvent>((event, emit) async {
       await event.map<FutureOr<void>>(
@@ -120,14 +120,14 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
 
 
   void _response(Emitter<PhotosBlocState> emit){
-    if (groupsModelData.error){
-      if(groupsModelData.timeOut){
+    if (photosModelData.error){
+      if(photosModelData.timeOut){
         emit(const PhotosBlocState.timeOut());
       } else {
         emit(const PhotosBlocState.error());
       }
     } else{
-      emit(PhotosBlocState.loaded(model: groupsModelData));
+      emit(PhotosBlocState.loaded(model: photosModelData));
     }
   }
 
@@ -138,7 +138,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await groupsRepository.get(page).timeout(const Duration(seconds: 2),
+      var res = await photosRepository.get(page).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -154,7 +154,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    photosModelData = photosModelData.copyWith(
       data: groupsModel,
       timeOut: timeOut,
       e: e,
@@ -168,7 +168,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.insert(value).timeout(const Duration(seconds: 2),
+      var res = await photosRepository.insert(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -176,7 +176,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModelData.data.photos.add(res);
+        photosModelData.data.photos.add(res);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -184,7 +184,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    photosModelData = photosModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,
@@ -196,7 +196,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.update(value).timeout(const Duration(seconds: 2),
+      var res = await photosRepository.update(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -204,8 +204,8 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
             return 0;
           });
       if (res > 0) {
-        groupsModelData.data.photos.remove(oldValue);
-        groupsModelData.data.photos.add(value);
+        photosModelData.data.photos.remove(oldValue);
+        photosModelData.data.photos.add(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -213,7 +213,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    photosModelData = photosModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,
@@ -225,7 +225,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
     bool? error = false;
     bool? timeOut;
     try {
-      var res = await groupsRepository.delete(value).timeout(const Duration(seconds: 2),
+      var res = await photosRepository.delete(value).timeout(const Duration(seconds: 2),
           onTimeout: () {
             e = null;
             error = true;
@@ -234,7 +234,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
           });
       if (res > 0)
       {
-        groupsModelData.data.photos.remove(value);
+        photosModelData.data.photos.remove(value);
       }
     } catch (ee, t){
       e = ee.toString();
@@ -242,7 +242,7 @@ class PhotosBloc extends Bloc<PhotosBlocEvent, PhotosBlocState>{
       timeOut  = false;
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    groupsModelData = groupsModelData.copyWith(
+    photosModelData = photosModelData.copyWith(
       timeOut: timeOut,
       e: e,
       error: error,

@@ -24,9 +24,9 @@ class _PhotoCardState extends State<PhotoCard> {
   final _formKey = GlobalKey<FormState>();
   late User photo;
 
-  Future<void> modifyData(PhotosBloc photosBloc) async {
-    final uuid = await photosBloc.writeToFile(_image.text, photo.locator);
-    photosBloc.add(PhotosBlocEvent.update(
+  Future<void> modifyData(UsersBloc usersBloc) async {
+    final uuid = await usersBloc.writeToFile(_image.text, photo.locator);
+    usersBloc.add(UsersBlocEvent.update(
       oldValue: photo,
       value: User(
         id: photo.id,
@@ -69,7 +69,7 @@ class _PhotoCardState extends State<PhotoCard> {
 
   @override
   Widget build(BuildContext context) {
-    PhotosBloc photosBloc = context.read<PhotosBloc>();
+    UsersBloc usersBloc = context.read<UsersBloc>();
     return Card(
       child: SizedBox(
         height: 400,
@@ -81,7 +81,7 @@ class _PhotoCardState extends State<PhotoCard> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FutureBuilder(
-                  future: context.read<PhotosBloc>().getUint8List(photo.locator),
+                  future: usersBloc.getUint8List(photo.locator),
                     builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
                       if(snapshot.hasError) return const Center(child: Text('Error Data'),);
                       if(!snapshot.hasData) {
@@ -102,7 +102,7 @@ class _PhotoCardState extends State<PhotoCard> {
                     onPressed: () async {
                       _image.text = photo.image;
                       _photoName.text = photo.name;
-                      _dialogBuilder(context, photosBloc);
+                      _dialogBuilder(context, usersBloc);
                     },
                     icon: const Icon(Icons.edit),
                   ),

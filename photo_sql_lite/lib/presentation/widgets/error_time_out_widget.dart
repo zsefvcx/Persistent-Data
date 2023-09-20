@@ -22,8 +22,8 @@ class ErrorTimeOutWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('isTimeOut  :${blocBloc.groupsModelData.isTimeOut.toString()}'),
-            Text('isError  :${blocBloc.groupsModelData.isError.toString()}'),
+            Text('isTimeOut  :${blocBloc.photosModelData.isTimeOut.toString()}'),
+            Text('isError  :${blocBloc.photosModelData.isError.toString()}'),
             const SizedBox(
               height: 50,
             ),
