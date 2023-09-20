@@ -36,7 +36,7 @@ class _PhotoCardState extends State<PhotoCard> {
     ),
     );
     setState(() {
-      photo = Photo(
+      photo = photo.copyWith(
         id: photo.id,
         name: _photoName.text,
         image: _image.text,
