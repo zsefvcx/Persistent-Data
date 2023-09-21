@@ -34,7 +34,7 @@ class _DialogBuilderState extends State<DialogBuilder> {
         firstName: '',
         name: '',
         lastName: '',
-        locator: '',
+        locator: null,
         age: 18,
         phone: '',
         image: '',
@@ -50,16 +50,36 @@ class _DialogBuilderState extends State<DialogBuilder> {
     DialogFieldsAndControllers.disposeControllers();
   }
 
+  void showSnackBar(String massage){
+    final snackBar = SnackBar(
+      content: Text(massage),
+      action: SnackBarAction(
+        label: 'Ок',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   Future<(bool, User)> addOrModData(UsersBloc usersBloc) async {
     User modifyUser = DialogFieldsAndControllers.userData(oldData: _user);
 
-    if (modifyUser == _user){
-      Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false);
-      return (false, _user);
+    if (modifyUser == _user)
+    {
+      showSnackBar('Identical! No need safe to data.');
+     Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false);
+     return (false, _user);
     }
 
-    if(modifyUser.image != _user.image) {
+    if(modifyUser.image != _user.image )
+    {
       String? locator= await usersBloc.writeToFile(modifyUser.image, modifyUser.locator);
+      if(locator == null) {
+        showSnackBar('Image is not loaded');
+        return (false, _user);
+      }
       modifyUser = modifyUser.copyWith(
         locator: locator,
       );
@@ -84,7 +104,7 @@ class _DialogBuilderState extends State<DialogBuilder> {
   @override
   Widget build(BuildContext context) {
     UsersBloc usersBloc = context.read<UsersBloc>();
-
+    bool process = false;
     return AlertDialog(
       title: Center(child: _user.id!=null?const Text('Modify User'):const Text('Add User')),
       content: Container(
@@ -123,9 +143,17 @@ class _DialogBuilderState extends State<DialogBuilder> {
           child: _user.id!=null?const Text('Modify'):const Text('Add'),
           onPressed: () async {
             var cSt = _formKey.currentState;
-            if(cSt != null && cSt.validate()){
-              var (res, modUser) =  await addOrModData(usersBloc);
-              if (context.mounted) Navigator.of(context).pop((res, modUser));
+
+            if(cSt != null && cSt.validate() && process == false){
+              if(_user.id == null){
+                var (res, _) = await addOrModData(usersBloc);
+                if (res == true) Navigator.of(context).pop();
+              } else {
+                process = true;
+                var (res, modUser) = await addOrModData(usersBloc);
+                process = false;
+                if (res == true) Navigator.of(context).pop((res, modUser));
+              }
             }
           },
         ),

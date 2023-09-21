@@ -6,5 +6,5 @@ import '../../domain/domain.dart';
 ///Модель
 class UsersModel extends AUsersEntity{
 
-  const UsersModel(List<User> list, int page): super(list, page);
+  const UsersModel(Set<User> set, int page): super(set, page);
 }

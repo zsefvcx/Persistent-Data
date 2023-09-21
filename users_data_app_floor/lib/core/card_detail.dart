@@ -2,19 +2,19 @@
 import 'package:equatable/equatable.dart';
 
 class CardDetail extends Equatable{
-  final int    id;
-  final int    uuidUser;
-  final String cardNum;
-  final int    cardYear;
-  final int    cardMonth;
+  final int?    id;
+  final String    uuidUser;
+  final String? cardNum;
+  final int?    cardYear;
+  final int?    cardMonth;
 
-  const CardDetail(
-      this.id,
-      this.uuidUser,
-      this.cardNum,
-      this.cardYear,
-      this.cardMonth
-      );
+  const CardDetail({
+    this.id,
+    required this.uuidUser,
+    required this.cardNum,
+    required this.cardYear,
+    required this.cardMonth
+  });
 
   @override
   List<Object?> get props => [

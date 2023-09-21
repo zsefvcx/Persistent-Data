@@ -24,11 +24,18 @@ class _UserCardState extends State<UserCard> {
   int age = 18;
 
   late User user;
+  late CardDetail cardDetail;
 
   @override
   void initState() {
     super.initState();
     user = widget.user;
+    cardDetail = CardDetail(
+        id: null,
+        uuidUser: user.uuid,
+        cardNum: null,
+        cardYear: null,
+        cardMonth: null);
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
@@ -42,6 +49,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     UsersBloc usersBloc = context.read<UsersBloc>();
+    String cardNumber = cardDetail.cardNum ?? '1234 5678 1234 5678';
     return Card(
       child: SizedBox(
         height: 200,
@@ -55,7 +63,7 @@ class _UserCardState extends State<UserCard> {
                 backgroundColor: Colors.greenAccent[400],
                 radius: 100,
                 child: FutureBuilder(
-                  future: usersBloc.getUint8List(user.locator),
+                  future: usersBloc.getUint8List(user.locator??''),
                     builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
                       Logger.print('Get img uuid:"${user.locator}" for Card ${user.id}', name: 'log', level: 0, error: false);
                       if(snapshot.hasError) return const Center(child: Text('Error'),);
@@ -88,6 +96,8 @@ class _UserCardState extends State<UserCard> {
                           Text('Name:  ${user.firstName} ${user.name} ${user.lastName}'),
                           Text('Age:   ${user.age}'),
                           Text('Phone: ${user.phone}'),
+                          cardDetail.cardNum==null?const Text('Card: no card'):
+                              Text('Card: ${cardNumber.substring(0,4)} .... .... ${cardNumber.substring(15,19)}'),
                         ],
                       ),
                     ),

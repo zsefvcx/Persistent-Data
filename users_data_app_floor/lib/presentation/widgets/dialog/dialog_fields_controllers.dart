@@ -40,16 +40,16 @@ class DialogFieldsAndControllers{
   static User userData({required User oldData}) {
     final int age = int.parse(_age.text);
     return User(
-    id: oldData.id,
-    uuid: oldData.uuid,
-    firstName: _firstName.text,
-    name:  _name.text,
-    lastName: _lastname.text,
-    phone: _phone.text,
-    age: age,
-    image: _image.text,
-    locator: oldData.locator,
-  );
+      id: oldData.id,
+      uuid: oldData.uuid,
+      firstName: _firstName.text,
+      name:  _name.text,
+      lastName: _lastname.text,
+      phone: _phone.text,
+      age: age,
+      image: _image.text,
+      locator: oldData.locator,
+    );
   }
   
   static List<DialogField> get allFields => <DialogField>[

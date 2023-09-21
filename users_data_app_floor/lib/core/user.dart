@@ -17,7 +17,7 @@ class User extends Equatable{
   @JsonKey(defaultValue: '')
   final String    image;
   @JsonKey(defaultValue: '')
-  final String    locator;
+  final String?    locator;
   final String    phone;
   final String    uuid;//= Uuid().v4();
 

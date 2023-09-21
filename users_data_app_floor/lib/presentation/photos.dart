@@ -1,7 +1,11 @@
 
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/core.dart';
 import '../domain/domain.dart';
 import 'widgets/dialog/dialog.dart';
 import 'widgets/error_time_out_widget.dart';
@@ -21,8 +25,8 @@ class PhotosPage extends StatefulWidget {
 
 class _PhotosPageState extends State<PhotosPage> {
 
-  Future<void> loadData(UsersBloc photosBloc) async {
-    photosBloc.add(const UsersBlocEvent.get(page: 0));
+  void loadData(UsersBloc usersBloc) {
+    usersBloc.add(const UsersBlocEvent.get(page: 0));
   }
 
   @override
@@ -52,11 +56,28 @@ class _PhotosPageState extends State<PhotosPage> {
                     return const ErrorTimeOutWidget(page: 0,);
                   },
                   loaded: (value) {
-                    return ListView.separated(
-                      itemCount: value.model.data.users.length,
-                      itemBuilder: (_, i) =>
-                          UserCard(user: value.model.data.users.toList()[i]),
-                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        final completer = Completer();
+                        usersBloc.add(UsersBlocEvent.getCompleter(page: 0, completer: completer));
+                        return completer.future;
+                      },
+                      child: ScrollConfiguration(// + windows
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                          dragDevices: {
+                            PointerDeviceKind.touch,
+                            PointerDeviceKind.mouse,
+                          },
+                        ),
+                        child: ListView.separated(
+                          itemCount: value.model.data.users.length,
+                          itemBuilder: (_, i) {
+                            Logger.print('Build Card $i', name: 'log', level: 0, error: false);
+                            return UserCard(user: value.model.data.users.toList()[i]);
+                          },
+                          separatorBuilder: (_, __) => const SizedBox(height: 10),
+                        ),
+                      ),
                     );
                   },
                 );
@@ -86,7 +107,7 @@ class _PhotosPageState extends State<PhotosPage> {
                 FloatingActionButton(
                   heroTag: UniqueKey(),
                   onPressed: () async {
-                    await loadData(usersBloc);
+                    loadData(usersBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
                   tooltip: 'Reload',

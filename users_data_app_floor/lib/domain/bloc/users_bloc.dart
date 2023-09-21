@@ -58,7 +58,8 @@ class UsersBlocState with _$UsersBlocState{
 @freezed
 class UsersBlocEvent with _$UsersBlocEvent{
   const factory UsersBlocEvent.init() = _initEvent;
-  const factory UsersBlocEvent.get({required int page}) = _getEvent;
+  const factory UsersBlocEvent.get({required int page}) = _getEvent;//Completer
+  const factory UsersBlocEvent.getCompleter({required int page, required Completer completer}) = _getCompleterEvent;
   const factory UsersBlocEvent.insert({required User value}) = _insertEvent;
   const factory UsersBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
   const factory UsersBlocEvent.delete({required User value}) = _deleteEvent;
@@ -71,7 +72,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
 
   UsersModelData usersModelData = const UsersModelData(
     timeOut: false,
-    data: UsersModel(<User>[], 0),
+    data: UsersModel(<User>{}, 0),
     e: '',
     error: false,
   );
@@ -84,39 +85,61 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
           init: (_initEvent value) async {
             emit(const UsersBlocState.loading());
             await _get(0);
+            await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           get: (_getEvent value) async {
             emit(const UsersBlocState.loading());
             await _get(value.page);
+            await Future.delayed(const Duration(seconds: 2));
             _response(emit);
+          },
+          getCompleter: (_getCompleterEvent value) async {
+            await _get(value.page);
+            await Future.delayed(const Duration(seconds: 2));
+            _response(emit);
+            value.completer.complete();
           },
           insert: (_insertEvent value) async {
             emit(const UsersBlocState.loading());
             await _insert(value.value);
+            await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           update: (_updateEvent value) async {
             await _update(value.oldValue, value.value);
+            await Future.delayed(const Duration(seconds: 2));
           },
           delete: (_deleteEvent value) async {
             emit(const UsersBlocState.loading());
             await _delete(value.value);
+            await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           }
-
       );
-
     });
-
   }
 
   Future<Uint8List> getUint8List(String locator) async {
-    return (await PhotoReadFromIntFile().readCounter(uuid: locator)).$1;
+    await Future.delayed(const Duration(seconds: 2));
+    Uint8List? res;
+    try{
+      res = (await PhotoReadFromIntFile().readCounter(uuid: locator)).$1;
+    } catch(ee, t){
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    }
+    return res?? Uint8List(1);
   }
 
-  Future<String> writeToFile(String url , [String? locator]) async {
-    return (await PhotoReadFromIntFile().writeCounter(url, locator)).$2;
+  Future<String?> writeToFile(String url , [String? locator]) async {
+    await Future.delayed(const Duration(seconds: 2));
+    String? res;
+    try{
+      res = (await PhotoReadFromIntFile().writeCounter(url, locator)).$2;
+    } catch(ee, t){
+      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    }
+    return res;
   }
 
 
@@ -147,7 +170,13 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             return null;
           });
       if (res != null) {
-        groupsModel = UsersModel(res, page);
+        final AUsersEntity getModel = UsersModel(res.toSet(), page);
+        if(getModel == usersModelData.data){
+          Logger.print("Identical! No need load data.", name: 'err', level: 0, error: false);
+        } else {
+          groupsModel = getModel;
+        }
+
       }
     } catch (ee, t){
       e = ee.toString();

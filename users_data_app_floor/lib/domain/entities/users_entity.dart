@@ -6,9 +6,9 @@ import '../../core/core.dart';
 ///Группы пользователей.
 abstract class AUsersEntity extends Equatable {
   final int page;//страница
-  final List<User> users;//группы лучше Set. Пока так.
+  final Set<User> users;//группы лучше Set. Пока так.
 
-  const AUsersEntity(List<User> list, this.page) : users = list;
+  const AUsersEntity(Set<User> set, this.page) : users = set;
 
   @override
   List<Object?> get props => [

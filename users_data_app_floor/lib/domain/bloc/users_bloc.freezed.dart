@@ -579,6 +579,8 @@ mixin _$UsersBlocEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -588,6 +590,7 @@ mixin _$UsersBlocEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -597,6 +600,7 @@ mixin _$UsersBlocEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -607,6 +611,7 @@ mixin _$UsersBlocEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -616,6 +621,7 @@ mixin _$UsersBlocEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -625,6 +631,7 @@ mixin _$UsersBlocEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
@@ -691,6 +698,8 @@ class _$_initEvent implements _initEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -703,6 +712,7 @@ class _$_initEvent implements _initEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -715,6 +725,7 @@ class _$_initEvent implements _initEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -731,6 +742,7 @@ class _$_initEvent implements _initEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -743,6 +755,7 @@ class _$_initEvent implements _initEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -755,6 +768,7 @@ class _$_initEvent implements _initEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
@@ -837,6 +851,8 @@ class _$_getEvent implements _getEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -849,6 +865,7 @@ class _$_getEvent implements _getEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -861,6 +878,7 @@ class _$_getEvent implements _getEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -877,6 +895,7 @@ class _$_getEvent implements _getEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -889,6 +908,7 @@ class _$_getEvent implements _getEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -901,6 +921,7 @@ class _$_getEvent implements _getEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
@@ -919,6 +940,177 @@ abstract class _getEvent implements UsersBlocEvent {
   int get page;
   @JsonKey(ignore: true)
   _$$_getEventCopyWith<_$_getEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_getCompleterEventCopyWith<$Res> {
+  factory _$$_getCompleterEventCopyWith(_$_getCompleterEvent value,
+          $Res Function(_$_getCompleterEvent) then) =
+      __$$_getCompleterEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int page, Completer<dynamic> completer});
+}
+
+/// @nodoc
+class __$$_getCompleterEventCopyWithImpl<$Res>
+    extends _$UsersBlocEventCopyWithImpl<$Res, _$_getCompleterEvent>
+    implements _$$_getCompleterEventCopyWith<$Res> {
+  __$$_getCompleterEventCopyWithImpl(
+      _$_getCompleterEvent _value, $Res Function(_$_getCompleterEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+    Object? completer = null,
+  }) {
+    return _then(_$_getCompleterEvent(
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      completer: null == completer
+          ? _value.completer
+          : completer // ignore: cast_nullable_to_non_nullable
+              as Completer<dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_getCompleterEvent implements _getCompleterEvent {
+  const _$_getCompleterEvent({required this.page, required this.completer});
+
+  @override
+  final int page;
+  @override
+  final Completer<dynamic> completer;
+
+  @override
+  String toString() {
+    return 'UsersBlocEvent.getCompleter(page: $page, completer: $completer)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_getCompleterEvent &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.completer, completer) ||
+                other.completer == completer));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, page, completer);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_getCompleterEventCopyWith<_$_getCompleterEvent> get copyWith =>
+      __$$_getCompleterEventCopyWithImpl<_$_getCompleterEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
+    required TResult Function(User value) insert,
+    required TResult Function(User oldValue, User value) update,
+    required TResult Function(User value) delete,
+  }) {
+    return getCompleter(page, completer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
+    TResult? Function(User value)? insert,
+    TResult? Function(User oldValue, User value)? update,
+    TResult? Function(User value)? delete,
+  }) {
+    return getCompleter?.call(page, completer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
+    TResult Function(User value)? insert,
+    TResult Function(User oldValue, User value)? update,
+    TResult Function(User value)? delete,
+    required TResult orElse(),
+  }) {
+    if (getCompleter != null) {
+      return getCompleter(page, completer);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_initEvent value) init,
+    required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
+    required TResult Function(_insertEvent value) insert,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_deleteEvent value) delete,
+  }) {
+    return getCompleter(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_initEvent value)? init,
+    TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
+    TResult? Function(_insertEvent value)? insert,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_deleteEvent value)? delete,
+  }) {
+    return getCompleter?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_initEvent value)? init,
+    TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
+    TResult Function(_insertEvent value)? insert,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_deleteEvent value)? delete,
+    required TResult orElse(),
+  }) {
+    if (getCompleter != null) {
+      return getCompleter(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _getCompleterEvent implements UsersBlocEvent {
+  const factory _getCompleterEvent(
+      {required final int page,
+      required final Completer<dynamic> completer}) = _$_getCompleterEvent;
+
+  int get page;
+  Completer<dynamic> get completer;
+  @JsonKey(ignore: true)
+  _$$_getCompleterEventCopyWith<_$_getCompleterEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -988,6 +1180,8 @@ class _$_insertEvent implements _insertEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -1000,6 +1194,7 @@ class _$_insertEvent implements _insertEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -1012,6 +1207,7 @@ class _$_insertEvent implements _insertEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -1028,6 +1224,7 @@ class _$_insertEvent implements _insertEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -1040,6 +1237,7 @@ class _$_insertEvent implements _insertEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -1052,6 +1250,7 @@ class _$_insertEvent implements _insertEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
@@ -1148,6 +1347,8 @@ class _$_updateEvent implements _updateEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -1160,6 +1361,7 @@ class _$_updateEvent implements _updateEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -1172,6 +1374,7 @@ class _$_updateEvent implements _updateEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -1188,6 +1391,7 @@ class _$_updateEvent implements _updateEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -1200,6 +1404,7 @@ class _$_updateEvent implements _updateEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -1212,6 +1417,7 @@ class _$_updateEvent implements _updateEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
@@ -1302,6 +1508,8 @@ class _$_deleteEvent implements _deleteEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int page) get,
+    required TResult Function(int page, Completer<dynamic> completer)
+        getCompleter,
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(User value) delete,
@@ -1314,6 +1522,7 @@ class _$_deleteEvent implements _deleteEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int page)? get,
+    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(User value)? delete,
@@ -1326,6 +1535,7 @@ class _$_deleteEvent implements _deleteEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int page)? get,
+    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(User value)? delete,
@@ -1342,6 +1552,7 @@ class _$_deleteEvent implements _deleteEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_initEvent value) init,
     required TResult Function(_getEvent value) get,
+    required TResult Function(_getCompleterEvent value) getCompleter,
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_deleteEvent value) delete,
@@ -1354,6 +1565,7 @@ class _$_deleteEvent implements _deleteEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initEvent value)? init,
     TResult? Function(_getEvent value)? get,
+    TResult? Function(_getCompleterEvent value)? getCompleter,
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_deleteEvent value)? delete,
@@ -1366,6 +1578,7 @@ class _$_deleteEvent implements _deleteEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initEvent value)? init,
     TResult Function(_getEvent value)? get,
+    TResult Function(_getCompleterEvent value)? getCompleter,
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_deleteEvent value)? delete,
