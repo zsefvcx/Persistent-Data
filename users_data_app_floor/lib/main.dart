@@ -11,6 +11,11 @@ import 'core/core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if(Platform.isWindows) {
+    // Initialize FFI
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
   if (Platform.isMacOS   || Platform.isLinux || Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
@@ -28,12 +33,6 @@ Future<void> main() async {
       await windowManager.show();
       await windowManager.focus();
     });
-  }
-
-  if(Platform.isWindows) {
-    // Initialize FFI
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
   }
 
   BlocFactory.instance.initialize();
