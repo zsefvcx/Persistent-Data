@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dialog_fields.dart';
+import 'dialog_field.dart';
 
 class TextFFC extends StatelessWidget {
   const TextFFC({

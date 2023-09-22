@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
-import 'dialog_fields.dart';
+import 'dialog_field.dart';
 
-class DialogFieldsAndControllers{
+class DialogUsersFieldsAndControllers{
   static final formKey = GlobalKey<FormState>();
 
   static late TextEditingController _firstName;
@@ -13,19 +13,19 @@ class DialogFieldsAndControllers{
   static late TextEditingController _phone;
   static late TextEditingController _age;
 
-  static initControllers({required User user}){
+  static initControllers({required User data}){
     _firstName = TextEditingController();
-    _firstName.text = user.firstName;
+    _firstName.text = data.firstName;
     _lastname = TextEditingController();
-    _lastname.text = user.lastName;
+    _lastname.text = data.lastName;
     _name = TextEditingController();
-    _name.text = user.name;
+    _name.text = data.name;
     _image = TextEditingController();
-    _image.text = user.image;
+    _image.text = data.image;
     _phone = TextEditingController();
-    _phone.text = user.phone;
+    _phone.text = data.phone;
     _age = TextEditingController();
-    _age.text = user.age.toString();
+    _age.text = data.age.toString();
   }
 
   static disposeControllers(){

@@ -1,5 +1,9 @@
 import 'dart:developer' as dev;
 
+import 'package:flutter/material.dart';
+
+import 'core.dart';
+
 ///Логгер в систему.
 abstract class Logger {
   /// - [message] is the log message
@@ -10,9 +14,14 @@ abstract class Logger {
       String name = 'log',
       int level = 0,
       bool error = false,
-    }) => dev.log(":${error?'E':'N'}:|$message",
+      BuildContext? context,
+    }) {
+    String msg = '|:${error?'E':'N'}:|$message';
+    dev.log(msg,
       time: DateTime.now(),
       name: name,
       level: level,
-  );
+    );
+    if (context != null)  CustomShowSnackBar.showSnackBar(msg, context);
+  }
 }

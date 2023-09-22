@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/core.dart';
 import '../domain/domain.dart';
-import 'widgets/dialog/dialog.dart';
+import 'widgets/dialogs/dialog_users_add_modify.dart';
 import 'widgets/error_time_out_widget.dart';
 import 'widgets/user_card.dart';
 
@@ -97,7 +97,7 @@ class _PhotosPageState extends State<PhotosPage> {
                     context: context,
                     builder: (BuildContext context)
                     {
-                    return const DialogBuilder();
+                    return const DialogAddModifyBuilder();
                     });
                   },
                   tooltip: 'Load',

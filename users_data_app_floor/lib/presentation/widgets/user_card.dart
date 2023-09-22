@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/core.dart';
 import '../../domain/domain.dart';
-import 'dialog/dialog.dart';
+import 'dialogs/dialog_users_add_modify.dart';
+import 'dialogs/dialog_cards_add_modify.dart';
 
 class UserCard extends StatefulWidget {
   const UserCard({
@@ -115,7 +116,7 @@ class _UserCardState extends State<UserCard> {
                       context: context,
                       builder: (BuildContext context)
                       {
-                        return DialogBuilder(user: user);
+                        return DialogAddModifyBuilder(user: user);
                       });
                       if(res !=null && res.$1){
                         setState(() {
@@ -125,6 +126,26 @@ class _UserCardState extends State<UserCard> {
                     },
                     icon: const Icon(Icons.edit),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      onPressed: () async {
+                        var res = await showDialog<(bool, CardDetail)>(
+                            context: context,
+                            builder: (BuildContext context)
+                            {
+                              return const DialogCardsAddModifyBuilder(cardDetail: null);
+                            });
+                        if(res !=null && res.$1){
+                          setState(() {
+                            cardDetail = res.$2;
+                          });
+                        }
+
+                        //
+                      },
+                      icon: const Icon(Icons.add_card)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

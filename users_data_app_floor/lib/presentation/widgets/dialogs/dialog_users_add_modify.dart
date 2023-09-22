@@ -7,10 +7,10 @@ import 'package:uuid/uuid.dart';
 import '../../../core/core.dart';
 import '../../../domain/domain.dart';
 import 'custom_text_form_field.dart';
-import 'dialog_fields_controllers.dart';
+import 'dialog_users_fields_controllers.dart';
 
-class DialogBuilder extends StatefulWidget {
-  const DialogBuilder({
+class DialogAddModifyBuilder extends StatefulWidget {
+  const DialogAddModifyBuilder({
     super.key,
     this.user
   });
@@ -18,12 +18,12 @@ class DialogBuilder extends StatefulWidget {
   final User? user;
 
   @override
-  State<DialogBuilder> createState() => _DialogBuilderState();
+  State<DialogAddModifyBuilder> createState() => _DialogAddModifyBuilderState();
 }
 
-class _DialogBuilderState extends State<DialogBuilder> {
+class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
 
-  final _formKey = DialogFieldsAndControllers.formKey;
+  final _formKey = DialogUsersFieldsAndControllers.formKey;
   late User _user;
 
   @override
@@ -41,35 +41,21 @@ class _DialogBuilderState extends State<DialogBuilder> {
         uuid: const Uuid().v4.toString(),
     );
 
-    DialogFieldsAndControllers.initControllers(user: _user);
+    DialogUsersFieldsAndControllers.initControllers(data: _user);
   }
 
   @override
   void dispose() {
     super.dispose();
-    DialogFieldsAndControllers.disposeControllers();
+    DialogUsersFieldsAndControllers.disposeControllers();
   }
 
-  void showSnackBar(String massage){
-    final snackBar = SnackBar(
-      content: Text(massage),
-      action: SnackBarAction(
-        label: 'Ок',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  Future<(bool, User)> addOrModData(UsersBloc usersBloc) async {
-    User modifyUser = DialogFieldsAndControllers.userData(oldData: _user);
+  Future<(bool, User)> addOrModData(UsersBloc usersBloc, BuildContext context) async {
+    User modifyUser = DialogUsersFieldsAndControllers.userData(oldData: _user);
 
     if (modifyUser == _user)
     {
-      showSnackBar('Identical! No need safe to data.');
-     Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false);
+     Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false, context: context);
      return (false, _user);
     }
 
@@ -77,7 +63,7 @@ class _DialogBuilderState extends State<DialogBuilder> {
     {
       String? locator= await usersBloc.writeToFile(modifyUser.image, modifyUser.locator);
       if(locator == null) {
-        showSnackBar('Image is not loaded');
+        if(context.mounted)Logger.print('Image is not loaded', name: 'log', level: 0, error: false, context: context);
         return (false, _user);
       }
       modifyUser = modifyUser.copyWith(
@@ -119,7 +105,7 @@ class _DialogBuilderState extends State<DialogBuilder> {
               key: _formKey,
               child: Column(
                 children: [
-                  ...DialogFieldsAndControllers.allFields.map((e) => TextFFC(dialogFields: e,)),
+                  ...DialogUsersFieldsAndControllers.allFields.map((e) => TextFFC(dialogFields: e,)),
                 ],
               ),
             ),
@@ -146,11 +132,11 @@ class _DialogBuilderState extends State<DialogBuilder> {
 
             if(cSt != null && cSt.validate() && process == false){
               if(_user.id == null){
-                var (res, _) = await addOrModData(usersBloc);
+                var (res, _) = await addOrModData(usersBloc, context);
                 if (res == true) Navigator.of(context).pop();
               } else {
                 process = true;
-                var (res, modUser) = await addOrModData(usersBloc);
+                var (res, modUser) = await addOrModData(usersBloc, context);
                 process = false;
                 if (res == true) Navigator.of(context).pop((res, modUser));
               }
