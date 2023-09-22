@@ -31,33 +31,31 @@ class DialogCardsFieldsAndControllers{
     _cardMonth.dispose();
   }
 
-  static User userData({required User oldData}) {
-    final int age = int.parse(_age.text);
-    return User(
+  static CardDetail userData({required CardDetail oldData}) {
+    final int cardMonth = int.parse(_cardMonth.text);
+    final int cardYear = int.parse(_cardYear.text);
+    return CardDetail(
       id: oldData.id,
-      uuid: oldData.uuid,
-      firstName: _cardNumber.text,
-      name:  _cardMonth.text,
-      lastName: _cardYear.text,
-      phone: _phone.text,
-      age: age,
-      image: _image.text,
-      locator: oldData.locator,
+      uuidUser: oldData.uuidUser,
+      cardNum: _cardNumber.text,
+      cardMonth:  cardMonth,
+      cardYear: cardYear,
     );
   }
 
   static List<DialogField> get allFields => <DialogField>[
+    ///https://pub.dev/packages/credit_card_validator
     DialogField(controller: _cardNumber,
-      label: 'Card Number',
-      validator: ValidatorFields.checkName,
+      label: 'Card Number (1234 5678 9012 3456)',
+      validator: ValidatorFields.checkCreditCard,
     ),
     DialogField(controller: _cardMonth,
-      label: 'Month',
-      validator: ValidatorFields.checkName,
+      label: 'Month (12)',
+      validator: ValidatorFields.checkMonth,
     ),
     DialogField(controller: _cardYear,
-      label: 'Year',
-      validator: ValidatorFields.checkLastName,
+      label: 'Year (34)',
+      validator: ValidatorFields.checkYear,
     ),
   ];
 

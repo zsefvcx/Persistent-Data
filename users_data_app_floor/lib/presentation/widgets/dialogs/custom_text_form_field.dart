@@ -15,6 +15,7 @@ class TextFFC extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 15),
         SizedBox(
           width: _dialogFields.width,
           height: _dialogFields.height,

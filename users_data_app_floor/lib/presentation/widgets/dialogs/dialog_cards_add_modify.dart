@@ -42,41 +42,29 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
     DialogCardsFieldsAndControllers.disposeControllers();
   }
 
-  Future<(bool, User)> addOrModData(UsersBloc usersBloc, BuildContext context) async {
-    CardDetail modifyCardDetail = DialogCardsFieldsAndControllers.userData(oldData: _user);
+  Future<(bool, CardDetail)> addOrModData(UsersBloc usersBloc, BuildContext context) async {
+    CardDetail modifyCardDetail = DialogCardsFieldsAndControllers.userData(oldData: _cardDetail);
 
-    if (modifyUser == _user)
+    if (modifyCardDetail == _cardDetail)
     {
       Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false, context: context);
-      return (false, _user);
+      return (false, _cardDetail);
     }
 
-    if(modifyUser.image != _user.image )
-    {
-      String? locator= await usersBloc.writeToFile(modifyUser.image, modifyUser.locator);
-      if(locator == null) {
-        if(context.mounted)Logger.print('Image is not loaded', name: 'log', level: 0, error: false, context: context);
-        return (false, _user);
-      }
-      modifyUser = modifyUser.copyWith(
-        locator: locator,
-      );
-    }
-
-    if (modifyUser.id != null){
-      usersBloc.add(UsersBlocEvent.update(
-        oldValue: _user,
-        value: modifyUser,
-      ),
-      );
-    } else {
-      usersBloc.add(UsersBlocEvent.insert(
-        value: modifyUser,
-      ),
-      );
-    }
-    Logger.print("$modifyUser", name: 'log', level: 0, error: false);
-    return (true, modifyUser);
+    // if (modifyCardDetail.id != null){
+    //   usersBloc.add(UsersBlocEvent.update(
+    //     oldValue: _cardDetail,
+    //     value: modifyCardDetail,
+    //   ),
+    //   );
+    // } else {
+    //   usersBloc.add(UsersBlocEvent.insert(
+    //     value: modifyCardDetail,
+    //   ),
+    //   );
+    // }
+    Logger.print("$modifyCardDetail", name: 'log', level: 0, error: false);
+    return (true, modifyCardDetail);
   }
 
   @override
@@ -111,14 +99,14 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
           ),
           child: const Text('Cancel'),
           onPressed: () {
-            Navigator.of(context).pop((false, widget.cardDetail));
+            Navigator.of(context).pop((false, _cardDetail));
           },
         ),
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: widget.cardDetail.id!=null?const Text('Modify'):const Text('Add'),
+          child: _cardDetail.id!=null?const Text('Modify'):const Text('Add'),
           onPressed: () async {
             var cSt = _formKey.currentState;
 
