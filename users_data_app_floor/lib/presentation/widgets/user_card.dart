@@ -135,7 +135,7 @@ class _UserCardState extends State<UserCard> {
                             context: context,
                             builder: (BuildContext context)
                             {
-                              return const DialogCardsAddModifyBuilder(cardDetail: null);
+                              return DialogCardsAddModifyBuilder(cardDetail: null, uuidUser: user.uuid,);
                             });
                         if(res !=null && res.$1){
                           setState(() {

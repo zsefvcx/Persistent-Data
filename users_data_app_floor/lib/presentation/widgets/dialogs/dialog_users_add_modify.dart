@@ -22,7 +22,6 @@ class DialogAddModifyBuilder extends StatefulWidget {
 }
 
 class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
-
   final _formKey = DialogUsersFieldsAndControllers.formKey;
   late User _user;
 
