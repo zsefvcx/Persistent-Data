@@ -7,6 +7,7 @@ class DialogField {
   final String? Function(String? value)? validator;
   final double? width;
   final double? height;
+  final int maxLength;
 
   DialogField({
     required this.controller,
@@ -14,5 +15,6 @@ class DialogField {
     this.validator,
     this.width,
     this.height,
+    this.maxLength = 255,
   });
 }

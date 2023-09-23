@@ -16,8 +16,9 @@ abstract class Logger {
       bool error = false,
       BuildContext? context,
     }) {
-    String msg = '|:${error?'E':'N'}:|$message';
-    dev.log(msg,
+    String msg = message;
+    dev.log(
+      '|:${error?'E':'N'}:|${msg}',
       time: DateTime.now(),
       name: name,
       level: level,

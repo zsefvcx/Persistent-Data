@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/core.dart';
-import 'dialog_field.dart';
+import '../../../../core/core.dart';
+import '../dialog_field.dart';
 
 class DialogCardsFieldsAndControllers{
   static final formKey = GlobalKey<FormState>();
@@ -10,18 +10,13 @@ class DialogCardsFieldsAndControllers{
   static late TextEditingController _cardYear;
   static late TextEditingController _cardMonth;
 
-
-  static late TextEditingController _image;
-  static late TextEditingController _phone;
-  static late TextEditingController _age;
-
   static initControllers({required CardDetail data}){
     _cardNumber = TextEditingController();
     _cardNumber.text = data.cardNum??'';
     _cardYear = TextEditingController();
-    _cardYear.text   =(data.cardYear??2023).toString();
+    _cardYear.text   =(data.cardYear??23).toString();
     _cardMonth = TextEditingController();
-    _cardMonth.text  =(data.cardMonth??2023).toString();
+    _cardMonth.text  =(data.cardMonth??09).toString();
 
   }
 
@@ -48,14 +43,17 @@ class DialogCardsFieldsAndControllers{
     DialogField(controller: _cardNumber,
       label: 'Card Number (1234 5678 9012 3456)',
       validator: ValidatorFields.checkCreditCard,
+      maxLength: 19,
     ),
     DialogField(controller: _cardMonth,
       label: 'Month (12)',
       validator: ValidatorFields.checkMonth,
+      maxLength: 2,
     ),
     DialogField(controller: _cardYear,
       label: 'Year (34)',
       validator: ValidatorFields.checkYear,
+      maxLength: 2
     ),
   ];
 

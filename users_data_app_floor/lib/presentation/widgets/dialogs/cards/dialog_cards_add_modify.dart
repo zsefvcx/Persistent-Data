@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/core.dart';
-import '../../../domain/domain.dart';
-import 'custom_text_form_field.dart';
+import '../../../../core/core.dart';
+import '../../../../domain/domain.dart';
+import '../custom_text_form_field.dart';
 import 'dialog_cards_fields_controllers.dart';
 
 class DialogCardsAddModifyBuilder extends StatefulWidget {
@@ -51,19 +51,18 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
       return (false, _cardDetail);
     }
 
-    // if (modifyCardDetail.id != null){
-    //   usersBloc.add(UsersBlocEvent.update(
-    //     oldValue: _cardDetail,
-    //     value: modifyCardDetail,
-    //   ),
-    //   );
-    // } else {
-    //   usersBloc.add(UsersBlocEvent.insert(
-    //     value: modifyCardDetail,
-    //   ),
-    //   );
-    // }
-    Logger.print("$modifyCardDetail", name: 'log', level: 0, error: false);
+    if (modifyCardDetail.id != null){
+      usersBloc.add(UsersBlocEvent.updateCard(
+        value: modifyCardDetail,
+      ),
+      );
+    } else {
+      usersBloc.add(UsersBlocEvent.updateCard(
+        value: modifyCardDetail,
+      ),
+      );
+    }
+    Logger.print('$modifyCardDetail', name: 'log', level: 0, error: false);
     return (true, modifyCardDetail);
   }
 
@@ -80,7 +79,7 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
           reverse: false,
           child: SizedBox(
             width: 300,
-            height: 600,
+            height: 400,
             child: Form(
               key: _formKey,
               child: Column(
@@ -106,14 +105,14 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: _cardDetail.id!=null?const Text('Modify'):const Text('Add'),
+          child: _cardDetail.cardNum!=null?const Text('Modify'):const Text('Add'),
           onPressed: () async {
             var cSt = _formKey.currentState;
 
             if(cSt != null && cSt.validate() && process == false){
               if(_cardDetail.id == null){
-                var (res, _) = await addOrModData(usersBloc, context);
-                if (res == true) Navigator.of(context).pop();
+                var (res, modUser) = await addOrModData(usersBloc, context);
+                if (res == true) Navigator.of(context).pop((res, modUser));
               } else {
                 process = true;
                 var (res, modUser) = await addOrModData(usersBloc, context);

@@ -2,11 +2,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../data/data.dart';
+import '../data/datasources/db/database_sqflite.dart';
 import 'core.dart';
 
+enum DBType{
+  sqflite,
+  floor,
+  drift,
+}
+
 ///модель для отладки
-class FakeData {
+class DebugData {
   static bool _loadingFake = false;
+  static DBType dbType = DBType.sqflite;
 
   static Future<void> createFake() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -16,7 +24,8 @@ class FakeData {
     ///Fake data in memory and db.
     Set<User> groups = {};
     String url = 'https://s00.yaplakal.com/pics/pics_original/7/4/5/18424547.jpg';
-    var (_ , uuid) = await PhotoReadFromIntFile().writeCounter(url);
+    PhotoReadFromIntFile photoReadFromIntFile = PhotoReadFromIntFileImpl();
+    var (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
     groups.add(
       User(
           id: null,
@@ -32,7 +41,7 @@ class FakeData {
     );
 
     url = 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg';
-    (_ , uuid) = await PhotoReadFromIntFile().writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
     groups.add(
       User(
         id: null,
@@ -48,7 +57,7 @@ class FakeData {
     );
 
     url = 'https://s00.yaplakal.com/pics/pics_preview/1/3/5/18424531.jpg';
-    (_ , uuid) = await PhotoReadFromIntFile().writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
     groups.add(
       User(
         id: null,
@@ -64,7 +73,7 @@ class FakeData {
     );
 
     url = 'https://s00.yaplakal.com/pics/pics_preview/2/4/2/18424242.jpg';
-    (_ , uuid) = await PhotoReadFromIntFile().writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
     groups.add(
       User(
         id: null,

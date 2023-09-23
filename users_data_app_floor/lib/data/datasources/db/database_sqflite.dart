@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart'
         if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:users_data_app_floor/core/core.dart';
 
-import '../../core/core.dart';
 
 ///https://pub.dev/packages/hive
 

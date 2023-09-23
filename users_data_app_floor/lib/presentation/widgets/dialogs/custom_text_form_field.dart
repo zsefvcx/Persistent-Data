@@ -22,7 +22,7 @@ class TextFFC extends StatelessWidget {
           child: TextFormField(
             controller: _dialogFields.controller,
             maxLines: 1,
-            maxLength: 255,
+            maxLength: _dialogFields.maxLength,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: _dialogFields.label,

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/core.dart';
 import '../domain/domain.dart';
-import 'widgets/dialogs/dialog_users_add_modify.dart';
+import 'widgets/dialogs/users/dialog_users_add_modify.dart';
 import 'widgets/error_time_out_widget.dart';
 import 'widgets/user_card.dart';
 

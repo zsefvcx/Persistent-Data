@@ -62,13 +62,16 @@ class UsersBlocEvent with _$UsersBlocEvent{
   const factory UsersBlocEvent.getCompleter({required int page, required Completer completer}) = _getCompleterEvent;
   const factory UsersBlocEvent.insert({required User value}) = _insertEvent;
   const factory UsersBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
+  const factory UsersBlocEvent.insertCard({required CardDetail value}) = _insertCardEvent;
+  const factory UsersBlocEvent.insertPhoto({required String url, String? locator}) = _insertPhotoEvent;
+  const factory UsersBlocEvent.updateCard({required CardDetail value}) = _updateCardEvent;
   const factory UsersBlocEvent.delete({required User value}) = _deleteEvent;
 }
 
 @injectable
 class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   final UsersRepository usersRepository;
-
+  final PhotoReadRepository photoReadRepository;
 
   UsersModelData usersModelData = const UsersModelData(
     timeOut: false,
@@ -78,6 +81,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   );
 
   UsersBloc({
+    required this.photoReadRepository,
     required this.usersRepository,
   }) : super(const UsersBlocState.loading()) {
     on<UsersBlocEvent>((event, emit) async {
@@ -115,27 +119,38 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             await _delete(value.value);
             await Future.delayed(const Duration(seconds: 2));
             _response(emit);
-          }
+          },
+          updateCard: (_updateCardEvent value) async {
+            //await _update(value.oldValue, value.value);
+            await Future.delayed(const Duration(seconds: 2));
+          },
+          insertCard: (_insertCardEvent value) async {
+            //await _update(value.oldValue, value.value);
+            await Future.delayed(const Duration(seconds: 2));
+          }, insertPhoto: (_insertPhotoEvent value) async {
+            ///Пока нет необходисости, иначе надо переделать кое чего...
+            //await writeToFilePhoto(value.url, value.locator);
+          },
       );
     });
   }
 
-  Future<Uint8List> getUint8List(String locator) async {
+  Future<APhotosModel?> getUint8List(String locator, String url) async {
     await Future.delayed(const Duration(seconds: 2));
-    Uint8List? res;
+    APhotosModel? res;
     try{
-      res = (await PhotoReadFromIntFile().readCounter(uuid: locator)).$1;
+      res = await photoReadRepository.readCounter(locator: locator, url: url);
     } catch(ee, t){
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }
-    return res?? Uint8List(1);
+    return res;
   }
 
-  Future<String?> writeToFile(String url , [String? locator]) async {
+  Future<String?> writeToFilePhoto(String url, [String? locator]) async {
     await Future.delayed(const Duration(seconds: 2));
     String? res;
     try{
-      res = (await PhotoReadFromIntFile().writeCounter(url, locator)).$2;
+      res = (await photoReadRepository.writeCounter(url, locator)).$2;
     } catch(ee, t){
       Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
     }

@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/core.dart';
 import '../../domain/domain.dart';
-import 'dialogs/dialog_users_add_modify.dart';
-import 'dialogs/dialog_cards_add_modify.dart';
+import 'dialogs/users/dialog_users_add_modify.dart';
+import 'dialogs/cards/dialog_cards_add_modify.dart';
 
 class UserCard extends StatefulWidget {
   const UserCard({
@@ -25,18 +25,12 @@ class _UserCardState extends State<UserCard> {
   int age = 18;
 
   late User user;
-  late CardDetail cardDetail;
+  CardDetail? cardDetail;
 
   @override
   void initState() {
     super.initState();
     user = widget.user;
-    cardDetail = CardDetail(
-        id: null,
-        uuidUser: user.uuid,
-        cardNum: null,
-        cardYear: null,
-        cardMonth: null);
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
@@ -50,7 +44,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     UsersBloc usersBloc = context.read<UsersBloc>();
-    String cardNumber = cardDetail.cardNum ?? '1234 5678 1234 5678';
+    CardDetail? localCardDetail = cardDetail;
     return Card(
       child: SizedBox(
         height: 200,
@@ -64,20 +58,25 @@ class _UserCardState extends State<UserCard> {
                 backgroundColor: Colors.greenAccent[400],
                 radius: 100,
                 child: FutureBuilder(
-                  future: usersBloc.getUint8List(user.locator??''),
-                    builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+                  future: usersBloc.getUint8List(user.locator??'', user.image),
+                    builder: (BuildContext context, AsyncSnapshot<APhotosModel?> snapshot) {
                       Logger.print('Get img uuid:"${user.locator}" for Card ${user.id}', name: 'log', level: 0, error: false);
-                      if(snapshot.hasError) return const Center(child: Text('Error'),);
+                      if( snapshot.hasError) return const Center(child: Text('Error'),);
                       if(!snapshot.hasData) {
                         return const Center(child: CircularProgressIndicator(),);
                       } else {
-                        return CircleAvatar(
+                          APhotosModel? aPhotosModel = snapshot.requireData;
+
+                          return aPhotosModel!=null?CircleAvatar(
                           backgroundColor: Colors.greenAccent[400],
                           radius: 100,
                           backgroundImage: MemoryImage(
-                                snapshot.requireData,
-                            ),
-                        );
+                              aPhotosModel.contents
+                          ),):CircleAvatar(
+                            backgroundColor: Colors.greenAccent[400],
+                            radius: 100,
+                            child: const Icon(Icons.no_photography_outlined),
+                          );
                       }
                     },
                 ),
@@ -97,8 +96,8 @@ class _UserCardState extends State<UserCard> {
                           Text('Name:  ${user.firstName} ${user.name} ${user.lastName}'),
                           Text('Age:   ${user.age}'),
                           Text('Phone: ${user.phone}'),
-                          cardDetail.cardNum==null?const Text('Card: no card'):
-                              Text('Card: ${cardNumber.substring(0,4)} .... .... ${cardNumber.substring(15,19)}'),
+                          localCardDetail==null?const Text('Card: no card'):
+                              Text('Card: ${localCardDetail.cardNum?.substring(0,4)} .... .... ${localCardDetail.cardNum?.substring(15,19)}'),
                         ],
                       ),
                     ),
@@ -135,17 +134,24 @@ class _UserCardState extends State<UserCard> {
                             context: context,
                             builder: (BuildContext context)
                             {
-                              return DialogCardsAddModifyBuilder(cardDetail: null, uuidUser: user.uuid,);
+                              return DialogCardsAddModifyBuilder(cardDetail:
+                              cardDetail,
+                                uuidUser: user.uuid,);
                             });
                         if(res !=null && res.$1){
+
                           setState(() {
                             cardDetail = res.$2;
                           });
+                          Logger.print("$cardDetail", name: 'log', level: 0, error: false);
                         }
 
                         //
                       },
-                      icon: const Icon(Icons.add_card)),
+                      icon: cardDetail==null?
+                      const Icon(Icons.add_card):
+                      const Icon(Icons.credit_card),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

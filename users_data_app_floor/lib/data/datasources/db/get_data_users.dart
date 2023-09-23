@@ -1,7 +1,6 @@
-
 import 'package:users_data_app_floor/core/core.dart';
 
-abstract class UsersRepository{
+abstract class GetDataUsers{
 
   Future<int> delete(User value);
 

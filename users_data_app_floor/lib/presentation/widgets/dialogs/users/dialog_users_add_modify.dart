@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../core/core.dart';
-import '../../../domain/domain.dart';
-import 'custom_text_form_field.dart';
+import '../../../../core/core.dart';
+import '../../../../domain/domain.dart';
+import '../custom_text_form_field.dart';
 import 'dialog_users_fields_controllers.dart';
 
 class DialogAddModifyBuilder extends StatefulWidget {
@@ -60,7 +60,7 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
 
     if(modifyUser.image != _user.image )
     {
-      String? locator= await usersBloc.writeToFile(modifyUser.image, modifyUser.locator);
+      String? locator= await usersBloc.writeToFilePhoto(modifyUser.image, modifyUser.locator);
       if(locator == null) {
         if(context.mounted)Logger.print('Image is not loaded', name: 'log', level: 0, error: false, context: context);
         return (false, _user);
@@ -99,7 +99,7 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
           reverse: false,
           child: SizedBox(
             width: 300,
-            height: 600,
+            height: 700,
             child: Form(
               key: _formKey,
               child: Column(

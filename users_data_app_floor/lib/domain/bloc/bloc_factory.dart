@@ -1,8 +1,8 @@
 
 import 'package:get_it/get_it.dart';
+import 'package:users_data_app_floor/data/data.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
 
-import '../../data/data.dart';
-import '../domain.dart';
 
 class BlocFactory {
   static final _getIt = GetIt.I;
@@ -16,6 +16,7 @@ class BlocFactory {
 
     _getIt.registerLazySingleton<UsersBloc>(
           () => UsersBloc(
+            photoReadRepository: ServiceProvider.instance.get<PhotoReadRepository>(),
             usersRepository:  ServiceProvider.instance.get<UsersRepository>(),
       ),
     );

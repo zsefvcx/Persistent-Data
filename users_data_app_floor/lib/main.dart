@@ -37,7 +37,7 @@ Future<void> main() async {
 
   BlocFactory.instance.initialize();
 
-  await FakeData.createFake();
+  await DebugData.createFake();
 
   ///Запускаем наше приложение
   runApp(const PhotoApp());

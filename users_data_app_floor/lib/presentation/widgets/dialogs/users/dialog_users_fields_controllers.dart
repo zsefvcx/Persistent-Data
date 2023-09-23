@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/core.dart';
-import 'dialog_field.dart';
+import '../../../../core/core.dart';
+import '../dialog_field.dart';
 
 class DialogUsersFieldsAndControllers{
   static final formKey = GlobalKey<FormState>();

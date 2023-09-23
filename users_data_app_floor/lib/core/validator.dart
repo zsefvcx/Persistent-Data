@@ -56,8 +56,8 @@ class ValidatorFields {
   static String? checkCreditCard(String? value){
     var res = checkStringIfEmpty(value);
     if (res != null) return res;
-    if(!RegExp(r'(^[0-9]{1,4}[ ]{5}[0-9]{6,9}[ ]{10}[0-9]{11,14}[ ]{15}[0-9]{16,19}').hasMatch(value ?? '')){
-      return 'Format Phone number is wrong';
+    if(!RegExp(r'(^([0-9]{4}[- ]?){3}[0-9]{4}$)').hasMatch(value ?? '')){
+      return 'Format Card number is wrong';
     }
     return null;
   }
