@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
 
-import '../../core/core.dart';
-import '../../domain/domain.dart';
 import 'dialogs/users/dialog_users_add_modify.dart';
 import 'dialogs/cards/dialog_cards_add_modify.dart';
 
@@ -28,15 +28,14 @@ class _UserCardState extends State<UserCard> {
   CardDetail? cardDetail;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
     user = widget.user;
-    await getCreditCartData();
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
-  Future<void> getCreditCartData() async {
-    //cardDetail = (await context.read<UsersBloc>().readCard(uuidUser: user.uuid)).$3;
+  Future<CardDetail?> getCreditCartData() async {
+    return (await context.read<UsersBloc>().readCard(uuidUser: user.uuid)).$3;
   }
 
   @override
@@ -49,7 +48,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     UsersBloc usersBloc = context.read<UsersBloc>();
-    CardDetail? localCardDetail = cardDetail;
+    CardDetail? localCardDetail;
     return Card(
       child: SizedBox(
         height: 200,
@@ -65,7 +64,6 @@ class _UserCardState extends State<UserCard> {
                 child: FutureBuilder(
                   future: usersBloc.getUint8List(user.locator??'', user.image),
                     builder: (BuildContext context, AsyncSnapshot<APhotosModel?> snapshot) {
-                      Logger.print('Get img uuid:"${user.locator}" for Card ${user.id}', name: 'log', level: 0, error: false);
                       if( snapshot.hasError) return const Center(child: Text('Error'),);
                       if(!snapshot.hasData) {
                         return const Center(child: CircularProgressIndicator(),);
@@ -101,8 +99,20 @@ class _UserCardState extends State<UserCard> {
                           Text('Name:  ${user.firstName} ${user.name} ${user.lastName}'),
                           Text('Age:   ${user.age}'),
                           Text('Phone: ${user.phone}'),
-                          localCardDetail==null?const Text('Card: no card'):
-                              Text('Card: ${localCardDetail.cardNum?.substring(0,4)} .... .... ${localCardDetail.cardNum?.substring(15,19)}'),
+                          FutureBuilder(
+                            future: getCreditCartData(),
+                            builder: (BuildContext context, AsyncSnapshot<CardDetail?> snapshot) {
+                              if( snapshot.hasError) return const Center(child: Text('Error'),);
+                              if(!snapshot.hasData) {
+                                return const Center(child: CircularProgressIndicator(),);
+                              } else {
+                                localCardDetail = snapshot.data;
+                                cardDetail = snapshot.data;
+                                return localCardDetail==null?const Text('Card: no card'):
+                                Text('Card: ${localCardDetail?.cardNum?.substring(0,4)} .... .... ${localCardDetail?.cardNum?.substring(15,19)}');
+                              }
+                           },
+                          ),
                         ],
                       ),
                     ),
@@ -153,8 +163,8 @@ class _UserCardState extends State<UserCard> {
 
                         //
                       },
-                      icon: cardDetail==null?
-                      const Icon(Icons.add_card):
+                      icon: //cardDetail==null?
+                      //const Icon(Icons.add_card):
                       const Icon(Icons.credit_card),
                   ),
                 ),

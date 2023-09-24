@@ -90,35 +90,35 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
           init: (_initEvent value) async {
             emit(const UsersBlocState.loading());
             await _get(0);
-            await Future.delayed(const Duration(seconds: 2));
+            //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           get: (_getEvent value) async {
             emit(const UsersBlocState.loading());
             await _get(value.page);
-            await Future.delayed(const Duration(seconds: 2));
+            //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           getCompleter: (_getCompleterEvent value) async {
             await _get(value.page);
-            await Future.delayed(const Duration(seconds: 2));
+            //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
             value.completer.complete();
           },
           insert: (_insertEvent value) async {
             emit(const UsersBlocState.loading());
             await _insert(value.value);
-            await Future.delayed(const Duration(seconds: 2));
+            //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           update: (_updateEvent value) async {
             await _update(value.oldValue, value.value);
-            await Future.delayed(const Duration(seconds: 2));
+           // await Future.delayed(const Duration(seconds: 2));
           },
           delete: (_deleteEvent value) async {
             emit(const UsersBlocState.loading());
             await _delete(value.value);
-            await Future.delayed(const Duration(seconds: 2));
+            //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
           insertCard: (_insertCardEvent value) async {
@@ -205,7 +205,6 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   }
 
   Future<APhotosModel?> getUint8List(String locator, String url) async {
-    await Future.delayed(const Duration(seconds: 2));
     APhotosModel? res;
     try{
       res = await photoReadRepository.readCounter(locator: locator, url: url);
