@@ -6,5 +6,7 @@ abstract class PhotoReadRepository {
 
   Future<APhotosModel> readCounter({required String locator, required String url});
 
-  Future<(File, String)> writeCounter(String url, [String? locator]);
+  Future<(File?, String?)> writeCounter({required String url, required String? locator});
+
+  Future<bool?> deletePhoto({required String locator});
 }

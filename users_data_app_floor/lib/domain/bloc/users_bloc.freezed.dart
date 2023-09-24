@@ -584,7 +584,6 @@ mixin _$UsersBlocEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) =>
@@ -597,7 +596,6 @@ mixin _$UsersBlocEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) =>
@@ -610,7 +608,6 @@ mixin _$UsersBlocEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -624,7 +621,6 @@ mixin _$UsersBlocEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) =>
@@ -637,7 +633,6 @@ mixin _$UsersBlocEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) =>
@@ -650,7 +645,6 @@ mixin _$UsersBlocEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -721,7 +715,6 @@ class _$_initEvent implements _initEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -737,7 +730,6 @@ class _$_initEvent implements _initEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -753,7 +745,6 @@ class _$_initEvent implements _initEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -773,7 +764,6 @@ class _$_initEvent implements _initEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -789,7 +779,6 @@ class _$_initEvent implements _initEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -805,7 +794,6 @@ class _$_initEvent implements _initEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -892,7 +880,6 @@ class _$_getEvent implements _getEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -908,7 +895,6 @@ class _$_getEvent implements _getEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -924,7 +910,6 @@ class _$_getEvent implements _getEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -944,7 +929,6 @@ class _$_getEvent implements _getEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -960,7 +944,6 @@ class _$_getEvent implements _getEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -976,7 +959,6 @@ class _$_getEvent implements _getEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -1078,7 +1060,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -1094,7 +1075,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -1110,7 +1090,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -1130,7 +1109,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -1146,7 +1124,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -1162,7 +1139,6 @@ class _$_getCompleterEvent implements _getCompleterEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -1257,7 +1233,6 @@ class _$_insertEvent implements _insertEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -1273,7 +1248,6 @@ class _$_insertEvent implements _insertEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -1289,7 +1263,6 @@ class _$_insertEvent implements _insertEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -1309,7 +1282,6 @@ class _$_insertEvent implements _insertEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -1325,7 +1297,6 @@ class _$_insertEvent implements _insertEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -1341,7 +1312,6 @@ class _$_insertEvent implements _insertEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -1442,7 +1412,6 @@ class _$_updateEvent implements _updateEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -1458,7 +1427,6 @@ class _$_updateEvent implements _updateEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -1474,7 +1442,6 @@ class _$_updateEvent implements _updateEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -1494,7 +1461,6 @@ class _$_updateEvent implements _updateEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -1510,7 +1476,6 @@ class _$_updateEvent implements _updateEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -1526,7 +1491,6 @@ class _$_updateEvent implements _updateEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -1621,7 +1585,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -1637,7 +1600,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -1653,7 +1615,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -1673,7 +1634,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -1689,7 +1649,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -1705,7 +1664,6 @@ class _$_insertCardEvent implements _insertCardEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -1724,192 +1682,6 @@ abstract class _insertCardEvent implements UsersBlocEvent {
   CardDetail get value;
   @JsonKey(ignore: true)
   _$$_insertCardEventCopyWith<_$_insertCardEvent> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_insertPhotoEventCopyWith<$Res> {
-  factory _$$_insertPhotoEventCopyWith(
-          _$_insertPhotoEvent value, $Res Function(_$_insertPhotoEvent) then) =
-      __$$_insertPhotoEventCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String url, String? locator});
-}
-
-/// @nodoc
-class __$$_insertPhotoEventCopyWithImpl<$Res>
-    extends _$UsersBlocEventCopyWithImpl<$Res, _$_insertPhotoEvent>
-    implements _$$_insertPhotoEventCopyWith<$Res> {
-  __$$_insertPhotoEventCopyWithImpl(
-      _$_insertPhotoEvent _value, $Res Function(_$_insertPhotoEvent) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? url = null,
-    Object? locator = freezed,
-  }) {
-    return _then(_$_insertPhotoEvent(
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      locator: freezed == locator
-          ? _value.locator
-          : locator // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_insertPhotoEvent implements _insertPhotoEvent {
-  const _$_insertPhotoEvent({required this.url, this.locator});
-
-  @override
-  final String url;
-  @override
-  final String? locator;
-
-  @override
-  String toString() {
-    return 'UsersBlocEvent.insertPhoto(url: $url, locator: $locator)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_insertPhotoEvent &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.locator, locator) || other.locator == locator));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, url, locator);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_insertPhotoEventCopyWith<_$_insertPhotoEvent> get copyWith =>
-      __$$_insertPhotoEventCopyWithImpl<_$_insertPhotoEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function(int page) get,
-    required TResult Function(int page, Completer<dynamic> completer)
-        getCompleter,
-    required TResult Function(User value) insert,
-    required TResult Function(User oldValue, User value) update,
-    required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
-    required TResult Function(CardDetail value) updateCard,
-    required TResult Function(User value) delete,
-  }) {
-    return insertPhoto(url, locator);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function(int page)? get,
-    TResult? Function(int page, Completer<dynamic> completer)? getCompleter,
-    TResult? Function(User value)? insert,
-    TResult? Function(User oldValue, User value)? update,
-    TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
-    TResult? Function(CardDetail value)? updateCard,
-    TResult? Function(User value)? delete,
-  }) {
-    return insertPhoto?.call(url, locator);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function(int page)? get,
-    TResult Function(int page, Completer<dynamic> completer)? getCompleter,
-    TResult Function(User value)? insert,
-    TResult Function(User oldValue, User value)? update,
-    TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
-    TResult Function(CardDetail value)? updateCard,
-    TResult Function(User value)? delete,
-    required TResult orElse(),
-  }) {
-    if (insertPhoto != null) {
-      return insertPhoto(url, locator);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_initEvent value) init,
-    required TResult Function(_getEvent value) get,
-    required TResult Function(_getCompleterEvent value) getCompleter,
-    required TResult Function(_insertEvent value) insert,
-    required TResult Function(_updateEvent value) update,
-    required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
-    required TResult Function(_updateCardEvent value) updateCard,
-    required TResult Function(_deleteEvent value) delete,
-  }) {
-    return insertPhoto(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_initEvent value)? init,
-    TResult? Function(_getEvent value)? get,
-    TResult? Function(_getCompleterEvent value)? getCompleter,
-    TResult? Function(_insertEvent value)? insert,
-    TResult? Function(_updateEvent value)? update,
-    TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
-    TResult? Function(_updateCardEvent value)? updateCard,
-    TResult? Function(_deleteEvent value)? delete,
-  }) {
-    return insertPhoto?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_initEvent value)? init,
-    TResult Function(_getEvent value)? get,
-    TResult Function(_getCompleterEvent value)? getCompleter,
-    TResult Function(_insertEvent value)? insert,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
-    TResult Function(_updateCardEvent value)? updateCard,
-    TResult Function(_deleteEvent value)? delete,
-    required TResult orElse(),
-  }) {
-    if (insertPhoto != null) {
-      return insertPhoto(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _insertPhotoEvent implements UsersBlocEvent {
-  const factory _insertPhotoEvent(
-      {required final String url, final String? locator}) = _$_insertPhotoEvent;
-
-  String get url;
-  String? get locator;
-  @JsonKey(ignore: true)
-  _$$_insertPhotoEventCopyWith<_$_insertPhotoEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1984,7 +1756,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -2000,7 +1771,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -2016,7 +1786,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -2036,7 +1805,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -2052,7 +1820,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -2068,7 +1835,6 @@ class _$_updateCardEvent implements _updateCardEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),
@@ -2161,7 +1927,6 @@ class _$_deleteEvent implements _deleteEvent {
     required TResult Function(User value) insert,
     required TResult Function(User oldValue, User value) update,
     required TResult Function(CardDetail value) insertCard,
-    required TResult Function(String url, String? locator) insertPhoto,
     required TResult Function(CardDetail value) updateCard,
     required TResult Function(User value) delete,
   }) {
@@ -2177,7 +1942,6 @@ class _$_deleteEvent implements _deleteEvent {
     TResult? Function(User value)? insert,
     TResult? Function(User oldValue, User value)? update,
     TResult? Function(CardDetail value)? insertCard,
-    TResult? Function(String url, String? locator)? insertPhoto,
     TResult? Function(CardDetail value)? updateCard,
     TResult? Function(User value)? delete,
   }) {
@@ -2193,7 +1957,6 @@ class _$_deleteEvent implements _deleteEvent {
     TResult Function(User value)? insert,
     TResult Function(User oldValue, User value)? update,
     TResult Function(CardDetail value)? insertCard,
-    TResult Function(String url, String? locator)? insertPhoto,
     TResult Function(CardDetail value)? updateCard,
     TResult Function(User value)? delete,
     required TResult orElse(),
@@ -2213,7 +1976,6 @@ class _$_deleteEvent implements _deleteEvent {
     required TResult Function(_insertEvent value) insert,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_insertCardEvent value) insertCard,
-    required TResult Function(_insertPhotoEvent value) insertPhoto,
     required TResult Function(_updateCardEvent value) updateCard,
     required TResult Function(_deleteEvent value) delete,
   }) {
@@ -2229,7 +1991,6 @@ class _$_deleteEvent implements _deleteEvent {
     TResult? Function(_insertEvent value)? insert,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_insertCardEvent value)? insertCard,
-    TResult? Function(_insertPhotoEvent value)? insertPhoto,
     TResult? Function(_updateCardEvent value)? updateCard,
     TResult? Function(_deleteEvent value)? delete,
   }) {
@@ -2245,7 +2006,6 @@ class _$_deleteEvent implements _deleteEvent {
     TResult Function(_insertEvent value)? insert,
     TResult Function(_updateEvent value)? update,
     TResult Function(_insertCardEvent value)? insertCard,
-    TResult Function(_insertPhotoEvent value)? insertPhoto,
     TResult Function(_updateCardEvent value)? updateCard,
     TResult Function(_deleteEvent value)? delete,
     required TResult orElse(),

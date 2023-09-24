@@ -14,22 +14,22 @@ class UsersRepositoryImpl extends UsersRepository{
   UsersRepositoryImpl({required this.getDataUsers});
 
   @override
-  Future<int> delete(User value) async {
+  Future<int> delete({required User value}) async {
     return await getDataUsers.delete(value);
   }
 
   @override
-  Future<List<User>?> get(int page) async {
+  Future<List<User>?> get({required int page}) async {
     return await getDataUsers.get(page);
   }
 
   @override
-  Future<User?> insert(User value) async {
+  Future<User?> insert({required User value}) async {
     return await getDataUsers.insert(value);
   }
 
   @override
-  Future<int> update(User value) async {
+  Future<int> update({required User value}) async {
     return await getDataUsers.update(value);
   }
 

@@ -28,10 +28,15 @@ class _UserCardState extends State<UserCard> {
   CardDetail? cardDetail;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
     user = widget.user;
+    await getCreditCartData();
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
+  }
+
+  Future<void> getCreditCartData() async {
+    //cardDetail = (await context.read<UsersBloc>().readCard(uuidUser: user.uuid)).$3;
   }
 
   @override

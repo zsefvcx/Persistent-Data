@@ -11,5 +11,7 @@ abstract class PhotoReadFromIntFile {
 
   Future<PhotosModel> readCounter({required String locator, required String url});
 
-  Future<(File, String)> writeCounter(String url, [String? locator]);
+  Future<(File, String)> writeCounter({required String url, String? locator});
+
+  Future<bool> deletePhoto({required String locator});
 }

@@ -66,7 +66,7 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
   }
 
   @override
-  Future<(File, String)> writeCounter(String url, [String? locator]) async {
+  Future<(File, String)> writeCounter({required String url, String? locator}) async {
     try {
       final (file, locatorLoc) = await localFile(locator: locator);
       final dio = Dio();
@@ -89,6 +89,22 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
     } catch (e, t) {
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);
       throw('Error writeCounter!');
+    }
+  }
+
+  @override
+  Future<bool> deletePhoto({required String locator}) async {
+    try {
+      final (file, locatorLoc) = await localFile(locator: locator);
+      final contents = await file.delete();
+      final res = mapPhotosModel[locator];
+      if(res != null) {
+        mapPhotosModel.remove(locator);
+      }
+      return true;
+    } catch (e, t) {
+      Logger.print('$e\n$t', name: 'err', level: 1, error: true);
+      throw('Error readCounter!');
     }
   }
 

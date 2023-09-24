@@ -52,14 +52,14 @@ class _DialogCardsAddModifyBuilderState extends State<DialogCardsAddModifyBuilde
     }
 
     if (modifyCardDetail.id != null){
-      usersBloc.add(UsersBlocEvent.updateCard(
-        value: modifyCardDetail,
-      ),
+        usersBloc.add(UsersBlocEvent.insertCard(
+          value: modifyCardDetail,
+        ),
       );
     } else {
-      usersBloc.add(UsersBlocEvent.updateCard(
-        value: modifyCardDetail,
-      ),
+        usersBloc.add(UsersBlocEvent.updateCard(
+          value: modifyCardDetail,
+        ),
       );
     }
     Logger.print('$modifyCardDetail', name: 'log', level: 0, error: false);

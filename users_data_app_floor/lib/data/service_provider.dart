@@ -11,6 +11,7 @@ class ServiceProvider{
   final NetworkInfo networkInfo = NetworkInfoImp(internetConnectionChecker: InternetConnectionChecker());
   final PhotoReadFromIntFile photoReadFromIntFile = PhotoReadFromIntFileImpl();
   final GetDataUsers getDataUsers = GetDataUsersImpl();
+  final AddModSecureStorage addModSecureStorage = AddModSecureStorageImpl();
 
   T get<T extends Object>() => _getIt.get<T>();
 
@@ -25,6 +26,10 @@ class ServiceProvider{
     );
     _getIt.registerLazySingleton<UsersRepository>(
           () => UsersRepositoryImpl(getDataUsers: getDataUsers
+      ),
+    );
+    _getIt.registerLazySingleton<CardSecureRepository>(
+          () => CardSecureRepositoryImpl(addModSecureStorage: addModSecureStorage
       ),
     );
   }

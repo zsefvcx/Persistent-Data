@@ -18,6 +18,7 @@ class BlocFactory {
           () => UsersBloc(
             photoReadRepository: ServiceProvider.instance.get<PhotoReadRepository>(),
             usersRepository:  ServiceProvider.instance.get<UsersRepository>(),
+            cardSecureRepository: ServiceProvider.instance.get<CardSecureRepository>(),
       ),
     );
 

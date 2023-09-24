@@ -25,7 +25,7 @@ class DebugData {
     Set<User> groups = {};
     String url = 'https://s00.yaplakal.com/pics/pics_original/7/4/5/18424547.jpg';
     PhotoReadFromIntFile photoReadFromIntFile = PhotoReadFromIntFileImpl();
-    var (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
+    var (_ , uuid) = await photoReadFromIntFile.writeCounter(url: url);
     groups.add(
       User(
           id: null,
@@ -41,7 +41,7 @@ class DebugData {
     );
 
     url = 'https://artworld.ru/images/photo/ivan_shishkin_utro_v_sosnovom_lesu_30003.jpg';
-    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url: url);
     groups.add(
       User(
         id: null,
@@ -57,7 +57,7 @@ class DebugData {
     );
 
     url = 'https://s00.yaplakal.com/pics/pics_preview/1/3/5/18424531.jpg';
-    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url: url);
     groups.add(
       User(
         id: null,
@@ -73,7 +73,7 @@ class DebugData {
     );
 
     url = 'https://s00.yaplakal.com/pics/pics_preview/2/4/2/18424242.jpg';
-    (_ , uuid) = await photoReadFromIntFile.writeCounter(url);
+    (_ , uuid) = await photoReadFromIntFile.writeCounter(url: url);
     groups.add(
       User(
         id: null,

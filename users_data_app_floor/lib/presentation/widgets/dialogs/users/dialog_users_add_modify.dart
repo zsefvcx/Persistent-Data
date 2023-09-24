@@ -58,18 +58,6 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
      return (false, _user);
     }
 
-    if(modifyUser.image != _user.image )
-    {
-      String? locator= await usersBloc.writeToFilePhoto(modifyUser.image, modifyUser.locator);
-      if(locator == null) {
-        if(context.mounted)Logger.print('Image is not loaded', name: 'log', level: 0, error: false, context: context);
-        return (false, _user);
-      }
-      modifyUser = modifyUser.copyWith(
-        locator: locator,
-      );
-    }
-
     if (modifyUser.id != null){
       usersBloc.add(UsersBlocEvent.update(
           oldValue: _user,

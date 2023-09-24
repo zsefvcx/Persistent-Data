@@ -13,7 +13,7 @@ class PhotoReadRepositoryImpl extends PhotoReadRepository{
 
   PhotoReadRepositoryImpl({
     required this.networkInfo,
-    required this.photoReadFromIntFile
+    required this.photoReadFromIntFile,
   });
 
   @override
@@ -22,12 +22,17 @@ class PhotoReadRepositoryImpl extends PhotoReadRepository{
   }
 
   @override
-  Future<(File, String)> writeCounter(String url, [String? locator]) async {
+  Future<(File?, String?)> writeCounter({required String url, required String? locator}) async {
     if (await networkInfo.isConnected){
-    return await photoReadFromIntFile.writeCounter(url, locator);
+    return await photoReadFromIntFile.writeCounter(url: url, locator: locator);
     } else {
       throw('No internet connection!');
     }
+  }
+
+  @override
+  Future<bool?> deletePhoto({required String locator}) async {
+    return await photoReadFromIntFile.deletePhoto(locator: locator);
   }
 
 
