@@ -74,7 +74,7 @@ class _GroupCardState extends State<GroupCard> {
         },
         child: Card(
           child: SizedBox(
-            height: 120,
+            height: 150,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -52,7 +52,7 @@ class _UserCardState extends State<UserCard> {
     CardDetail? localCardDetail = cardDetail;
     return Card(
       child: SizedBox(
-        height: 200,
+        height: 150,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +61,7 @@ class _UserCardState extends State<UserCard> {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 backgroundColor: Colors.greenAccent[400],
-                radius: 100,
+                radius: 50,
                 child: FutureBuilder(
                   future: usersBloc.getUint8List(user.locator??'', user.image),
                     builder: (BuildContext context, AsyncSnapshot<APhotosModel?> snapshot) {
@@ -73,12 +73,12 @@ class _UserCardState extends State<UserCard> {
 
                           return aPhotosModel!=null?CircleAvatar(
                           backgroundColor: Colors.greenAccent[400],
-                          radius: 100,
+                          radius: 50,
                           backgroundImage: MemoryImage(
                               aPhotosModel.contents
                           ),):CircleAvatar(
                             backgroundColor: Colors.greenAccent[400],
-                            radius: 100,
+                            radius: 50,
                             child: const Icon(Icons.no_photography_outlined),
                           );
                       }
@@ -121,10 +121,10 @@ class _UserCardState extends State<UserCard> {
             ),
             Column(
               children: [
-                Center(child: IconButton(
-                  tooltip: 'id',
-                  icon: Text('${user.id}'),
-                  onPressed: null,)),
+                // Center(child: IconButton(
+                //   tooltip: 'id',
+                //   icon: Text('${user.id}'),
+                //   onPressed: null,)),
                 IconButton(
                   tooltip: 'Edit Profile',
                   onPressed: () async {
@@ -165,15 +165,12 @@ class _UserCardState extends State<UserCard> {
                     },
                     icon: const Icon(Icons.credit_card),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    tooltip: 'Delete User',
-                      onPressed: () async {
-                        usersBloc.add(UsersBlocEvent.delete(value: user));
-                      },
-                      icon: const Icon(Icons.delete_forever)),
-                ),
+                IconButton(
+                  tooltip: 'Delete User',
+                    onPressed: () async {
+                      usersBloc.add(UsersBlocEvent.delete(value: user));
+                    },
+                    icon: const Icon(Icons.delete_forever)),
               ],
             )
           ],

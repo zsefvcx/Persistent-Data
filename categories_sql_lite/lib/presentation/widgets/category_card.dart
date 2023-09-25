@@ -72,7 +72,7 @@ class _CategoryCardState extends State<CategoryCard> {
         onTap: () => Navigator.of(context).pushNamed(CategoryPage.routeName, arguments: category),
         child: Card(
           child: SizedBox(
-            height: 120,
+            height: 150,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,

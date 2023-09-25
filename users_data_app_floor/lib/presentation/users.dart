@@ -4,9 +4,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/domain/bloc/bloc.dart';
 
-import '../core/core.dart';
-import '../domain/domain.dart';
 import 'widgets/dialogs/users/dialog_users_add_modify.dart';
 import 'widgets/error_time_out_widget.dart';
 import 'widgets/user_card.dart';
@@ -85,12 +85,13 @@ class _PhotosPageState extends State<PhotosPage> {
             ),
           ),
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(right: 54),
+            padding: const EdgeInsets.only(right: 25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 FloatingActionButton(
+                  mini: true,
                   heroTag: UniqueKey(),
                   onPressed: () async {
                     await showDialog<void>(
@@ -100,17 +101,18 @@ class _PhotosPageState extends State<PhotosPage> {
                     return const DialogAddModifyBuilder();
                     });
                   },
-                  tooltip: 'Load',
+                  tooltip: 'Add',
                   child: const Icon(Icons.add),
                 ),
                 const SizedBox(height: 10,),
                 FloatingActionButton(
+                  mini: true,
                   heroTag: UniqueKey(),
                   onPressed: () async {
                     loadData(usersBloc);
                     //Logger.print('${Categories.instance().group}', name: 'log', level: 0, error: false);
                   },
-                  tooltip: 'Reload',
+                  tooltip: 'Update',
                   child: const Icon(Icons.update),
                 ),
               ],
