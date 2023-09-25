@@ -88,8 +88,9 @@ class DebugData {
     );
 
     ///Сохраняем в db
+    GetDataUsers getDataUsers = GetDataUsersImpl();
     for(var elem in groups) {
-      await DBProvider.db.insert(elem);
+      await getDataUsers.insert(elem);
     }
     _loadingFake = true;
     await prefs.setBool('_loadingFake', _loadingFake);

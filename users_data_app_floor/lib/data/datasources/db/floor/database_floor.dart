@@ -23,17 +23,17 @@ part 'database_floor.g.dart'; // the generated code will be there
 
 @dao
 abstract class UserDao {
-  @Query('SELECT * FROM Person')
+  @Query('SELECT * FROM User')
   Future<List<User>> get();
 
-  @Query('SELECT name FROM Person')
+  @Query('SELECT name FROM User')
   Stream<List<String>> findAllUserName();
 
-  @Query('SELECT * FROM Person WHERE id = :id')
+  @Query('SELECT * FROM User WHERE id = :id')
   Stream<User?> findUserById(int id);
 
   @insert
-  Future<void> insertUser(User person);
+  Future<int> insertUser(User person);
 
   @update
   Future<int> updateUser(User person);
@@ -44,8 +44,7 @@ abstract class UserDao {
 
 @Database(version: 1, entities: [User])
 abstract class AppDatabase extends FloorDatabase {
-  UserDao get personDao;
+  UserDao get userDao;
 }
-
 
 ///dart run build_runner build

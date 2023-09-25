@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  UserDao? _personDaoInstance;
+  UserDao? _userDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -94,8 +94,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  UserDao get personDao {
-    return _personDaoInstance ??= _$UserDao(database, changeListener);
+  UserDao get userDao {
+    return _userDaoInstance ??= _$UserDao(database, changeListener);
   }
 }
 
@@ -166,7 +166,7 @@ class _$UserDao extends UserDao {
 
   @override
   Future<List<User>> get() async {
-    return _queryAdapter.queryList('SELECT * FROM Person',
+    return _queryAdapter.queryList('SELECT * FROM User',
         mapper: (Map<String, Object?> row) => User(
             id: row['id'] as int?,
             firstName: row['firstName'] as String,
@@ -181,15 +181,15 @@ class _$UserDao extends UserDao {
 
   @override
   Stream<List<String>> findAllUserName() {
-    return _queryAdapter.queryListStream('SELECT name FROM Person',
+    return _queryAdapter.queryListStream('SELECT name FROM User',
         mapper: (Map<String, Object?> row) => row.values.first as String,
-        queryableName: 'Person',
+        queryableName: 'User',
         isView: false);
   }
 
   @override
   Stream<User?> findUserById(int id) {
-    return _queryAdapter.queryStream('SELECT * FROM Person WHERE id = ?1',
+    return _queryAdapter.queryStream('SELECT * FROM User WHERE id = ?1',
         mapper: (Map<String, Object?> row) => User(
             id: row['id'] as int?,
             firstName: row['firstName'] as String,
@@ -201,13 +201,14 @@ class _$UserDao extends UserDao {
             phone: row['phone'] as String,
             uuid: row['uuid'] as String),
         arguments: [id],
-        queryableName: 'Person',
+        queryableName: 'User',
         isView: false);
   }
 
   @override
-  Future<void> insertUser(User person) async {
-    await _userInsertionAdapter.insert(person, OnConflictStrategy.abort);
+  Future<int> insertUser(User person) {
+    return _userInsertionAdapter.insertAndReturnId(
+        person, OnConflictStrategy.abort);
   }
 
   @override

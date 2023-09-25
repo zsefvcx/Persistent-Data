@@ -72,6 +72,8 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   final PhotoReadRepository photoReadRepository;
   final CardSecureRepository cardSecureRepository;
 
+  static int timeOutV = 10;
+
   UsersModelData usersModelData = const UsersModelData(
     timeOut: false,
     data: UsersModel(<User>{}, 0),
@@ -136,7 +138,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     bool? res;
     try{
-      res = await cardSecureRepository.insertCard(value: value).timeout(const Duration(seconds: 2),
+      res = await cardSecureRepository.insertCard(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -154,7 +156,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     CardDetail? res;
     try{
-      res = await cardSecureRepository.readCard(uuidUser: uuidUser).timeout(const Duration(seconds: 2),
+      res = await cardSecureRepository.readCard(uuidUser: uuidUser).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -172,7 +174,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     bool? res;
     try{
-      res = await cardSecureRepository.updateCard(value: value).timeout(const Duration(seconds: 2),
+      res = await cardSecureRepository.updateCard(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -190,7 +192,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     bool? res;
     try{
-      res = await cardSecureRepository.deleteCard(uuidUser: uuidUser).timeout(const Duration(seconds: 2),
+      res = await cardSecureRepository.deleteCard(uuidUser: uuidUser).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -218,7 +220,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     String? res;
     try{
-      res = (await photoReadRepository.writeCounter(url: url, locator: locator).timeout(const Duration(seconds: 2),
+      res = (await photoReadRepository.writeCounter(url: url, locator: locator).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -238,7 +240,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool timeOut = false;
     bool? res;
     try{
-      res = await photoReadRepository.deletePhoto(locator: locator).timeout(const Duration(seconds: 2),
+      res = await photoReadRepository.deletePhoto(locator: locator).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             error = true;
             timeOut  = true;
@@ -270,7 +272,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await usersRepository.get(page: page).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.get(page: page).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -313,7 +315,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       value = value.copyWith(
         locator: locator,
       );
-      var res = await usersRepository.insert(value: value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.insert(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -350,7 +352,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
           locator: locator,
         );
       }
-      var res = await usersRepository.update(value: value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.update(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -381,12 +383,12 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     try {
       await _deleteCard(uuidUser: value.uuid);
       await _deletePhoto(locator: value.locator??'');
-      var res = await usersRepository.delete(value: value).timeout(const Duration(seconds: 2),
+      var res = await usersRepository.delete(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
             timeOut  = true;
-            return 0;
+            return 0xFF;
           });
       if (res > 0)
       {
