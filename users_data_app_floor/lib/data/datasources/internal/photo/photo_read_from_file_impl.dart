@@ -95,8 +95,8 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
   @override
   Future<bool> deletePhoto({required String locator}) async {
     try {
-      final (file, locatorLoc) = await localFile(locator: locator);
-      final contents = await file.delete();
+      final (file, _) = await localFile(locator: locator);
+      await file.delete();
       final res = mapPhotosModel[locator];
       if(res != null) {
         mapPhotosModel.remove(locator);

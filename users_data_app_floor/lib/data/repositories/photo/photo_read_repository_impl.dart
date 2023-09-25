@@ -1,6 +1,5 @@
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:users_data_app_floor/core/core.dart';
 import 'package:users_data_app_floor/data/data.dart';

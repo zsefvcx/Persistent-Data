@@ -1,6 +1,5 @@
 
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -122,10 +121,10 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             _response(emit);
           },
           insertCard: (_insertCardEvent value) async {
-            var (error, timeOut, res) = await _insertCard(value: value.value);
+            var (_, _, _) = await _insertCard(value: value.value);
           },
           updateCard: (_updateCardEvent value) async {
-            var (error, timeOut, res) = await _updateCard(value: value.value);
+            var (_, _, _) = await _updateCard(value: value.value);
           },
       )
       ;

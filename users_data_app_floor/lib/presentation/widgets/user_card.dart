@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +33,10 @@ class _UserCardState extends State<UserCard> {
     Logger.print('Init Card ${user.id}', name: 'log', level: 0, error: false);
   }
 
-  Future<CardDetail?> getCreditCartData() async {
-    return (await context.read<UsersBloc>().readCard(uuidUser: user.uuid)).$3;
+  Future<bool> getCreditCartData() async {
+    var (error, _, res) = await context.read<UsersBloc>().readCard(uuidUser: user.uuid);
+    cardDetail = res;
+    return error;
   }
 
   @override
@@ -48,7 +49,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     UsersBloc usersBloc = context.read<UsersBloc>();
-    CardDetail? localCardDetail;
+    CardDetail? localCardDetail = cardDetail;
     return Card(
       child: SizedBox(
         height: 200,
@@ -99,20 +100,19 @@ class _UserCardState extends State<UserCard> {
                           Text('Name:  ${user.firstName} ${user.name} ${user.lastName}'),
                           Text('Age:   ${user.age}'),
                           Text('Phone: ${user.phone}'),
-                          FutureBuilder(
+                          localCardDetail==null?FutureBuilder(
                             future: getCreditCartData(),
-                            builder: (BuildContext context, AsyncSnapshot<CardDetail?> snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                               if( snapshot.hasError) return const Center(child: Text('Error'),);
                               if(!snapshot.hasData) {
                                 return const Center(child: CircularProgressIndicator(),);
                               } else {
-                                localCardDetail = snapshot.data;
-                                cardDetail = snapshot.data;
+                                localCardDetail = cardDetail;
                                 return localCardDetail==null?const Text('Card: no card'):
                                 Text('Card: ${localCardDetail?.cardNum?.substring(0,4)} .... .... ${localCardDetail?.cardNum?.substring(15,19)}');
                               }
                            },
-                          ),
+                          ):Text('Card: ${localCardDetail.cardNum?.substring(0,4)} .... .... ${localCardDetail.cardNum?.substring(15,19)}'),
                         ],
                       ),
                     ),
@@ -121,56 +121,54 @@ class _UserCardState extends State<UserCard> {
             ),
             Column(
               children: [
-                Center(child: Text('${user.id}')),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    onPressed: () async {
-                      var res = await showDialog<(bool, User)>(
-                      context: context,
-                      builder: (BuildContext context)
-                      {
-                        return DialogAddModifyBuilder(user: user);
+                Center(child: IconButton(
+                  tooltip: 'id',
+                  icon: Text('${user.id}'),
+                  onPressed: null,)),
+                IconButton(
+                  tooltip: 'Edit Profile',
+                  onPressed: () async {
+                    var res = await showDialog<(bool, User)>(
+                    context: context,
+                    builder: (BuildContext context)
+                    {
+                      return DialogAddModifyBuilder(user: user);
+                    });
+                    if(res !=null && res.$1){
+                      setState(() {
+                        user = res.$2;
                       });
-                      if(res !=null && res.$1){
-                        setState(() {
-                          user = res.$2;
-                        });
-                      }
-                    },
-                    icon: const Icon(Icons.edit),
-                  ),
+                    }
+                  },
+                  icon: const Icon(Icons.edit),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      onPressed: () async {
-                        var res = await showDialog<(bool, CardDetail)>(
-                            context: context,
-                            builder: (BuildContext context)
-                            {
-                              return DialogCardsAddModifyBuilder(cardDetail:
-                              cardDetail,
-                                uuidUser: user.uuid,);
-                            });
-                        if(res !=null && res.$1){
-
-                          setState(() {
-                            cardDetail = res.$2;
+                IconButton(
+                  tooltip: 'Edit Card',
+                    onPressed: () async {
+                      var res = await showDialog<(bool, CardDetail)>(
+                          context: context,
+                          builder: (BuildContext context)
+                          {
+                            return DialogCardsAddModifyBuilder(cardDetail:
+                            cardDetail,
+                              uuidUser: user.uuid,);
                           });
-                          Logger.print("$cardDetail", name: 'log', level: 0, error: false);
-                        }
+                      if(res !=null && res.$1){
 
-                        //
-                      },
-                      icon: //cardDetail==null?
-                      //const Icon(Icons.add_card):
-                      const Icon(Icons.credit_card),
-                  ),
+                        setState(() {
+                          cardDetail = res.$2;
+                        });
+                        Logger.print("$cardDetail", name: 'log', level: 0, error: false);
+                      }
+
+                      //
+                    },
+                    icon: const Icon(Icons.credit_card),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
+                    tooltip: 'Delete User',
                       onPressed: () async {
                         usersBloc.add(UsersBlocEvent.delete(value: user));
                       },

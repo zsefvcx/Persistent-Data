@@ -18,7 +18,7 @@ abstract class Logger {
     }) {
     String msg = message;
     dev.log(
-      '|:${error?'E':'N'}:|${msg}',
+      '|:${error?'E':'N'}:|$msg',
       time: DateTime.now(),
       name: name,
       level: level,

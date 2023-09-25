@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-// import 'package:uuid/uuid.dart';
+import 'package:floor/floor.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable()
+@entity
 class User extends Equatable{
   @JsonKey(defaultValue: null,)
+  @primaryKey
   final int?      id;
   final String    firstName;
   final String    name;

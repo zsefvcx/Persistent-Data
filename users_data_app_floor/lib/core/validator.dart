@@ -38,7 +38,7 @@ class ValidatorFields {
     var res = checkStringIfEmpty(value);
     if (res != null) return res;
                //r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]'
-    if(!RegExp(r'(^[\w`\-,.][^0-9_!¡?÷?¿/\\+=@#\$%ˆ&*(){}|~<>;:[\]]{2,}$)').hasMatch(value ??'')){
+    if(value != null && value.length > 255){
       return 'Format Firstname/Name is wrong';
     }
     return null;
@@ -47,7 +47,7 @@ class ValidatorFields {
   static String? checkLastName(String? value){
     if (value == null || value.isEmpty) return null;
     //r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]'
-    if(!RegExp(r'(^[\w`\-,.][^0-9_!¡?÷?¿/\\+=@#\$%ˆ&*(){}|~<>;:[\]]{2,}$)').hasMatch(value)){
+    if(value.length > 255){
       return 'Format Lastname is wrong';
     }
     return null;

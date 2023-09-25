@@ -47,6 +47,8 @@ class GetDataUsersImpl extends GetDataUsers {
     try{
       if(dbType == DBType.sqflite) {
         return await DBProvider.db.insert(value);
+      } else if (dbType == DBType.floor) {
+
       } else {
         throw('not implemented');
       }

@@ -8,7 +8,7 @@ abstract class AddModSecureStorage {
 
   Future<bool> insertCard({required CardDetail value});
 
-  Future<CardDetail> readCard({required String uuidUser});
+  Future<CardDetail?> readCard({required String uuidUser});
 
   Future<bool> deleteCard({required String uuidUser});
 }

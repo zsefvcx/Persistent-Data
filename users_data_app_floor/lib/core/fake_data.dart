@@ -14,7 +14,7 @@ enum DBType{
 ///модель для отладки
 class DebugData {
   static bool _loadingFake = false;
-  static DBType dbType = DBType.sqflite;
+  static DBType dbType = DBType.floor;
 
   static Future<void> createFake() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
