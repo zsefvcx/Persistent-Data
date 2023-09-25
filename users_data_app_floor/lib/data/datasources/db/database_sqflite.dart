@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart'
         if(dart.library.io.Platform.isWindows)'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -20,9 +18,9 @@ class DBProvider {
   Future<Database> get database async => _database ??= await _initDB();
 
   Future<Database> _initDB() async {
-    Directory dir = await getApplicationSupportDirectory();
-    String path = '${dir.path}/users_base.db';
-    Logger.print("PathToDB:$path", name: 'log', level: 0, error: false);
+    final dir = await getApplicationSupportDirectory();
+    final path = '${dir.path}/users_base.db';
+    Logger.print('PathToDB:$path');
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -40,7 +38,7 @@ class DBProvider {
   Future<void> _createDB(Database db, int version) async {
     try {
       await db.execute(
-          'CREATE TABLE "$_table" ('
+          'CREATE TABLE "$_table" ( '
               '"$_id" INTEGER PRIMARY KEY AUTOINCREMENT, '
               '"$_firstName" TEXT, '
               '"$_name" TEXT, '
@@ -49,27 +47,27 @@ class DBProvider {
               '"$_image" TEXT, '
               '"$_phone" TEXT, '
               '"$_uuid" TEXT, '
-              '"$_locator" TEXT'
+              '"$_locator" TEXT '
               ')'
       );
-    } catch (e,t){
+    } on Exception catch (e,t){
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);
-      throw('Error create db!');
+      throw ArgumentError('Error create db!');
     }
   }
 
   ///READ GROUP
   ///Пока получаем все элементы из списка
   Future<List<User>> get(int page) async {
-    Database db = await database;
+    final db = await database;
     final List<Map<String, dynamic>> groupsMapList =
         await db.query(_table,
           // where: '$_columnId = ?',
           //whereArgs: [page*10]
         );
-    final List<User> groupList = [];
+    final groupList = <User>[];
 
-    for (var element in groupsMapList) {
+    for (final element in groupsMapList) {
       groupList.add(
           User.fromJson(element)
       );
@@ -82,17 +80,17 @@ class DBProvider {
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
-    Database db = await database;
+    final db = await database;
 
     //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_group" TEXT');
     //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_description" TEXT');
     //await db.execute('ALTER TABLE "$_groupTable" ADD COLUMN "$_image" TEXT');
 
     ///Имя должно быть уникальное
-    List<Map<String, dynamic>> query = await db.query(_table, where: '"$_name" = ?', whereArgs: [data.name]);
+    final query = await db.query(_table, where: '"$_name" = ?', whereArgs: [data.name]);
     if (query.isNotEmpty){
       if (query[0].isNotEmpty){///только первое вхождение
-        var id = query[0][_id];
+        final id = query[0][_id];
         if (id != null && id is int){
           return data.copyWith(
             id: id,
@@ -101,7 +99,7 @@ class DBProvider {
       }
     }
 
-    int id = await db.insert(
+    final id = await db.insert(
       _table,
       data.toJson(),
       conflictAlgorithm: conflictAlgorithm,
@@ -116,7 +114,7 @@ class DBProvider {
       {
         ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.ignore
       }) async {
-    Database db = await database;
+    final db = await database;
 
     return await db.update(
         _table,
@@ -130,7 +128,7 @@ class DBProvider {
 
   ///DELETE GID
   Future<int> delete(int gid) async {
-    Database db = await database;
+    final db = await database;
     return await db.delete(
             _table,
             where: '"$_id" = ?',

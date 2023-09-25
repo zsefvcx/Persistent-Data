@@ -2,13 +2,11 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../core/core.dart';
-import '../../data/data.dart';
-import '../domain.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/data/data.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
 
 part 'users_bloc.freezed.dart';
 
@@ -58,7 +56,7 @@ class UsersBlocState with _$UsersBlocState{
 class UsersBlocEvent with _$UsersBlocEvent{
   const factory UsersBlocEvent.init() = _initEvent;
   const factory UsersBlocEvent.get({required int page}) = _getEvent;//Completer
-  const factory UsersBlocEvent.getCompleter({required int page, required Completer completer}) = _getCompleterEvent;
+  const factory UsersBlocEvent.getCompleter({required int page, required Completer<dynamic> completer}) = _getCompleterEvent;
   const factory UsersBlocEvent.insert({required User value}) = _insertEvent;
   const factory UsersBlocEvent.update({required User oldValue, required User value}) = _updateEvent;
   const factory UsersBlocEvent.insertCard({required CardDetail value}) = _insertCardEvent;
@@ -88,45 +86,45 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   }) : super(const UsersBlocState.loading()) {
     on<UsersBlocEvent>((event, emit) async {
       await event.map<FutureOr<void>>(
-          init: (_initEvent value) async {
+          init: (value) async {
             emit(const UsersBlocState.loading());
             await _get(0);
             //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
-          get: (_getEvent value) async {
+          get: (value) async {
             emit(const UsersBlocState.loading());
             await _get(value.page);
             //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
-          getCompleter: (_getCompleterEvent value) async {
+          getCompleter: (value) async {
             await _get(value.page);
             //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
             value.completer.complete();
           },
-          insert: (_insertEvent value) async {
+          insert: (value) async {
             emit(const UsersBlocState.loading());
             await _insert(value.value);
             //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
-          update: (_updateEvent value) async {
+          update: (value) async {
             await _update(value.oldValue, value.value);
            // await Future.delayed(const Duration(seconds: 2));
           },
-          delete: (_deleteEvent value) async {
+          delete: (value) async {
             emit(const UsersBlocState.loading());
             await _delete(value.value);
             //await Future.delayed(const Duration(seconds: 2));
             _response(emit);
           },
-          insertCard: (_insertCardEvent value) async {
-            var (_, _, _) = await _insertCard(value: value.value);
+          insertCard: (value) async {
+            final (_, _, _) = await _insertCard(value: value.value);
           },
-          updateCard: (_updateCardEvent value) async {
-            var (_, _, _) = await _updateCard(value: value.value);
+          updateCard: (value) async {
+            final (_, _, _) = await _updateCard(value: value.value);
           },
       )
       ;
@@ -134,8 +132,8 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   }
 
   Future<(bool, bool, bool?)> _insertCard({required CardDetail value}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     bool? res;
     try{
       res = await cardSecureRepository.insertCard(value: value).timeout(Duration(seconds: timeOutV),
@@ -144,16 +142,16 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             timeOut  = true;
             return null;
           });
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
   }
 
   Future<(bool, bool, CardDetail?)> readCard({required String uuidUser}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     CardDetail? res;
     try{
       res = await cardSecureRepository.readCard(uuidUser: uuidUser).timeout(Duration(seconds: timeOutV),
@@ -162,16 +160,16 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             timeOut  = true;
             return null;
           });
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
   }
 
   Future<(bool, bool, bool?)> _updateCard({required CardDetail value}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     bool? res;
     try{
       res = await cardSecureRepository.updateCard(value: value).timeout(Duration(seconds: timeOutV),
@@ -180,16 +178,16 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             timeOut  = true;
             return null;
           });
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
   }
 
   Future<(bool, bool, bool?)> _deleteCard({required String uuidUser}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     bool? res;
     try{
       res = await cardSecureRepository.deleteCard(uuidUser: uuidUser).timeout(Duration(seconds: timeOutV),
@@ -198,8 +196,8 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             timeOut  = true;
             return null;
           });
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
@@ -209,15 +207,15 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     APhotosModel? res;
     try{
       res = await photoReadRepository.readCounter(locator: locator, url: url);
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
     }
     return res;
   }
 
   Future<(bool, bool, String?)> _insertPhoto({required String url, String? locator}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     String? res;
     try{
       res = (await photoReadRepository.writeCounter(url: url, locator: locator).timeout(Duration(seconds: timeOutV),
@@ -228,16 +226,16 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
           })
 
       ).$2;
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
   }
 
   Future<(bool, bool, bool?)> _deletePhoto({required String locator}) async {
-    bool error = false;
-    bool timeOut = false;
+    var error = false;
+    var timeOut = false;
     bool? res;
     try{
       res = await photoReadRepository.deletePhoto(locator: locator).timeout(Duration(seconds: timeOutV),
@@ -246,8 +244,8 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
             timeOut  = true;
             return null;
           });
-    } catch(ee, t){
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+    } on Exception catch(ee, t){
+      Logger.print('$ee\n$t', name: 'err', error: true);
       error = true;
     }
     return (error, timeOut, res);
@@ -268,11 +266,11 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
   Future<void> _get(int page) async {
     AUsersEntity? groupsModel;
     String? e;
-    bool? error = false;
+    var error = false;
     bool? timeOut;
     try {
       //получаем первую страницу при инициализации
-      var res = await usersRepository.get(page: page).timeout(Duration(seconds: timeOutV),
+      final res = await usersRepository.get(page: page).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -282,17 +280,17 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       if (res != null) {
         final AUsersEntity getModel = UsersModel(res.toSet(), page);
         if(getModel == usersModelData.data){
-          Logger.print("Identical! No need load data.", name: 'err', level: 0, error: false);
+          Logger.print('Identical! No need load data.', name: 'err', error: true);
         } else {
           groupsModel = getModel;
         }
 
       }
-    } catch (ee, t){
+    } on Exception catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+      Logger.print('$ee\n$t', name: 'err', error: true);
     }
     usersModelData = usersModelData.copyWith(
       data: groupsModel,
@@ -305,17 +303,17 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
 
   Future<void> _insert(User value) async {
     String? e;
-    bool? error = false;
+    var error = false;
     bool? timeOut;
     try {
-      String? locator= (await _insertPhoto(url: value.image, locator: value.locator)).$3;
+      final locator= (await _insertPhoto(url: value.image, locator: value.locator)).$3;
       if(locator == null) {
-        Logger.print('Image is not loaded', name: 'log', level: 0, error: false);
+        Logger.print('Image is not loaded');
       }
-      value = value.copyWith(
+      final valueRes = value.copyWith(
         locator: locator,
       );
-      var res = await usersRepository.insert(value: value).timeout(Duration(seconds: timeOutV),
+      final res = await usersRepository.insert(value: valueRes).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -325,11 +323,11 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       if (res != null) {
         usersModelData.data.users.add(res);
       }
-    } catch (ee, t){
+    } on Exception catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+      Logger.print('$ee\n$t', name: 'err', error: true);
     }
     usersModelData = usersModelData.copyWith(
       timeOut: timeOut,
@@ -340,19 +338,20 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
 
   Future<void> _update(User oldValue, User value) async {
     String? e;
-    bool? error = false;
+    var error = false;
     bool? timeOut;
     try {
+      var valueRes = value;
       if(value.image != oldValue.image || oldValue.locator == null){
-        String? locator= (await _insertPhoto(url: value.image, locator: value.locator)).$3;
+        final locator= (await _insertPhoto(url: value.image, locator: value.locator)).$3;
         if(locator == null) {
-          Logger.print('Image is not loaded', name: 'log', level: 0, error: false);
+          Logger.print('Image is not loaded');
         }
-        value = value.copyWith(
+        valueRes = value.copyWith(
           locator: locator,
         );
       }
-      var res = await usersRepository.update(value: value).timeout(Duration(seconds: timeOutV),
+      final res = await usersRepository.update(value: valueRes).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -363,11 +362,11 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
         usersModelData.data.users.remove(oldValue);
         usersModelData.data.users.add(value);
       }
-    } catch (ee, t){
+    } on Exception catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+      Logger.print('$ee\n$t', name: 'err', error: true);
     }
     usersModelData = usersModelData.copyWith(
       timeOut: timeOut,
@@ -383,7 +382,7 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
     try {
       await _deleteCard(uuidUser: value.uuid);
       await _deletePhoto(locator: value.locator??'');
-      var res = await usersRepository.delete(value: value).timeout(Duration(seconds: timeOutV),
+      final res = await usersRepository.delete(value: value).timeout(Duration(seconds: timeOutV),
           onTimeout: () {
             e = null;
             error = true;
@@ -394,11 +393,11 @@ class UsersBloc extends Bloc<UsersBlocEvent, UsersBlocState>{
       {
         usersModelData.data.users.remove(value);
       }
-    } catch (ee, t){
+    } on Exception catch (ee, t){
       e = ee.toString();
       error = true;
       timeOut  = false;
-      Logger.print("$ee\n$t", name: 'err', level: 0, error: false);
+      Logger.print('$ee\n$t', name: 'err', error: true);
     }
     usersModelData = usersModelData.copyWith(
       timeOut: timeOut,

@@ -1,9 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/data/data.dart';
 import 'package:uuid/uuid.dart';
-
-import '../data/data.dart';
-import '../data/datasources/db/database_sqflite.dart';
-import 'core.dart';
 
 enum DBType{
   sqflite,
@@ -17,14 +15,14 @@ class DebugData {
   static DBType dbType = DBType.floor;
 
   static Future<void> createFake() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final bool? repeat = prefs.getBool('_loadingFake');
+    final prefs = await SharedPreferences.getInstance();
+    final repeat = prefs.getBool('_loadingFake');
     if (repeat != null) _loadingFake = repeat;
     if (_loadingFake) return;
     ///Fake data in memory and db.
-    Set<User> groups = {};
-    String url = 'https://s00.yaplakal.com/pics/pics_original/7/4/5/18424547.jpg';
-    PhotoReadFromIntFile photoReadFromIntFile = PhotoReadFromIntFileImpl();
+    final groups = <User>{};
+    var url = 'https://s00.yaplakal.com/pics/pics_original/7/4/5/18424547.jpg';
+    final PhotoReadFromIntFile photoReadFromIntFile = PhotoReadFromIntFileImpl();
     var (_ , uuid) = await photoReadFromIntFile.writeCounter(url: url);
     groups.add(
       User(
@@ -88,12 +86,11 @@ class DebugData {
     );
 
     ///Сохраняем в db
-    GetDataUsers getDataUsers = GetDataUsersImpl();
-    for(var elem in groups) {
+    final getDataUsers = GetDataUsersImpl();
+    for(final elem in groups) {
       await getDataUsers.insert(elem);
     }
     _loadingFake = true;
     await prefs.setBool('_loadingFake', _loadingFake);
   }
 }
-

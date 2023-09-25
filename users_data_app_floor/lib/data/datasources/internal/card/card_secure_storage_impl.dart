@@ -20,13 +20,13 @@ class AddModSecureStorageImpl extends AddModSecureStorage{
   @override
   Future<bool> insertCard({required CardDetail value}) async{
     try{
-      Map<String, dynamic> json = value.toJson();
-      String res = jsonEncode(json);
+      final json = value.toJson();
+      final res = jsonEncode(json);
       // Write value
       await storage.write(key: value.uuidUser, value: res);
       return true;
-    } catch(e){
-      throw('Error writeCard: $e');
+    } on Exception catch(e){
+      throw ArgumentError('Error writeCard: $e');
     }
   }
 
@@ -34,15 +34,14 @@ class AddModSecureStorageImpl extends AddModSecureStorage{
   Future<CardDetail?> readCard({required String uuidUser}) async {
     try {
       final res = await storage.read(key: uuidUser);
-      Map<String, dynamic> json = {};
       if (res != null) {
-        json = jsonDecode(res);
-        return CardDetail.fromJson(json);
+        final json = jsonDecode(res);
+        return json is Map<String, dynamic>?CardDetail.fromJson(json):null;
       } else {
         return null;
       }
-    } catch(e){
-      throw('Error readCard: $e');
+    } on Exception catch(e){
+      throw ArgumentError('Error readCard: $e');
     }
   }
 
@@ -56,8 +55,8 @@ class AddModSecureStorageImpl extends AddModSecureStorage{
     try{
       await storage.delete(key: uuidUser,);
       return true;
-    } catch(e){
-      throw('Error writeCard: $e');
+    } on Exception catch(e){
+      throw ArgumentError('Error writeCard: $e');
     }
   }
 

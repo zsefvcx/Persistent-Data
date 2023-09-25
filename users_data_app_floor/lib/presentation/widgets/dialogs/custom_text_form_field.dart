@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'dialog_field.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/dialog_field.dart';
 
 class TextFFC extends StatelessWidget {
   const TextFFC({
-    super.key,
-    required DialogField dialogFields,
-    String? Function(String? value)? validator,
+    required DialogField dialogFields, super.key,
   }) : _dialogFields = dialogFields;
 
   final DialogField _dialogFields;
@@ -21,14 +19,13 @@ class TextFFC extends StatelessWidget {
           height: _dialogFields.height,
           child: TextFormField(
             controller: _dialogFields.controller,
-            maxLines: 1,
             maxLength: _dialogFields.maxLength,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: _dialogFields.label,
             ),
             validator: (value) {
-              String? Function(String? value)? fun = _dialogFields.validator;
+              final fun = _dialogFields.validator;
               if(fun != null){
                 return fun(value);
               }

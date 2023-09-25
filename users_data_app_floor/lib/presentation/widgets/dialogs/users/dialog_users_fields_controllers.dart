@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/core.dart';
-import '../dialog_field.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/dialog_field.dart';
 
 class DialogUsersFieldsAndControllers{
   static final formKey = GlobalKey<FormState>();
@@ -13,7 +12,7 @@ class DialogUsersFieldsAndControllers{
   static late TextEditingController _phone;
   static late TextEditingController _age;
 
-  static initControllers({required User data}){
+  static void initControllers({required User data}){
     _firstName = TextEditingController();
     _firstName.text = data.firstName;
     _lastname = TextEditingController();
@@ -28,7 +27,7 @@ class DialogUsersFieldsAndControllers{
     _age.text = data.age.toString();
   }
 
-  static disposeControllers(){
+  static void disposeControllers(){
     _firstName.dispose();
     _lastname.dispose();
     _name.dispose();
@@ -38,7 +37,7 @@ class DialogUsersFieldsAndControllers{
   }
 
   static User userData({required User oldData}) {
-    final int age = int.parse(_age.text);
+    final age = int.parse(_age.text);
     return User(
       id: oldData.id,
       uuid: oldData.uuid,

@@ -13,11 +13,7 @@ class CardDetail extends Equatable{
   final int?    cardMonth;
 
   const CardDetail({
-    this.id,
-    required this.uuidUser,
-    required this.cardNum,
-    required this.cardYear,
-    required this.cardMonth
+    required this.uuidUser, this.cardNum, this.cardYear, this.cardMonth, this.id
   });
 
   @override
@@ -38,6 +34,6 @@ class CardDetail extends Equatable{
 
   @override
   String toString() {
-    return "$id:$uuidUser:$cardNum:$cardYear:$cardMonth";
+    return '$id:$uuidUser:$cardNum:$cardYear:$cardMonth';
   }
 }

@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'domain/domain.dart';
-import 'route_generator.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
+import 'package:users_data_app_floor/route_generator.dart';
 
 class PhotoApp extends StatefulWidget {
   const PhotoApp({super.key});
@@ -33,7 +32,6 @@ class _PhotoAppState extends State<PhotoApp> {
       child: MaterialApp(
         title: 'Users',
         debugShowCheckedModeBanner: false,
-        debugShowMaterialGrid: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
@@ -46,6 +44,4 @@ class _PhotoAppState extends State<PhotoApp> {
       ),
     );
   }
-
-
 }

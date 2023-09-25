@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:users_data_app_floor/presentation/pages.dart';
 
-import 'presentation/pages.dart';
+class RouteGenerator {
 
-class RouteGenerator{
-
-  static Route<dynamic> generateRoute(RouteSettings settings){
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     //final args = settings.arguments;
 
-    Widget transitionsBuilder(context, animation, secondaryAnimation, child){
-      CurvedAnimation curved = CurvedAnimation(
+    Widget transitionsBuilder(context, Animation<double> animation, Animation<double> secondaryAnimation, Widget? child) {
+      final curved = CurvedAnimation(
           parent: animation,
           curve: Curves.fastOutSlowIn);
-      Animation<double> anim =
-      Tween<double>(begin: 0.0, end: 1.0).animate(curved);
+      final anim =
+      Tween<double>(begin: 0, end: 1).animate(curved);
       return ScaleTransition(
         scale: anim,
         child: FadeTransition(opacity: animation, child: child,),
       );
     }
 
-    switch(settings.name){
+    switch (settings.name) {
       case PhotosPage.routeName:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
@@ -35,31 +34,35 @@ class RouteGenerator{
     return MaterialPageRoute(builder: (context) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .inversePrimary,
           title: const Text('ERROR'),
           centerTitle: true,
         ),
         body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Page not found!'),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pushNamed(PhotosPage.routeName);
                   },
                   child: const Center(
-                    child: Text('Goto GroupsPages', style: TextStyle(color: Colors.blue)),
+                    child: Text(
+                        'Goto GroupsPages', style: TextStyle(color: Colors
+                        .blue)),
                   ),
                 ),
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   child: const Center(
@@ -76,4 +79,3 @@ class RouteGenerator{
     );
   }
 }
-

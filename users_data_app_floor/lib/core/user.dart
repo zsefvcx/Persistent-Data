@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:floor/floor.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
@@ -71,15 +71,15 @@ class User extends Equatable{
     uuid,
   ];
 
-  /// Connect the generated [_$GroupFromJson] function to the `fromJson`
+  /// Connect the generated _$GroupFromJson function to the `fromJson`
   /// factory.
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  /// Connect the generated [_$GroupToJson] function to the `toJson` method.
+  /// Connect the generated _$GroupToJson function to the `toJson` method.
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
   String toString() {
-    return "$id:$firstName:$name:$lastName:$age:$image:$locator:$phone:$uuid";
+    return '$id:$firstName:$name:$lastName:$age:$image:$locator:$phone:$uuid';
   }
 }

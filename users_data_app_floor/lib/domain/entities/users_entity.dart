@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../core/core.dart';
+import 'package:users_data_app_floor/core/core.dart';
 
 ///Группы пользователей.
 abstract class AUsersEntity extends Equatable {

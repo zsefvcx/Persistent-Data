@@ -7,11 +7,11 @@ part of 'card_detail.dart';
 // **************************************************************************
 
 CardDetail _$CardDetailFromJson(Map<String, dynamic> json) => CardDetail(
-      id: json['id'] as int?,
       uuidUser: json['uuidUser'] as String,
       cardNum: json['cardNum'] as String?,
       cardYear: json['cardYear'] as int?,
       cardMonth: json['cardMonth'] as int?,
+      id: json['id'] as int?,
     );
 
 Map<String, dynamic> _$CardDetailToJson(CardDetail instance) =>

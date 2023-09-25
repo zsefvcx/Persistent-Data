@@ -1,9 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/data/data.dart';
 import 'package:users_data_app_floor/domain/domain.dart';
-
-import 'data.dart';
 
 class ServiceProvider{
   static final _getIt = GetIt.I;
@@ -18,17 +17,17 @@ class ServiceProvider{
   static final instance = ServiceProvider();
 
   void initialize(){
-    _getIt.registerLazySingleton<PhotoReadRepository>(
+    _getIt..registerLazySingleton<PhotoReadRepository>(
           () => PhotoReadRepositoryImpl(
             networkInfo: networkInfo,
             photoReadFromIntFile: photoReadFromIntFile,
       ),
-    );
-    _getIt.registerLazySingleton<UsersRepository>(
+    )
+    ..registerLazySingleton<UsersRepository>(
           () => UsersRepositoryImpl(getDataUsers: getDataUsers
       ),
-    );
-    _getIt.registerLazySingleton<CardSecureRepository>(
+    )
+    ..registerLazySingleton<CardSecureRepository>(
           () => CardSecureRepositoryImpl(addModSecureStorage: addModSecureStorage
       ),
     );

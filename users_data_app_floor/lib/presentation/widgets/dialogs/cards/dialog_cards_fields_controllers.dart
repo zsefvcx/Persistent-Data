@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/core.dart';
-import '../dialog_field.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/dialog_field.dart';
 
 class DialogCardsFieldsAndControllers{
   static final formKey = GlobalKey<FormState>();
@@ -10,7 +10,7 @@ class DialogCardsFieldsAndControllers{
   static late TextEditingController _cardYear;
   static late TextEditingController _cardMonth;
 
-  static initControllers({required CardDetail data}){
+  static void initControllers({required CardDetail data}){
     _cardNumber = TextEditingController();
     _cardNumber.text = data.cardNum??'';
     _cardYear = TextEditingController();
@@ -20,15 +20,15 @@ class DialogCardsFieldsAndControllers{
 
   }
 
-  static disposeControllers(){
+  static void disposeControllers(){
     _cardNumber.dispose();
     _cardYear.dispose();
     _cardMonth.dispose();
   }
 
   static CardDetail userData({required CardDetail oldData}) {
-    final int cardMonth = int.parse(_cardMonth.text);
-    final int cardYear = int.parse(_cardYear.text);
+    final cardMonth = int.parse(_cardMonth.text);
+    final cardYear = int.parse(_cardYear.text);
     return CardDetail(
       id: oldData.id,
       uuidUser: oldData.uuidUser,

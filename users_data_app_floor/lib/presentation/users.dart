@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:users_data_app_floor/core/core.dart';
 import 'package:users_data_app_floor/domain/bloc/bloc.dart';
-
-import 'widgets/dialogs/users/dialog_users_add_modify.dart';
-import 'widgets/error_time_out_widget.dart';
-import 'widgets/user_card.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/users/dialog_users_add_modify.dart';
+import 'package:users_data_app_floor/presentation/widgets/error_time_out_widget.dart';
+import 'package:users_data_app_floor/presentation/widgets/user_card.dart';
 
 
 class PhotosPage extends StatefulWidget {
   static const routeName = '/';
 
-  const PhotosPage({super.key, required this.title});
+  const PhotosPage({required this.title, super.key});
 
   final String title;
 
@@ -31,7 +30,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   @override
   Widget build(BuildContext context) {
-    UsersBloc usersBloc = context.read<UsersBloc>();
+    final usersBloc = context.read<UsersBloc>();
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -72,7 +71,7 @@ class _PhotosPageState extends State<PhotosPage> {
                         child: ListView.separated(
                           itemCount: value.model.data.users.length,
                           itemBuilder: (_, i) {
-                            Logger.print('Build Card $i', name: 'log', level: 0, error: false);
+                            Logger.print('Build Card $i');
                             return UserCard(user: value.model.data.users.toList()[i]);
                           },
                           separatorBuilder: (_, __) => const SizedBox(height: 10),
@@ -96,7 +95,7 @@ class _PhotosPageState extends State<PhotosPage> {
                   onPressed: () async {
                     await showDialog<void>(
                     context: context,
-                    builder: (BuildContext context)
+                    builder: (context)
                     {
                     return const DialogAddModifyBuilder();
                     });

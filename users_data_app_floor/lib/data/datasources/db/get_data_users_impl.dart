@@ -1,9 +1,8 @@
 
 import 'package:users_data_app_floor/core/core.dart';
 import 'package:users_data_app_floor/data/data.dart';
-
-import 'database_sqflite.dart';
-import 'floor/database_floor.dart';
+import 'package:users_data_app_floor/data/datasources/db/database_sqflite.dart';
+import 'package:users_data_app_floor/data/datasources/db/floor/database_floor.dart';
 
 class GetDataUsersImpl extends GetDataUsers  {
 
@@ -27,46 +26,46 @@ class GetDataUsersImpl extends GetDataUsers  {
         return await DBProvider.db.insert(value);
       } else if (dbType == DBType.floor) {
         if(dao == null) await _initDataBaseFloor();
-        final UserDao? daoLocal = dao;
+        final daoLocal = dao;
         if(daoLocal !=null) {
-          int id = await daoLocal.insertUser(value);
+          final id = await daoLocal.insertUser(value);
           return value.copyWith(
             id: id,
           );
         }
-        throw('Error insertGroup');
+        throw ArgumentError('Error insertGroup');
     } else {
-    throw('not implemented');
+    throw ArgumentError('not implemented');
     }
-    } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
-      throw('Error insertGroup: $e\n$t');
+    } on Exception catch(e,t){
+      Logger.print('Error $e\n$t', name: 'err', error: true);
+      throw ArgumentError('Error insertGroup: $e\n$t');
     }
   }
 
   @override
   Future<int> delete(User value) async {
-    int? gid = value.id;
+    final gid = value.id;
     try {
       if (gid != null) {
         if(dbType == DBType.sqflite) {
           return await DBProvider.db.delete(gid);
         } else if (dbType == DBType.floor) {
           if(dao == null) await _initDataBaseFloor();
-          final UserDao? daoLocal = dao;
+          final daoLocal = dao;
           if(daoLocal !=null) {
             return await daoLocal.deleteUser(value);
           }
-          throw('Error insertGroup');
+          throw ArgumentError('Error insertGroup');
         } else {
-          throw('not implemented');
+          throw ArgumentError('not implemented');
         }
       }
-    } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
-      throw('Error deleteGroup: $e\n$t');
+    } on Exception catch(e,t){
+      Logger.print('Error $e\n$t', name: 'err', error: true);
+      throw ArgumentError('Error deleteGroup: $e\n$t');
     }
-    throw('Error deleteGroup');
+    throw ArgumentError('Error deleteGroup');
   }
 
   @override
@@ -76,17 +75,17 @@ class GetDataUsersImpl extends GetDataUsers  {
         return await DBProvider.db.get(page);
       } else if (dbType == DBType.floor) {
         if(dao == null) await _initDataBaseFloor();
-        final UserDao? daoLocal = dao;
+        final daoLocal = dao;
         if(daoLocal !=null) {
           return await daoLocal.get();
         }
-        throw('Error insertGroup');
+        throw ArgumentError('Error insertGroup');
       } else {
-        throw('not implemented');
+        throw ArgumentError('not implemented');
       }
-    } catch(e,t){
-      Logger.print('Error $e\n$t', name: 'err', level: 0, error: false);
-      throw('Error getGroups: $e\n$t');
+    } on Exception catch(e,t){
+      Logger.print('Error $e\n$t', name: 'err', error: true);
+      throw ArgumentError('Error getGroups: $e\n$t');
     }
   }
 
@@ -97,16 +96,16 @@ class GetDataUsersImpl extends GetDataUsers  {
         return await DBProvider.db.update(value);
       } else if (dbType == DBType.floor) {
         if (dao == null) await _initDataBaseFloor();
-        final UserDao? daoLocal = dao;
+        final daoLocal = dao;
         if (daoLocal != null) {
           return await daoLocal.updateUser(value);
         }
-        throw('Error insertGroup');
+        throw ArgumentError('Error insertGroup');
       } else {
-        throw('not implemented');
+        throw ArgumentError('not implemented');
       }
-    } catch (e, t) {
-      throw('Error insertGroup: $e\n$t');
+    } on Exception catch (e, t) {
+      throw ArgumentError('Error insertGroup: $e\n$t');
     }
   }
 

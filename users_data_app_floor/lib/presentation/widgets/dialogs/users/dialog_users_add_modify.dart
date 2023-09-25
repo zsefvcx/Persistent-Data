@@ -1,13 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/custom_text_form_field.dart';
+import 'package:users_data_app_floor/presentation/widgets/dialogs/users/dialog_users_fields_controllers.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../../core/core.dart';
-import '../../../../domain/domain.dart';
-import '../custom_text_form_field.dart';
-import 'dialog_users_fields_controllers.dart';
 
 class DialogAddModifyBuilder extends StatefulWidget {
   const DialogAddModifyBuilder({
@@ -50,11 +47,11 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
   }
 
   Future<(bool, User)> addOrModData(UsersBloc usersBloc, BuildContext context) async {
-    User modifyUser = DialogUsersFieldsAndControllers.userData(oldData: _user);
+    final modifyUser = DialogUsersFieldsAndControllers.userData(oldData: _user);
 
     if (modifyUser == _user)
     {
-     Logger.print("Identical! No need safe to data.", name: 'log', level: 0, error: false, context: context);
+     Logger.print('Identical! No need safe to data.', context: context);
      return (false, _user);
     }
 
@@ -70,21 +67,19 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
       ),
       );
     }
-    Logger.print("$modifyUser", name: 'log', level: 0, error: false);
+    Logger.print('$modifyUser');
     return (true, modifyUser);
   }
 
   @override
   Widget build(BuildContext context) {
-    UsersBloc usersBloc = context.read<UsersBloc>();
-    bool process = false;
+    final usersBloc = context.read<UsersBloc>();
+    var process = false;
     return AlertDialog(
       title: Center(child: _user.id!=null?const Text('Modify User'):const Text('Add User')),
       content: Container(
         constraints: const BoxConstraints(maxHeight: 400),
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          reverse: false,
           child: SizedBox(
             width: 300,
             height: 700,
@@ -115,17 +110,17 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
           ),
           child: _user.id!=null?const Text('Modify'):const Text('Add'),
           onPressed: () async {
-            var cSt = _formKey.currentState;
+            final cSt = _formKey.currentState;
 
-            if(cSt != null && cSt.validate() && process == false){
+            if(cSt != null && cSt.validate() && !process){
               if(_user.id == null){
-                var (res, _) = await addOrModData(usersBloc, context);
-                if (res == true) Navigator.of(context).pop();
+                final (res, _) = await addOrModData(usersBloc, context);
+                if (res) Navigator.of(context).pop();
               } else {
                 process = true;
-                var (res, modUser) = await addOrModData(usersBloc, context);
+                final (res, modUser) = await addOrModData(usersBloc, context);
                 process = false;
-                if (res == true) Navigator.of(context).pop((res, modUser));
+                if (res) Navigator.of(context).pop((res, modUser));
               }
             }
           },
@@ -134,4 +129,3 @@ class _DialogAddModifyBuilderState extends State<DialogAddModifyBuilder> {
     );
   }
 }
-

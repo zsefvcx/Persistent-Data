@@ -1,14 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../core/core.dart';
-import '../../domain/domain.dart';
+import 'package:users_data_app_floor/core/core.dart';
+import 'package:users_data_app_floor/domain/domain.dart';
 
 class ErrorTimeOutWidget extends StatelessWidget {
   const ErrorTimeOutWidget({
-    super.key,
-    required this.page,
+    required this.page, super.key,
     this.photo,
   });
 
@@ -17,14 +15,13 @@ class ErrorTimeOutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var blocBloc = context.read<UsersBloc>();
+    final blocBloc = context.read<UsersBloc>();
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('isTimeOut  :${blocBloc.usersModelData.isTimeOut.toString()}'),
-            Text('isError  :${blocBloc.usersModelData.isError.toString()}'),
+            Text('isTimeOut  :${blocBloc.usersModelData.isTimeOut}'),
+            Text('isError  :${blocBloc.usersModelData.isError}'),
             const SizedBox(
               height: 50,
             ),

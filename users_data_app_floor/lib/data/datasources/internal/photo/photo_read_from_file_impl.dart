@@ -17,14 +17,14 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
     //Добавляем в оперативку >30 файлов, чтобы база не грузила операивку
     final val = mapPhotosModel[locator];
     if  ((val != null && val.url != url) || val == null){
-      final PhotosModel photosModel = PhotosModel(
+      final photosModel = PhotosModel(
           contents: contents,
           url: url,
           locator: locator,
       );
       mapPhotosModel[locator] = photosModel;
       if(mapPhotosModel.length > 30){
-        String uuidFirst = mapPhotosModel.keys.first;
+        final uuidFirst = mapPhotosModel.keys.first;
         mapPhotosModel.remove(uuidFirst);
       }
       return photosModel;
@@ -42,9 +42,9 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
 
   @override
   Future<(File, String)> localFile({String? locator}) async {
-    String locatorLoc = locator ??= (const Uuid()).v4();
+    final locatorLoc = locator ??= const Uuid().v4();
     final path = '${await localPath}/photo_$locatorLoc';
-    Logger.print("PathToPhoto:$path", name: 'log', level: 0, error: false);
+    Logger.print('PathToPhoto:$path');
     return (File(path), locatorLoc);
   }
 
@@ -59,9 +59,9 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
       } else {
         return res;
       }
-    } catch (e, t) {
+    } on Exception catch (e, t) {
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);
-      throw('Error readCounter!');
+      throw ArgumentError('Error readCounter!');
     }
   }
 
@@ -76,19 +76,19 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
       );
 
       if (response.statusCode == 200){
-        var elements = response.data;
+        final elements = response.data;
         if (elements != null) {
-          Uint8List? contents = Uint8List.fromList(elements);
-          final File fileLocal = await file.writeAsBytes(contents, mode: FileMode.write);
+          final contents = Uint8List.fromList(elements);
+          final fileLocal = await file.writeAsBytes(contents);
           mapPhotosModelAdd( locatorLoc, url, contents);
           return (fileLocal, locatorLoc);
         }
       }
       Logger.print('${response.statusCode}', name: 'err', level: 1, error: true);
-      throw('Error response HTTP/S writeCounter()!');
-    } catch (e, t) {
+      throw ArgumentError('Error response HTTP/S writeCounter()!');
+    } on Exception catch (e, t) {
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);
-      throw('Error writeCounter!');
+      throw ArgumentError('Error writeCounter!');
     }
   }
 
@@ -102,10 +102,9 @@ class PhotoReadFromIntFileImpl extends PhotoReadFromIntFile {
         mapPhotosModel.remove(locator);
       }
       return true;
-    } catch (e, t) {
+    } on Exception catch (e, t) {
       Logger.print('$e\n$t', name: 'err', level: 1, error: true);
-      throw('Error readCounter!');
+      throw ArgumentError('Error readCounter!');
     }
   }
-
 }

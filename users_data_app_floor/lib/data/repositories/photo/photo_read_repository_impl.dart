@@ -25,7 +25,7 @@ class PhotoReadRepositoryImpl extends PhotoReadRepository{
     if (await networkInfo.isConnected){
     return await photoReadFromIntFile.writeCounter(url: url, locator: locator);
     } else {
-      throw('No internet connection!');
+      throw ArgumentError('No internet connection!');
     }
   }
 
