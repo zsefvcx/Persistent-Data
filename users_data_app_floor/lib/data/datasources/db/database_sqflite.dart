@@ -5,15 +5,16 @@ import 'package:users_data_app_floor/core/core.dart';
 
 
 ///https://pub.dev/packages/hive
-
+///https://flutterbyexample.com/lesson/singletons
 class DBProvider {
-  DBProvider._();
-  static DBProvider? _db;
+  DBProvider._internal();
   static Database? _database;
+
+  static final DBProvider _db = DBProvider._internal();
   ///синглтон - один он в приложении...
   ///Его повсемесное использование в приложении плохой тон, но когда надо быстро то можно))
   ///Без использовния Factory
-  static DBProvider get db => _db ??= DBProvider._();
+  static DBProvider get db => _db;
 
   Future<Database> get database async => _database ??= await _initDB();
 
